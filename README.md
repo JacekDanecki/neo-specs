@@ -4,7 +4,7 @@ on [copr](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl) for:
 - Fedora 30, 31, rawhide
 - Mageia 7
 - OpenSUSE Leap 15.1, Tumbleweed
-- RHEL 8 (beta)
+- RHEL 8 (beta) - new copr builds disabled
 
 ## Repositories used to build packages
 
