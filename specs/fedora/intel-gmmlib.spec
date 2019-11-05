@@ -1,8 +1,8 @@
 %global major_version 19
 %global minor_version 3
-%global patch_version 2
+%global patch_version 4
 %global package_release 1
-%global api_patch_version 702
+%global api_patch_version 743
 
 Name:		intel-gmmlib
 Version:    %{major_version}.%{minor_version}.%{patch_version}
