@@ -2,18 +2,18 @@
 %global opencl_clang_commit v9.0.0
 %global spirv_llvm_translator_commit v9.0.0-1
 %global llvm_patches_commit 1c93162ab33af968c22fe1cbfb12ea87f5a25bfa
-
-%global patch_version 2714.1
+%global igc_commit 8234eab514161d6a45ff04ed6418840f4e959942
+%global patch_version 2805
 
 Name: intel-igc
-Version: 1.0.2714.1
+Version: 1.0.2805
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: %{url}/archive/igc-%{version}.tar.gz
+Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
@@ -102,9 +102,11 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
 %doc
 
 %changelog
+* Thu Nov 14 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2805-1
+- Update to 1.0.2805
+
 * Wed Oct 30 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2714.1-1
 - Update to 1.0.2714.1
 - Switch to llvm/clang 9.0.0
 - Include opencl-clang library
-
 
