@@ -1,0 +1,4 @@
+. ./version
+
+dput ppa:jdanecki/intel-opencl intel-opencl_${VER}-1~ppa1~bionic1_source.changes
+

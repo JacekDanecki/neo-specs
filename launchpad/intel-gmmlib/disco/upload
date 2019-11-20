@@ -1,0 +1,4 @@
+. ./version
+
+dput ppa:jdanecki/intel-opencl intel-gmmlib_${VER}-1~ppa1~disco1_source.changes
+

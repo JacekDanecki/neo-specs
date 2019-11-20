@@ -1,0 +1,38 @@
+intel-opencl (19.45.14764-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.45.14764 commit:900818b
+  * Requires IGC 1.0.2805
+  * Requires gmmlib 19.3.4
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 20 Nov 2019 10:34:41 +0100
+
+intel-opencl (19.44.14658-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.44.14658 commit:74a5e50
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 13 Nov 2019 11:18:22 +0000
+
+intel-opencl (19.43.14583-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.43.14583 commit:a046de5689
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 30 Oct 2019 16:18:16 +0000
+
+intel-opencl (19.41.14441-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.41.14441 commit:f97f7ba
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 24 Oct 2019 09:17:22 +0000
+
+intel-opencl (19.40.14409-1~ppa2~eoan1) eoan; urgency=medium
+
+  * Use IGC 1.0.2597 from ppa
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 16 Oct 2019 15:13:06 +0000
+
+intel-opencl (19.40.14409-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Import 19.40.14409 commit:8410bd6
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 16 Oct 2019 15:00:52 +0000

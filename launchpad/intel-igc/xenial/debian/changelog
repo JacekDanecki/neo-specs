@@ -1,0 +1,20 @@
+intel-graphics-compiler (1.0.2805-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to 1.0.2805 commit:8234eab514161d6a45ff04ed6418840f4e959942
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 19 Nov 2019 11:24:49 +0100
+
+intel-graphics-compiler (1.0.2714.1-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to 1.0.2714.1 commit:igc-1.0.2714.1
+  * Updated SPIRV-LLVM-Translator
+  * Updated opencl-clang
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 30 Oct 2019 08:23:02 +0000
+
+intel-graphics-compiler (1.0.2597-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Import 1.0.2597 commit:b3ed5e584dac45d560e6f68e5f6e84af8a661e6e
+  * Build with llvm 9
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 11 Oct 2019 09:46:48 +0000

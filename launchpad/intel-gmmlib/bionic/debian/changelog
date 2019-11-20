@@ -1,0 +1,47 @@
+intel-gmmlib (19.3.4-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.3.4 commit:94306f5443b97d9762dbb35ba65b341ee3e91cf0
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 19 Nov 2019 10:00:55 +0100
+
+intel-gmmlib (19.3.2-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.3.2 commit:bda1dcf
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 02 Oct 2019 12:26:57 +0000
+
+intel-gmmlib (19.2.4-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.2.4 commit:2d58b09
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 27 Sep 2019 14:04:22 +0000
+
+intel-gmmlib (19.2.3-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.2.3 commit:e834bcd
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 17 Jul 2019 11:51:34 +0000
+
+intel-gmmlib (19.2.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.2.1 commit:2818bfb
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 17 Jun 2019 15:48:25 +0200
+
+intel-gmmlib (19.1.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.1.1 commit:e65dff3
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 26 Mar 2019 13:27:15 +0000
+
+intel-gmmlib (18.4.348-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 18.4.348
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 07 Nov 2018 10:42:57 +0000
+
+intel-gmmlib (18.4.328-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 18.4.328
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 22 Oct 2018 15:51:59 +0000

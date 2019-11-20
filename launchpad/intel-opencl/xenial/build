@@ -1,0 +1,4 @@
+. ./version
+
+pbuilder-dist xenial build intel-opencl_${VER}-1~ppa1~xenial1.dsc
+
