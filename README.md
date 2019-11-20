@@ -1,6 +1,7 @@
-This repository provides spec files to build [Intel compute-runtime](https://github.com/intel/compute-runtime) and dependencies on 
+This repository provides files to build [Intel compute-runtime](https://github.com/intel/compute-runtime) and dependencies on 
 - [copr://jdanecki/intel-opencl](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl) - master branch
 - [copr://jdanecki/intel-opencl-ci](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl-ci) - ci branch
+- [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl)
 
 ## Supported Linux operating systems
 
@@ -8,6 +9,8 @@ This repository provides spec files to build [Intel compute-runtime](https://git
 - Fedora 30, 31, rawhide
 - Mageia 7
 - OpenSUSE Leap 15.1, Tumbleweed
+- Ubuntu 16.04, 18.04, 19.04, 19.10
+- 
 
 ## Outdated copr chroots
 
