@@ -1,9 +1,0 @@
-#!/bin/bash
-set -x
-
-source `git rev-parse --show-toplevel`/versions
-GITUSER=`git config --get user.name`
-EMAIL=`git config --get user.email`
-
-rpmdev-bumpspec --new "${opencl_clang_ver}" --comment="Update to ${opencl_clang_ver}" --userstring="${GITUSER} <${EMAIL}>" opencl-clang.spec
-

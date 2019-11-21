@@ -1,9 +1,0 @@
-#!/bin/bash
-set -x
-
-source `git rev-parse --show-toplevel`/versions
-GITUSER=`git config --get user.name`
-EMAIL=`git config --get user.email`
-
-rpmdev-bumpspec --new "${igc_ver}" --comment="Update to ${igc_ver}" --userstring="${GITUSER} <${EMAIL}>" igc.spec
-
