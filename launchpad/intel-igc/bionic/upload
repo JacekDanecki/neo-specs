@@ -1,4 +1,4 @@
-. ./version
+. ../../../versions
 
-dput ppa:ocl-dev/intel-opencl  intel-graphics-compiler_${VER}-1~ppa1~bionic1_source.changes
+dput ppa:ocl-dev/intel-opencl  intel-graphics-compiler_${igc_ver}-1~ppa1~bionic1_source.changes
 
