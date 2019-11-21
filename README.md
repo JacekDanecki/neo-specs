@@ -22,8 +22,11 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 ## Branches
 
 * **master** contains scripts based on weekly [Neo releases](https://github.com/intel/compute-runtime/releases)
-* **ci** contains scripts required by [Semaphore CI](https://semaphoreci.com/jacekdanecki/compute-runtime-2)
 * **launchpad** contains scripts to prepare packages on [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl)
+* **ci** contains scripts required by CI systems:
+  * [Semaphore CI](https://semaphoreci.com/jacekdanecki/compute-runtime-2)
+  * [Travis CI](https://travis-ci.org/intel/compute-runtime)
+  * [Shippable](https://app.shippable.com/github/intel/compute-runtime)
 
 ## Source code repositories used to build packages
 
