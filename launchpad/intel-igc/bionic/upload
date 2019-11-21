@@ -1,0 +1,4 @@
+. ./version
+
+dput ppa:ocl-dev/intel-opencl  intel-graphics-compiler_${VER}-1~ppa1~bionic1_source.changes
+
