@@ -9,4 +9,4 @@ override_dh_auto_configure:
 	ln -sf ../../../llvm-project/clang llvm-project/llvm/tools
 	dh_auto_configure -- \
 	-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
-	-Wno-dev -DIGC_PACKAGE_RELEASE=2805
+	-Wno-dev -DIGC_PACKAGE_RELEASE=2878
