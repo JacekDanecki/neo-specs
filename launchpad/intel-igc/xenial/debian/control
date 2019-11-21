@@ -1,0 +1,43 @@
+Source: intel-graphics-compiler
+Section: libs
+Priority: optional
+Maintainer: Jacek Danecki <jacek.danecki@intel.com>
+Build-Depends:
+ bison,
+ cmake,
+ debhelper (>=9),
+ flex,
+ python,
+ git
+Standards-Version: 3.9.7
+Homepage: https://github.com/intel/intel-graphics-compiler
+
+Package: libigc
+Architecture: amd64
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Breaks:
+ libigc1,
+ libigdfcl1,
+ intel-igc-core,
+ intel-igc-opencl
+Replaces:
+ libigc1,
+ libigdfcl1,
+ intel-igc-core,
+ intel-igc-opencl
+Description: Intel(R) Graphics Compiler
+ The Intel(R) Graphics Compiler for OpenCL(TM) is an llvm based compiler
+ for OpenCL(TM) targeting Intel Gen graphics hardware architecture.
+ .
+ These packages were linked statically with llvm/clang 9 and spirv-llvm-translator.
+ opencl-clang library is provided in this package.
+
+Package: libigc-dev
+Section: libdevel
+Architecture: amd64
+Depends:
+ ${misc:Depends},
+ libigc (= ${binary:Version})
+Description: Intel(R) Graphics Compiler development package for OpenCL(TM)
+ This package contains IGC development files.
+
