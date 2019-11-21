@@ -2,27 +2,27 @@
 
 set -x
 
-. ./version
+. ../../../versions
 
 rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo
-rm -rf intel-graphics-compiler-${VER}
-mkdir intel-graphics-compiler-${VER}
-cd  intel-graphics-compiler-${VER}
+rm -rf intel-graphics-compiler-${igc_ver}
+mkdir intel-graphics-compiler-${igc_ver}
+cd  intel-graphics-compiler-${igc_ver}
 
 mkdir igc
-tar xzf ../intel-graphics-compiler_${VER}.orig-igc.tar.gz -C igc --strip-components=1
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz -C igc --strip-components=1
 
 mkdir llvm-patches
-tar xzf ../intel-graphics-compiler_${VER}.orig-llvm-patches.tar.gz -C llvm-patches --strip-components=1
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz -C llvm-patches --strip-components=1
 
 mkdir llvm-project
-tar xzf ../intel-graphics-compiler_${VER}.orig-llvm-project.tar.gz -C llvm-project --strip-components=1
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-llvm-project.tar.gz -C llvm-project --strip-components=1
 
 mkdir llvm-spirv
-tar xzf ../intel-graphics-compiler_${VER}.orig-llvm-spirv.tar.gz -C llvm-spirv --strip-components=1
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz -C llvm-spirv --strip-components=1
 
 mkdir opencl-clang
-tar xzf ../intel-graphics-compiler_${VER}.orig-opencl-clang.tar.gz -C opencl-clang --strip-components=1
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz -C opencl-clang --strip-components=1
 
 cp -ar ../debian .
 dpkg-buildpackage -S --source-option=--create-empty-orig
