@@ -1,4 +1,0 @@
-. ./version
-
-pbuilder-dist xenial build intel-graphics-compiler_${VER}-1~ppa1~xenial1.dsc
-

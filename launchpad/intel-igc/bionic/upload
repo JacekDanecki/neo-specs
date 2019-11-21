@@ -1,4 +1,0 @@
-. ./version
-
-dput ppa:jdanecki/intel-opencl intel-graphics-compiler_${VER}-1~ppa1~bionic1_source.changes
-

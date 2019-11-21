@@ -1,6 +1,0 @@
-export VER_MAJ=19
-export VER_MIN=45
-export VER_BUILD=14764
-export VER=${VER_MAJ}.${VER_MIN}.${VER_BUILD}
-neo_commit_id=900818b
-

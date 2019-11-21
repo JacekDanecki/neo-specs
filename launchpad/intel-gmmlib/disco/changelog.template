@@ -1,6 +1,0 @@
-intel-gmmlib (@VER@-1~ppa1~disco1) disco; urgency=medium
-
-  * Update to @VER@ commit:@COMMIT@
-
- -- Jacek Danecki <jacek.danecki@intel.com>  @DATE@
-

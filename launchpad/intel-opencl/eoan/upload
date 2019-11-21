@@ -1,4 +1,0 @@
-. ./version
-
-dput ppa:jdanecki/intel-opencl intel-opencl_${VER}-1~ppa1~eoan1_source.changes
-
