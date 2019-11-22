@@ -1,4 +1,0 @@
-. ./version
-
-pbuilder-dist disco build intel-gmmlib_${VER}-1~ppa1~disco1.dsc
-
