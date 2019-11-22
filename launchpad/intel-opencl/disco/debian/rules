@@ -6,6 +6,6 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 	-DCMAKE_BUILD_TYPE=Release \
 	-Wno-dev \
-	-DNEO_DRIVER_VERSION=19.45.14764 \
+	-DNEO_DRIVER_VERSION=19.46.14807 \
 	-DCMAKE_INSTALL_PREFIX=/usr \
 	-DSKIP_UNIT_TESTS=1

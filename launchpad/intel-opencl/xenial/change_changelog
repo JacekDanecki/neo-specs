@@ -1,7 +1,8 @@
 . ./version
+. ../../../versions
 
 cat changelog.template | \
-sed "s/@VER@/${VER}/" | \
+sed "s/@VER@/${neo_ver}/" | \
 sed "s/@DATE@/`date -R`/" | \
 sed "s/@COMMIT@/${neo_commit_id}/" > changelog.new
 mv debian/changelog debian/changelog.old

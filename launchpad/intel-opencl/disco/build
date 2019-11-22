@@ -1,4 +1,4 @@
-. ./version
+. ../../../versions
 
-pbuilder-dist disco build intel-opencl_${VER}-1~ppa1~disco1.dsc
+pbuilder-dist disco build intel-opencl_${neo_ver}-1~ppa1~disco1.dsc
 

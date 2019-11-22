@@ -1,4 +1,4 @@
-. ./version
+. ../../../versions
 
-pbuilder-dist bionic build intel-opencl_${VER}-1~ppa1~bionic1.dsc
+pbuilder-dist bionic build intel-opencl_${neo_ver}-1~ppa1~bionic1.dsc
 
