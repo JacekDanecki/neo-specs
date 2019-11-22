@@ -2,6 +2,7 @@ This repository provides scripts to build and download packages for [Intel compu
 * [copr://jdanecki/intel-opencl](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl)
 * [copr://jdanecki/intel-opencl-ci](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl-ci)
 * [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl)
+* [ppa:ocl-dev/intel-opencl](https://launchpad.net/~ocl-dev/+archive/ubuntu/intel-opencl)
 
 Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl) are copied to
  [ppa:intel-opencl/intel-opencl](https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl) when Neo weekly release is ready.
@@ -23,7 +24,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 
 * **master** contains scripts based on weekly [Neo releases](https://github.com/intel/compute-runtime/releases)
 * **launchpad** contains scripts to prepare packages on [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl)
-* **ci** contains scripts required by CI systems:
+* **ci** contains scripts to build packages on [ppa:ocl-dev/intel-opencl](https://launchpad.net/~ocl-dev/+archive/ubuntu/intel-opencl) required by CI systems:
   * [Semaphore CI](https://semaphoreci.com/jacekdanecki/compute-runtime-2)
   * [Travis CI](https://travis-ci.org/intel/compute-runtime)
   * [Shippable](https://app.shippable.com/github/intel/compute-runtime)
