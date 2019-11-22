@@ -1,3 +1,10 @@
+intel-opencl (19.46.14807-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.46.14807 commit:dd59f58
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 22 Nov 2019 09:53:15 +0100
+
 intel-opencl (19.45.14764-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 19.45.14764 commit:900818b
