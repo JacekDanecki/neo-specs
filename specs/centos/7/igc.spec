@@ -7,7 +7,7 @@
 
 Name: intel-igc
 Version: 1.0.2916
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 Group: System Environment/Libraries
@@ -21,7 +21,8 @@ Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/ll
 
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3
-BuildRequires: git make patch pkgconfig python3 bison flex
+BuildRequires: git make patch pkgconfig python3 bison
+BuildRequires: flex >= 2.6.1
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -104,6 +105,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
 %doc
 
 %changelog
+* Mon Nov 25 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2916-2
+- Rebuild with flex 2.6.1 from copr
+
 * Thu Nov 21 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2916-1
 - Update to 1.0.2916
 
