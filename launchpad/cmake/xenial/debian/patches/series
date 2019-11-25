@@ -1,0 +1,5 @@
+FindBoost_add_-lpthread_#563479.diff
+qt_import_dir_variable.diff
+fix-ftbfs-on-kfreebsd.patch
+3c08d2075fae7ef62838f18e1af5d398c6401572.diff
+1893.patch

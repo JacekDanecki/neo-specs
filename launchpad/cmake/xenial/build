@@ -1,0 +1,4 @@
+. ./version
+
+pbuilder-dist xenial build cmake_${cmake_ver}-1~ppa1~xenial1.dsc
+

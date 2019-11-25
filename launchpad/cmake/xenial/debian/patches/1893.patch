@@ -1,0 +1,83 @@
+From 75e8af3354c42ce42abb4bece351fe1a8b99d96a Mon Sep 17 00:00:00 2001
+From: Brad King <brad.king@kitware.com>
+Date: Tue, 27 Mar 2018 08:18:47 -0400
+Subject: [PATCH 1/2] cmSystemTools: Fix ParseArguments out-of-bounds read
+
+When checking for a Windows-style leading path, do not read past the
+null terminator.
+
+Issue: #17854
+---
+ Source/cmSystemTools.cxx | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
+
+diff --git a/Source/cmSystemTools.cxx b/Source/cmSystemTools.cxx
+index 88cfe81d83..eeb73c3ee4 100644
+--- a/Source/cmSystemTools.cxx
++++ b/Source/cmSystemTools.cxx
+@@ -545,12 +545,13 @@ std::vector<std::string> cmSystemTools::ParseArguments(const char* command)
+ 
+   bool win_path = false;
+ 
+-  if ((command[0] != '/' && command[1] == ':' && command[2] == '\\') ||
+-      (command[0] == '\"' && command[1] != '/' && command[2] == ':' &&
+-       command[3] == '\\') ||
+-      (command[0] == '\'' && command[1] != '/' && command[2] == ':' &&
+-       command[3] == '\\') ||
+-      (command[0] == '\\' && command[1] == '\\')) {
++  if (command[0] && command[1] &&
++      ((command[0] != '/' && command[1] == ':' && command[2] == '\\') ||
++       (command[0] == '\"' && command[1] != '/' && command[2] == ':' &&
++        command[3] == '\\') ||
++       (command[0] == '\'' && command[1] != '/' && command[2] == ':' &&
++        command[3] == '\\') ||
++       (command[0] == '\\' && command[1] == '\\'))) {
+     win_path = true;
+   }
+   // Split the command into an argv array.
+-- 
+2.21.0
+
+
+From 27f033550a3693df67a30ce94f3c5e60a7a337ec Mon Sep 17 00:00:00 2001
+From: Brad King <brad.king@kitware.com>
+Date: Tue, 27 Mar 2018 08:41:09 -0400
+Subject: [PATCH 2/2] ctest_update: Fix crash when handling svn externals
+
+Refactoring in commit v3.9.0-rc1~156^2 (c++: prefer vectors over lists,
+2017-05-04) switched `cmCTestSVN::Repositories` from `std::list` to
+`std::vector`.  This can cause re-allocation when svn externals are
+processed and break the `RootInfo` pointer that is supposed to point at
+the first repository element.  Switch back to `std::list` so that the
+address remains stable.
+
+Fixes: #17854
+---
+ Source/CTest/cmCTestSVN.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/Source/CTest/cmCTestSVN.h b/Source/CTest/cmCTestSVN.h
+index dbc7fdef64..a467ede28a 100644
+--- a/Source/CTest/cmCTestSVN.h
++++ b/Source/CTest/cmCTestSVN.h
+@@ -8,6 +8,7 @@
+ #include "cmCTestGlobalVC.h"
+ 
+ #include <iosfwd>
++#include <list>
+ #include <string>
+ #include <vector>
+ 
+@@ -70,7 +71,8 @@ private:
+   friend struct Revision;
+ 
+   // Info of all the repositories (root, externals and nested ones).
+-  std::vector<SVNInfo> Repositories;
++  // Use std::list so the elements don't move in memory.
++  std::list<SVNInfo> Repositories;
+ 
+   // Pointer to the infos of the root repository.
+   SVNInfo* RootInfo;
+-- 
+2.21.0
+
