@@ -2,11 +2,11 @@
 %global opencl_clang_commit v9.0.0
 %global spirv_llvm_translator_commit v9.0.0-1
 %global llvm_patches_commit 1c93162ab33af968c22fe1cbfb12ea87f5a25bfa
-%global igc_commit 02fb853c6b0e33cfc5d550ff49dfd418deadf5c2
-%global patch_version 2878
+%global igc_commit a2032c3c2b3afc0a8f1f8ee6750932a3c0ffd025
+%global patch_version 2934
 
 Name: intel-igc
-Version: 1.0.2878
+Version: 1.0.2934
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -22,6 +22,7 @@ Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/ll
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3
 BuildRequires: git make patch pkgconfig python3 bison flex
+BuildRequires: flex >= 2.6.1
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -104,6 +105,10 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
 %doc
 
 %changelog
+* Fri Nov 29 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2934-1
+- Update to 1.0.2934
+- Use flex 2.6.1 from copr
+
 * Wed Nov 20 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2878-1
 - Update to 1.0.2878
 
