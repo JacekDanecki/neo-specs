@@ -1,0 +1,7 @@
+for dist in xenial bionic
+do
+    pushd $dist
+    ./update-rules
+    popd
+done
+

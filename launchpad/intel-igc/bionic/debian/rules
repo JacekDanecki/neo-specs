@@ -1,4 +1,5 @@
 #!/usr/bin/make -f
+IGC_PACKAGE_RELEASE=2990
 %:
 	export DEB_BUILD_OPTIONS='parallel=1'; dh $@ -D igc/IGC --parallel
 
@@ -9,7 +10,7 @@ override_dh_auto_configure:
 	ln -sf ../../../llvm-project/clang llvm-project/llvm/tools
 	dh_auto_configure -- \
 	-DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release \
-	-Wno-dev -DIGC_PACKAGE_RELEASE=2972
+	-Wno-dev -DIGC_PACKAGE_RELEASE=$(IGC_PACKAGE_RELEASE)
 
 override_dh_strip:
 	dh_strip --no-automatic-dbgsym

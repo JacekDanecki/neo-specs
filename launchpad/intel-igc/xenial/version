@@ -1,4 +1,3 @@
-export igc_commit=b134d82cb6aca6488b3b0b5ea98d15a55c4a9275
 export llvm_commit=llvmorg-9.0.0
 export opencl_clang_commit=v9.0.0
 export spirv_llvm_translator_commit=v9.0.0-1
