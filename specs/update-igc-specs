@@ -1,0 +1,24 @@
+for dist in 7 8
+do
+    pushd centos/$dist
+    ./update-igc-spec
+    popd
+done
+
+for dist in 30 31
+do
+    pushd fedora/$dist
+    ./update-igc-spec
+    popd
+done
+
+pushd mageia
+./update-igc-spec
+popd
+
+for dist in 15.1 tumbleweed
+do
+    pushd opensuse/$dist
+    ./update-igc-spec
+    popd
+done
