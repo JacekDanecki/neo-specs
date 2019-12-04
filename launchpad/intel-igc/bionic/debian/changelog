@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.2990-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2990 commit:0933210dba9acb3e25d121b9b7d99e87d840e7ab
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 04 Dec 2019 09:51:04 +0100
+
 intel-graphics-compiler (1.0.2934-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 1.0.2934 commit:a2032c3c2b3afc0a8f1f8ee6750932a3c0ffd025
