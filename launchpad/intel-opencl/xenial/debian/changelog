@@ -1,3 +1,10 @@
+intel-opencl (19.48.14977-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to 19.48.14977 commit:43dd16e1b824aa12adadb0233ead6642318ef71d
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 05 Dec 2019 13:19:56 +0100
+
 intel-opencl (19.47.14903-1~ppa1~xenial1) xenial; urgency=medium
 
   * Update to 19.47.14903 commit:c2ab0b1
