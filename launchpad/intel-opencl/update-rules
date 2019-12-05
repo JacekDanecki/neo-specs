@@ -1,0 +1,6 @@
+for dist in xenial bionic disco eoan
+do
+    pushd $dist
+    ./update-rules
+    popd
+done
