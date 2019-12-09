@@ -1,0 +1,20 @@
+#!/bin/bash
+source builds
+source ../../versions
+
+rm -rf sf
+mkdir sf
+
+OS_full=centos-7
+OS=el7
+
+URL=http://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
+
+for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 \
+    intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
+    intel-opencl-${neo_ver}-1
+do
+    f=${p}.${OS}.x86_64.rpm
+    wget -O sf/$f ${URL}/$f
+done
+

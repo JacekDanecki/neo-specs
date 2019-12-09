@@ -1,0 +1,19 @@
+#!/bin/bash
+source builds
+source ../../versions
+
+rm -rf sf
+mkdir sf
+
+OS_full=ubuntu-18.04
+
+URL=http://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
+
+for p in intel-gmmlib_${gmm_ver} \
+    intel-igc-core_${igc_ver} intel-igc-opencl_${igc_ver} \
+    intel-opencl_${neo_ver}
+do
+    f=${p}_amd64.deb
+    wget -O sf/$f ${URL}/$f
+done
+

@@ -1,0 +1,19 @@
+#!/bin/bash
+source ../../../versions
+
+rm -rf sf
+mkdir sf
+
+OS_full=ubuntu-18.04
+OS=~ppa1~bionic1
+
+URL=http://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}/ppa
+
+for p in libigdgmm12_${gmm_ver}-1 libigdgmm-dev_${gmm_ver}-1 \
+    libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1 \
+    intel-opencl-icd_${neo_ver}-1
+do
+    f=${p}${OS}_amd64.deb
+    wget -O sf/$f ${URL}/$f
+done
+
