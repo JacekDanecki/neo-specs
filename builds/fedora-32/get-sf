@@ -8,7 +8,7 @@ mkdir sf
 OS_full=fedora-32
 OS=fc32
 
-URL=http://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
+URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
 for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 \
     intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
