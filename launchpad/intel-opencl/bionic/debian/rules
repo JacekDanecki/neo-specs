@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-NEO_DRIVER_VERSION=19.48.14977
+NEO_DRIVER_VERSION=19.49.15055
 %:
 	dh $@
 
