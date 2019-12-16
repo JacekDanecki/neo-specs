@@ -10,7 +10,7 @@ echo "current igc: ${patch_version}"
 new_build=$(echo ${igc_ver} | awk -F '.' '{print $3}')
 echo "new build: ${new_build}"
 
-current_commit=$(awk '/igc_commit/ {print $3}' igc.spec)
+current_commit=$(awk '/igc_commit / {print $3}' igc.spec)
 echo "current igc commit: ${current_commit}"
 
 
