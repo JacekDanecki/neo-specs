@@ -1,6 +1,6 @@
 Name: intel-opencl
 Version: 19.48.14977
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
 Group: System Environment/Libraries
@@ -43,6 +43,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-2
+- Rebuild with IGC 1.0.2990-2
+
 * Fri Dec 06 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-1
 - Update to 19.48.14977
 - Updated IGC
