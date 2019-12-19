@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3041-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 1.0.3041 commit:510938ce77351f6e8ae92dcd37080b542b7a9e68
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 19 Dec 2019 13:30:22 +0100
+
 intel-graphics-compiler (1.0.3032-1~ppa1~eoan1) eoan; urgency=medium
 
   * Update to 1.0.3032 commit:43dc6e1f249357f245448eb6bc1bedc17b04646f
