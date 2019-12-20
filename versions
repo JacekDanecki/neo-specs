@@ -1,7 +1,7 @@
 set -e
 set -x
-neo_ver=19.49.15055
+neo_ver=19.50.15079
 gmm_ver=19.3.4
-igc_ver=1.0.3032
+igc_ver=1.0.3041
 opencl_clang_ver=9.0.9
-igc_commit=43dc6e1f249357f245448eb6bc1bedc17b04646f
+igc_commit=510938ce77351f6e8ae92dcd37080b542b7a9e68
