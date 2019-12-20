@@ -1,0 +1,21 @@
+for dist in 7 8
+do
+    pushd centos/$dist
+    ./update-neo-spec
+    popd
+done
+
+for dist in 30 31
+do
+    pushd fedora/$dist
+    ./update-neo-spec
+    popd
+done
+
+pushd mageia
+./update-neo-spec
+popd
+
+pushd opensuse
+./update-neo-spec
+popd
