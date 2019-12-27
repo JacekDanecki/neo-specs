@@ -1,6 +1,6 @@
 set -e
 set -x
-neo_ver=19.50.15079
+neo_ver=19.51.15145
 gmm_ver=19.3.4
 igc_ver=1.0.3041
 opencl_clang_ver=9.0.9
