@@ -1,7 +1,7 @@
 %global major_version 19
-%global minor_version 3
-%global patch_version 4
-%global api_patch_version 743
+%global minor_version 4
+%global patch_version 1
+%global api_patch_version 751
 
 Name:		intel-gmmlib
 Version:    19.4.1
