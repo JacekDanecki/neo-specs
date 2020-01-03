@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -x
+
+for dist in 7 8
+do
+    pushd centos/$dist
+    ./update-gmmlib-spec
+    popd
+done
+
+pushd fedora
+./update-gmmlib-spec
+popd
+
+pushd mageia
+./update-gmmlib-spec
+popd
+
+pushd opensuse
+./update-gmmlib-spec
+popd
