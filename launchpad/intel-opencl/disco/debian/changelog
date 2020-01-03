@@ -1,3 +1,9 @@
+intel-opencl (19.52.15209-1~ppa1~disco1) disco; urgency=medium
+
+  * Update to 19.52.15209 commit:07cacd4
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 03 Jan 2020 10:08:07 +0100
+
 intel-opencl (19.51.15145-1~ppa1~disco1) disco; urgency=medium
 
   * Update to 19.51.15145 commit:3ff5dea
