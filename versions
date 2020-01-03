@@ -3,4 +3,5 @@ gmm_ver=19.4.1
 igc_ver=1.0.3041
 opencl_clang_ver=9.0.9
 igc_commit=510938ce77351f6e8ae92dcd37080b542b7a9e68
+gmmlib_commit=ebfcfd5
 

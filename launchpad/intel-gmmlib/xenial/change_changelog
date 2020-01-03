@@ -1,0 +1,11 @@
+. ../../../versions
+
+cat changelog.template | \
+sed "s/@VER@/${gmm_ver}/"  | \
+sed "s/@DATE@/`date -R`/" | \
+sed "s/@COMMIT@/${gmmlib_commit}/"  > changelog.new
+mv debian/changelog debian/changelog.old
+cat changelog.new debian/changelog.old > debian/changelog
+rm debian/changelog.old
+rm changelog.new
+
