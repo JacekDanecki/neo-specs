@@ -12,5 +12,5 @@ wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fe
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-31-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-${opencl_clang_ver}-1.fc31.x86_64.rpm
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-31-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-devel-${opencl_clang_ver}-1.fc31.x86_64.rpm
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-31-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc31.x86_64.rpm
+#wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-31-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc31.x86_64.rpm
 
