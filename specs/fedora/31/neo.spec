@@ -3,10 +3,9 @@ Version: 19.51.15145
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
-Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/compute-runtime
-Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
+Source0: https://github.com/intel/compute-runtime/archive/%{version}/compute-runtime-%{version}.tar.gz
 
 BuildRequires: make libva-devel gcc-c++ cmake
 
@@ -29,12 +28,11 @@ cd build
 %make_build
 
 %install
-cd build
-%make_install
-chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
+%make_install -C build
+chmod +x %${buildroot}/%{libdir}/intel-opencl/libigdrcl.so
 
 %files
-/usr/lib64/intel-opencl/libigdrcl.so
+%{_libdir}/intel-opencl/libigdrcl.so
 /usr/bin/ocloc
 
 %config(noreplace)

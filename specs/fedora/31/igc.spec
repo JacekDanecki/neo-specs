@@ -6,12 +6,11 @@ Version: 1.0.3041
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
-Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
 
-BuildRequires: cmake clang gcc-c++ make procps flex bison python3 llvm-devel clang-devel pkg-config
+BuildRequires: cmake gcc-c++ make flex bison python3 llvm-devel clang-devel
 BuildRequires: intel-opencl-clang-devel
 
 %description
@@ -48,29 +47,31 @@ cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
 popd
 
 %install
-cd build
-%make_install
-rm -fv $RPM_BUILD_ROOT/usr/bin/GenX_IR
+%make_install -C build
+rm -fv %{buildroot}/usr/bin/GenX_IR
 
 %files core
 %defattr(-,root,root)
-/usr/lib64/libiga64.so.*
-/usr/lib64/libigc.so.*
+%{_libdir}/libiga64.so.1
+%{_libdir}/libiga64.so.%{version}
+%{_libdir}/libigc.so.1
+%{_libdir}/libigc.so.%{version}
 /usr/bin/iga64
 
 %files opencl
 %defattr(-,root,root)
-/usr/lib64/libigdfcl.so.*
+%{_libdir}/libigdfcl.so.1
+%{_libdir}/libigdfcl.so.%{version}
 
 %files opencl-devel
 %defattr(-,root,root)
 /usr/include/igc/*
 /usr/include/iga/*
 /usr/include/visa/*
-/usr/lib64/libiga64.so
-/usr/lib64/libigc.so
-/usr/lib64/libigdfcl.so
-/usr/lib64/pkgconfig/*
+%{_libdir}/libiga64.so
+%{_libdir}/libigc.so
+%{_libdir}/libigdfcl.so
+%{_libdir}/pkgconfig/*
 
 %doc
 
