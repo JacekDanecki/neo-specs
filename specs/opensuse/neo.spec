@@ -3,7 +3,7 @@ Version: 19.51.15145
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
-Group: System Environment/Libraries
+Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz

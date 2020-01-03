@@ -10,10 +10,10 @@ Version: 1.0.3041
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
-Group: System Environment/Libraries
+Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
@@ -77,6 +77,12 @@ rm -fv $RPM_BUILD_ROOT/usr/bin/clang-9
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c.h
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c-base.h
 chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
+
+%post -n intel-igc-core -p /sbin/ldconfig
+%postun -n intel-igc-core -p /sbin/ldconfig
+
+%post -n intel-igc-opencl -p /sbin/ldconfig
+%postun -n intel-igc-opencl -p /sbin/ldconfig
 
 %files core
 %defattr(-,root,root)

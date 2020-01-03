@@ -8,7 +8,7 @@ Version:    19.3.4
 Release:	1%{?dist}
 Summary:	Intel(R) Graphics Memory Management Library Package
 
-Group:	    System Environment/Libraries
+Group:      Development/Libraries/C and C++
 License:	MIT
 URL:		https://github.com/intel/gmmlib
 Source0:	%{url}/archive/%{name}-%{version}.tar.gz
@@ -19,10 +19,10 @@ BuildRequires: gcc-c++ cmake make
 %description
 Intel(R) Graphics Memory Management Library
 
-%package       devel
-Summary:       Intel(R) Graphics Memory Management Library development package
-Group: Development
-Requires:      %{name} = %{version}-%{release}
+%package    devel
+Summary:    Intel(R) Graphics Memory Management Library development package
+Group:      Development/Libraries/C and C++
+Requires:   %{name} = %{version}-%{release}
 
 %description   devel
 The %{name}-devel package contains library and header files for
@@ -43,6 +43,9 @@ find Source -name "*.h" -exec chmod -x {} ';'
 %install
 cd build
 %make_install
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
