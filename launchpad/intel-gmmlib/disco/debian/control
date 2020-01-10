@@ -8,7 +8,7 @@ Build-Depends:
 Standards-Version: 4.2.1
 Homepage: https://github.com/intel/gmmlib
 
-Package: libigdgmm12
+Package: libigdgmm11
 Architecture: amd64
 Multi-Arch: same
 Depends:
@@ -32,7 +32,7 @@ Section: libdevel
 Architecture: amd64
 Multi-Arch: same
 Depends:
- libigdgmm12 (= ${binary:Version}),
+ libigdgmm11 (= ${binary:Version}),
  ${misc:Depends}
 Breaks:
  intel-gmmlib-dev

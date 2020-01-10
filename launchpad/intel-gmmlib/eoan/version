@@ -1,5 +1,0 @@
-export VER_MAJ=19
-export VER_MIN=3
-export VER_BUILD=4
-export VER=${VER_MAJ}.${VER_MIN}.${VER_BUILD}
-gmmlib_commit_id=94306f5443b97d9762dbb35ba65b341ee3e91cf0

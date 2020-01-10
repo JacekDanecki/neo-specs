@@ -1,4 +1,4 @@
-. ./version
+. ../../../versions
 
-pbuilder-dist bionic build intel-gmmlib_${VER}-1~ppa1~bionic1.dsc
+pbuilder-dist bionic build intel-gmmlib_${gmm_ver}-1~ppa1~bionic1.dsc
 

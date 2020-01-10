@@ -1,4 +1,4 @@
-. ./version
+. ../../../versions
 
-pbuilder-dist xenial build intel-gmmlib_${VER}-1~ppa1~xenial1.dsc
+pbuilder-dist xenial build intel-gmmlib_${gmm_ver}-1~ppa1~xenial1.dsc
 

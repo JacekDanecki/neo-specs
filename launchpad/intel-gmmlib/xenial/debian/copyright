@@ -3,12 +3,12 @@ Upstream-Name: gmmlib
 Source: https://github.com/intel/gmmlib
 
 Files: *
-Copyright: 2018-2019, Intel Corporation
+Copyright: 2018-2020, Intel Corporation
 License: MIT
 
 Files: debian/*
 Copyright:
-	2018-2019 Jacek Danecki <jacek.danecki@intel.com>
+	2018-2020 Jacek Danecki <jacek.danecki@intel.com>
 	2018 Sebastian Ramacher <sramacher@debian.org>
 	2018 Timo Aaltonen <tjaalton@debian.org>
 License: MIT
