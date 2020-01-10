@@ -1,7 +1,7 @@
 #!/bin/bash
 source ../../versions
 
-wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libigdgmm12_${gmm_ver}-1~ppa1~disco1_amd64.deb
+wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libigdgmm11_${gmm_ver}-1~ppa1~disco1_amd64.deb
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libigdgmm-dev_${gmm_ver}-1~ppa1~disco1_amd64.deb
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libigc-dev_${igc_ver}-1~ppa1~disco1_amd64.deb
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libigc_${igc_ver}-1~ppa1~disco1_amd64.deb

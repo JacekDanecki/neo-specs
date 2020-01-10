@@ -10,7 +10,7 @@ OS=suse.tw
 
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
-for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 
+for p in libigdgmm11-${gmm_ver}-1 libigdgmm11-devel-${gmm_ver}-1 
 do
     f=${p}.${OS}20191116.x86_64.rpm
     wget -O sf/$f ${URL}/$f

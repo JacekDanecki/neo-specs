@@ -10,7 +10,7 @@ OS=suse.lp151
 
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
-for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 \
+for p in libigdgmm11-${gmm_ver}-1 libigdgmm11-devel-${gmm_ver}-1 \
     intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
     intel-opencl-${neo_ver}-1
 do

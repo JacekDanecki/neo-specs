@@ -8,7 +8,6 @@ Version:    19.4.1
 Release:    1%{?dist}
 Summary:    Intel(R) Graphics Memory Management Library Package
 
-Group:      System Environment/Libraries
 License:    MIT
 URL:        https://github.com/intel/gmmlib
 Source0:    %{url}/archive/%{name}-%{version}.tar.gz
@@ -21,7 +20,6 @@ Intel(R) Graphics Memory Management Library
 
 %package       devel
 Summary:       Intel(R) Graphics Memory Management Library development package
-Group: Development
 Requires:      %{name} = %{version}-%{release}
 
 %description   devel
@@ -49,15 +47,13 @@ cd build
 %make_install
 
 %files
-%defattr(-,root,root)
-/usr/lib64/libigdgmm.so.11
-/usr/lib64/libigdgmm.so.11.*
+%{_libdir}/libigdgmm.so.11
+%{_libdir}/libigdgmm.so.11.*
 
 %files devel
-%defattr(-,root,root)
-/usr/include/igdgmm/*
-/usr/lib64/libigdgmm.so
-/usr/lib64/pkgconfig/igdgmm.pc
+%{_includedir}/igdgmm/*
+%{_libdir}/libigdgmm.so
+%{_libdir}/pkgconfig/igdgmm.pc
 
 %changelog
 * Fri Jan 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 19.4.1-1
