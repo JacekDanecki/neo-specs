@@ -1,4 +1,4 @@
-for dist in xenial bionic disco eoan
+for dist in xenial bionic disco eoan focal
 do
     pushd $dist
     ./update-rules

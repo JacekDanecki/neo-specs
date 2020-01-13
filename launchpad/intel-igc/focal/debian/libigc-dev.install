@@ -1,0 +1,6 @@
+usr/include/igc/*
+usr/include/iga/*
+usr/include/visa/*
+usr/lib/x86_64-linux-gnu/pkgconfig/*
+usr/include/opencl-c-base.h
+usr/include/opencl-c.h

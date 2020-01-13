@@ -1,0 +1,12 @@
+#!/usr/bin/make -f
+NEO_DRIVER_VERSION=20.01.15264
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+	-DCMAKE_BUILD_TYPE=Release \
+	-Wno-dev \
+	-DNEO_DRIVER_VERSION=$(NEO_DRIVER_VERSION) \
+	-DCMAKE_INSTALL_PREFIX=/usr \
+	-DSKIP_UNIT_TESTS=1

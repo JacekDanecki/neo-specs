@@ -1,0 +1,91 @@
+intel-opencl (20.01.15264-1~ppa1~focal1) focal; urgency=medium
+
+  * Import to focal as 20.01.15264 commit:1600911
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 13 Jan 2020 15:53:21 +0000
+
+intel-opencl (19.52.15209-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.52.15209 commit:07cacd4
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 03 Jan 2020 10:09:34 +0100
+
+intel-opencl (19.51.15145-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.51.15145 commit:3ff5dea
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 27 Dec 2019 11:07:52 +0100
+
+intel-opencl (19.50.15079-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.50.15079 commit:f14793895e027df2fef711ca44e199f3a3dc43aa
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 20 Dec 2019 11:53:17 +0100
+
+intel-opencl (19.49.15055-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.49.15055 commit:72a1542140aa90cdd98c25d1a1779221b4ddf09a
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 13 Dec 2019 09:00:49 +0100
+
+intel-opencl (19.48.14977-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.48.14977 commit:43dd16e1b824aa12adadb0233ead6642318ef71d
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 05 Dec 2019 13:39:48 +0100
+
+intel-opencl (19.47.14903-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.47.14903 commit:c2ab0b1
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 29 Nov 2019 13:54:57 +0100
+
+intel-opencl (19.46.14807-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.46.14807 commit:dd59f58
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 22 Nov 2019 09:57:56 +0100
+
+intel-opencl (19.45.14764-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.45.14764 commit:900818b
+  * Requires IGC 1.0.2805
+  * Requires gmmlib 19.3.4
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 20 Nov 2019 10:34:41 +0100
+
+intel-opencl (19.44.14658-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.44.14658 commit:74a5e50
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 13 Nov 2019 11:18:22 +0000
+
+intel-opencl (19.43.14583-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.43.14583 commit:a046de5689
+  * Updated IGC
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 30 Oct 2019 16:18:16 +0000
+
+intel-opencl (19.41.14441-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 19.41.14441 commit:f97f7ba
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 24 Oct 2019 09:17:22 +0000
+
+intel-opencl (19.40.14409-1~ppa2~eoan1) eoan; urgency=medium
+
+  * Use IGC 1.0.2597 from ppa
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 16 Oct 2019 15:13:06 +0000
+
+intel-opencl (19.40.14409-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Import 19.40.14409 commit:8410bd6
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 16 Oct 2019 15:00:52 +0000
