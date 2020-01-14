@@ -2,7 +2,7 @@
 
 source ../versions
 for d in centos-7 centos-8 fedora-30 fedora-31 fedora-32 mageia-7 opensuse-leap-15.1 opensuse-tumbleweed \
-    ubuntu-16.04 ubuntu-18.04 ubuntu-18.04/ppa ubuntu-19.04 ubuntu-19.10 
+    ubuntu-16.04 ubuntu-18.04 ubuntu-18.04/ppa ubuntu-19.04 ubuntu-19.10 ubuntu-20.04
 do
 	pushd $d
 	./get-sf

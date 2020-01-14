@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source ../versions
-for d in ubuntu-16.04 ubuntu-18.04/ppa ubuntu-19.04 ubuntu-19.10
+for d in ubuntu-16.04 ubuntu-18.04/ppa ubuntu-19.04 ubuntu-19.10 ubuntu-20.04
 do
 	pushd $d
 	./get
