@@ -1,3 +1,9 @@
+intel-opencl (20.02.15268-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 20.02.15268 commit:c858a2b
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 17 Jan 2020 14:56:11 +0000
+
 intel-opencl (20.01.15264-1~ppa1~focal1) focal; urgency=medium
 
   * Import to focal as 20.01.15264 commit:1600911
