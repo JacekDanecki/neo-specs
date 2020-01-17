@@ -14,7 +14,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 * Fedora 30, 31, rawhide
 * Mageia 7
 * OpenSUSE Leap 15.1, Tumbleweed
-* Ubuntu 16.04, 18.04, 19.04, 19.10
+* Ubuntu 16.04, 18.04, 19.04, 19.10, 20.04
  
 ## Outdated copr chroots
 
