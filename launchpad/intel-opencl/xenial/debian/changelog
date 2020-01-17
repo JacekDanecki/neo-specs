@@ -1,3 +1,9 @@
+intel-opencl (20.02.15268-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to 20.02.15268 commit:c858a2b
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 17 Jan 2020 15:48:29 +0100
+
 intel-opencl (20.01.15264-1~ppa1~xenial1) xenial; urgency=medium
 
   * Update to 20.01.15264 commit:1600911
