@@ -7,14 +7,21 @@ This repository provides scripts to build and download packages for [Intel compu
 Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl) are copied to
  [ppa:intel-opencl/intel-opencl](https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl) when Neo weekly release is ready.
 
-
-## Supported Linux operating systems
+## Supported Linux operating systems on ci branch
 
 * Centos 7, 8
 * Fedora 30, 31, rawhide
 * Mageia 7
 * OpenSUSE Leap 15.1, Tumbleweed
-* Ubuntu 16.04, 18.04, 19.04, 19.10
+* Ubuntu 16.04, 18.04, 20.04
+
+## Supported Linux operating systems on master branch
+
+* Centos 7, 8
+* Fedora 30, 31, rawhide
+* Mageia 7
+* OpenSUSE Leap 15.1, Tumbleweed
+* Ubuntu 16.04, 18.04, 19.04, 19.10, 20.04
  
 ## Outdated copr chroots
 
