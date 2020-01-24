@@ -5,8 +5,8 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=11),
  cmake,
- libigc-dev (>= 1.0.3151-1~),
- libigdgmm-dev (>= 19.4.1-1~),
+ libigc-dev (= 1.0.3151-1~ppa1~focal1),
+ libigdgmm-dev (= 19.4.1-1~ppa1~focal1),
  libva-dev,
  pkg-config
 Standards-Version: 4.3.0
@@ -17,8 +17,8 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.3151-1~),
- libigdgmm11 (>= 19.4.1-1~)
+ libigc (= 1.0.3151-1~ppa1~focal1),
+ libigdgmm11 (= 19.4.1-1~ppa1~focal1)
 Breaks:
  intel-opencl
 Replaces:

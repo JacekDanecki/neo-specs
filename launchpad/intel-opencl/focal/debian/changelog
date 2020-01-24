@@ -1,3 +1,9 @@
+intel-opencl (20.03.15346-1~ppa1~focal2) focal; urgency=medium
+
+  * Use gmmlib and igc packages from ppa
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 24 Jan 2020 15:55:30 +0000
+
 intel-opencl (20.03.15346-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 20.03.15346 commit:1ec60d508d80666fe204964d384a62ef1cf3279b
