@@ -1,3 +1,9 @@
+intel-gmmlib (19.4.1-2~ppa1~focal1) focal; urgency=medium
+
+  * Rebuild 19.4.1
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 24 Jan 2020 16:19:36 +0000
+
 intel-gmmlib (19.4.1-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 19.4.1 commit:ebfcfd5
