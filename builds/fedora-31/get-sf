@@ -1,5 +1,4 @@
 #!/bin/bash
-source builds
 source ../../versions
 
 rm -rf sf
