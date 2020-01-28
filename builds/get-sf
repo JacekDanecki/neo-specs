@@ -1,10 +1,8 @@
 #!/bin/bash
 
 source ../versions
-#failed build
-#fedora-32 
 
-for d in centos-7 centos-8 fedora-30 fedora-31 mageia-7 opensuse-leap-15.1 opensuse-tumbleweed \
+for d in centos-7 centos-8 fedora-30 fedora-31 mageia-7 opensuse-leap-15.1 opensuse-tumbleweed fedora-32 \
     ubuntu-16.04 ubuntu-18.04 ubuntu-18.04/ppa ubuntu-19.04 ubuntu-19.10 ubuntu-20.04
 do
 	pushd $d

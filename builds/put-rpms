@@ -1,10 +1,8 @@
 #!/bin/bash
 
 source ../versions
-#failed build
-#fedora-32 
 
-for d in centos-7 centos-8 fedora-30 fedora-31 mageia-7 opensuse-leap-15.1 opensuse-tumbleweed 
+for d in centos-7 centos-8 fedora-30 fedora-31 mageia-7 opensuse-leap-15.1 opensuse-tumbleweed fedora-32 
 do
     rsync -av -e ssh $d ${USER}@frs.sourceforge.net:/home/frs/project/intel-compute-runtime/${neo_ver}/
 done
