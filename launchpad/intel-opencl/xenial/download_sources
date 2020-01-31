@@ -4,6 +4,8 @@
 
 rm -f intel-opencl_${neo_ver}.orig.tar.gz
 wget --no-check-certificate https://github.com/intel/compute-runtime/archive/${neo_commit}/intel-opencl_${neo_ver}.orig.tar.gz
-rm intel-opencl.tar.gz
+rm -f intel-opencl.tar.gz
 ln -s intel-opencl_${neo_ver}.orig.tar.gz intel-opencl.tar.gz
+
+scp intel-opencl_${neo_ver}.orig.tar.gz mirror:/tmp
 
