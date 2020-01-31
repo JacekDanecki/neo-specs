@@ -1,5 +1,5 @@
 Name: intel-opencl
-Version: 20.03.15346
+Version: 20.04.15428
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
@@ -41,6 +41,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Jan 31 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.04.15428-1
+- Update to 20.04.15428
+
 * Fri Jan 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.03.15346-1
 - Update to 20.03.15346
 
