@@ -16,7 +16,7 @@ do
     wget -O sf/$f ${URL}/$f
 done
 p=intel-opencl-icd_${neo_ver}-1
-f=${p}~ppa1~focal3_amd64.deb
+f=${p}~ppa1~focal1_amd64.deb
 wget -O sf/$f ${URL}/$f
 
 
