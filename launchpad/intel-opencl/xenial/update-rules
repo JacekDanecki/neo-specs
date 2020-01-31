@@ -11,4 +11,5 @@ echo "new build: ${new_build}"
 
 
 sed -i "s/^NEO_DRIVER_VERSION=${release}/NEO_DRIVER_VERSION=${neo_ver}/" debian/rules
+./change_changelog
 
