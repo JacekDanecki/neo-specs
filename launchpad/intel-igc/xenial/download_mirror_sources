@@ -3,7 +3,7 @@
 . ./version
 . ../../../versions
 
-scp mirror:/tmp/${igc_ver}.orig-llvm-project.tar.gz .
+scp mirror:/tmp/intel-graphics-compiler_${igc_ver}.orig-llvm-project.tar.gz .
 scp mirror:/tmp/intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz .
 scp mirror:/tmp/intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz .
 scp mirror:/tmp/intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz .
