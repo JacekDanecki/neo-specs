@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3289-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to 1.0.3289 commit:41f775b56d04621364c65353b1deac858bb1fee5
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 14 Feb 2020 14:14:15 +0100
+
 intel-graphics-compiler (1.0.3151-1~ppa1~xenial1) xenial; urgency=medium
 
   * Update to 1.0.3151 commit:ee341708a3d95738e942b6d3c5cd25b1f4b430f1

@@ -7,4 +7,3 @@ wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigc-
 wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigc_${igc_ver}-1~ppa1~focal1_amd64.deb
 wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/intel-opencl-icd_${neo_ver}-1~ppa1~focal1_amd64.deb
 
-

@@ -11,4 +11,5 @@ echo "new build: ${new_build}"
 
 
 sed -i "s/^IGC_PACKAGE_RELEASE=${release}/IGC_PACKAGE_RELEASE=${new_build}/" debian/rules
+./change_changelog
 
