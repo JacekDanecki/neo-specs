@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3289-1~ppa1~focal2) focal; urgency=medium
+
+  * Use python3
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 14 Feb 2020 14:17:53 +0000
+
 intel-graphics-compiler (1.0.3289-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 1.0.3289 commit:41f775b56d04621364c65353b1deac858bb1fee5

@@ -7,7 +7,7 @@ Build-Depends:
  cmake,
  debhelper (>= 11),
  flex,
- python,
+ python3,
  git
 Standards-Version: 4.3.0
 Homepage: https://github.com/intel/intel-graphics-compiler
