@@ -48,7 +48,7 @@ cd build
 
 %files
 %{_libdir}/libigdgmm.so.11
-%{_libdir}/libigdgmm.so.11.*
+%{_libdir}/libigdgmm.so.11.1.%{api_patch_version}
 
 %files devel
 %{_includedir}/igdgmm/*

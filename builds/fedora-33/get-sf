@@ -4,13 +4,13 @@ source ../../versions
 rm -rf sf
 mkdir sf
 
-OS_full=fedora-32
-OS=fc32
+OS_full=fedora-33
+OS=fc33
 
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
 for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 \
-    intel-igc-core-${igc_ver}-2 intel-igc-opencl-${igc_ver}-2 intel-igc-opencl-devel-${igc_ver}-2 \
+    intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
     intel-opencl-clang-${opencl_clang_ver10}-1 intel-opencl-clang-devel-${opencl_clang_ver10}-1 \
     intel-opencl-${neo_ver}-1 \
     spirv-llvm-translator-${spirv_llvm_translator_ver}-1 spirv-llvm-translator-devel-${spirv_llvm_translator_ver}-1 

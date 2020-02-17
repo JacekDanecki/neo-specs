@@ -1,18 +1,17 @@
-%global igc_commit ee341708a3d95738e942b6d3c5cd25b1f4b430f1
-%global patch_version 3151
+%global igc_commit c2cfb6e161e64d6e4471fdbb7c0d9df7d8a2e18c
+%global patch_version 3390
 
 Name: intel-igc
-Version: 1.0.3151
-Release: 2%{?dist}
+Version: 1.0.3390
+Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
-Patch0:  %{url}/commit/d9b4d395b4813e2c76c47e20446d03c3a68f99ff.patch
+Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
 
 BuildRequires: cmake gcc-c++ make flex bison python3 llvm-devel clang-devel
-BuildRequires: intel-opencl-clang-devel
+BuildRequires: intel-opencl-clang-devel >= 10.0.4
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -25,7 +24,7 @@ Summary:       Intel(R) Graphics Compiler Core
 %package       opencl
 Summary:       Intel(R) Graphics Compiler Frontend
 Requires:      %{name}-core = %{version}-%{release}
-Requires:      intel-opencl-clang >= 9.0.9
+Requires:      intel-opencl-clang >= 10.0.4
 
 %description   opencl
 
@@ -43,7 +42,7 @@ mkdir build
 pushd build
 
 cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
- -DIGC_PREFERRED_LLVM_VERSION=9.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version}
+ -DIGC_PREFERRED_LLVM_VERSION=10.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version}
 %make_build
 popd
 
@@ -74,6 +73,13 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Mon Mar 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
+- Update to 1.0.3390
+
+* Mon Feb 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
+- Update to 1.0.3289
+- Build with llvm/clang 10
+
 * Tue Jan 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-2
 - fix compilation under Fedora 32
 
