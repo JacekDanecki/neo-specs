@@ -10,10 +10,14 @@ OS=~ppa1~xenial1
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
 for p in libigdgmm11_${gmm_ver}-1 libigdgmm-dev_${gmm_ver}-1 \
-    libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1 \
-    intel-opencl-icd_${neo_ver}-1
+    libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1
 do
     f=${p}${OS}_amd64.deb
     wget -O sf/$f ${URL}/$f
 done
+
+p=intel-opencl-icd_${neo_ver}-1
+OS=~ppa1~xenial2
+f=${p}${OS}_amd64.deb
+wget -O sf/$f ${URL}/$f
 
