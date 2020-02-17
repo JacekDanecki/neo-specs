@@ -1,3 +1,9 @@
+intel-opencl (20.06.15619-1~ppa1~xenial2) xenial; urgency=medium
+
+  * Add fix for compilation with gcc 5
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 17 Feb 2020 12:27:18 +0100
+
 intel-opencl (20.06.15619-1~ppa1~xenial1) xenial; urgency=medium
 
   * Update to 20.06.15619 commit:018e585eb1dadff344e01cda535b64e993765d84

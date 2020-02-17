@@ -1,0 +1,25 @@
+From f24b48bc58f649315cf53a9b162f08a22da981fc Mon Sep 17 00:00:00 2001
+From: Mateusz Jablonski <mateusz.jablonski@intel.com>
+Date: Mon, 10 Feb 2020 07:56:54 +0100
+Subject: [PATCH] Remove constexpr keyword from HWDeviceId::getFileDescriptor
+ method
+
+Change-Id: I9426c211edfbbca48e0b6c55886f79269e60232f
+Signed-off-by: Mateusz Jablonski <mateusz.jablonski@intel.com>
+---
+ core/os_interface/linux/hw_device_id.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/core/os_interface/linux/hw_device_id.h b/core/os_interface/linux/hw_device_id.h
+index 26ad9622e..a6807ff22 100644
+--- a/core/os_interface/linux/hw_device_id.h
++++ b/core/os_interface/linux/hw_device_id.h
+@@ -14,7 +14,7 @@ class HwDeviceId : NonCopyableClass {
+   public:
+     HwDeviceId(int fileDescriptorIn) : fileDescriptor(fileDescriptorIn) {}
+     ~HwDeviceId();
+-    constexpr int getFileDescriptor() const { return fileDescriptor; }
++    int getFileDescriptor() const { return fileDescriptor; }
+ 
+   protected:
+     const int fileDescriptor;
