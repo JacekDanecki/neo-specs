@@ -1,8 +1,8 @@
-neo_ver=20.06.15619
+neo_ver=20.07.15711
 gmm_ver=19.4.1
-igc_ver=1.0.3289
+igc_ver=1.0.3342
 opencl_clang_ver=9.0.9
-igc_commit=41f775b56d04621364c65353b1deac858bb1fee5
+igc_commit=8a1f2c37ee213e91d73fa734d19ca864ebed0ba9
 gmmlib_commit=ebfcfd5
-neo_commit=018e585eb1dadff344e01cda535b64e993765d84
+neo_commit=b9d65b64d61186d452ed800354152627ceacf1a7
 
