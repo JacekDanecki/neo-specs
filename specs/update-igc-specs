@@ -4,8 +4,8 @@ do
     ./update-igc-spec
     popd
 done
-
-for dist in 30 31 32
+# 32
+for dist in 30 31
 do
     pushd fedora/$dist
     ./update-igc-spec

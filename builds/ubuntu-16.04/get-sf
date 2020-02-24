@@ -17,7 +17,7 @@ do
 done
 
 p=intel-opencl-icd_${neo_ver}-1
-OS=~ppa1~xenial2
+OS=~ppa1~xenial1
 f=${p}${OS}_amd64.deb
 wget -O sf/$f ${URL}/$f
 

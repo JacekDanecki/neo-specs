@@ -5,7 +5,8 @@ do
     popd
 done
 
-for dist in 30 31 32
+# 32
+for dist in 30 31
 do
     pushd fedora/$dist
     ./update-neo-spec

@@ -18,7 +18,7 @@ done
 
 for p in libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1
 do
-    f=${p}~ppa1~focal2_amd64.deb
+    f=${p}~ppa1~focal1_amd64.deb
     wget -O sf/$f ${URL}/$f
 done
 
