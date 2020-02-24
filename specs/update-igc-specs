@@ -9,7 +9,7 @@ do
     popd
 done
 
-for dist in 30 31
+for dist in 30 31 32 rawhide
 do
     pushd fedora/$dist
     ./update-igc-spec
