@@ -2,7 +2,7 @@
 
 . ../../../versions
 
-rm -f intel-opencl_${neo_ver}.orig.tar.gz
+rm -f intel-opencl_*.orig.tar.gz
 scp mirror:/tmp/intel-opencl_${neo_ver}.orig.tar.gz .
 rm -f intel-opencl.tar.gz
 ln -s intel-opencl_${neo_ver}.orig.tar.gz intel-opencl.tar.gz
