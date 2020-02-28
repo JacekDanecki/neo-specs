@@ -1,3 +1,9 @@
+intel-opencl (20.08.15750-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 20.08.15750 commit:ad21b7672e68c649402152a05ce808deee0af717
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 28 Feb 2020 15:13:56 +0100
+
 intel-opencl (20.07.15711-1~ppa1~eoan1) eoan; urgency=medium
 
   * Update to 20.07.15711 commit:b9d65b64d61186d452ed800354152627ceacf1a7

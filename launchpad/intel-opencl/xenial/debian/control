@@ -5,7 +5,7 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=9),
  cmake,
- libigc-dev (>= 1.0.3342-1~),
+ libigc-dev (>= 1.0.3390-1~),
  libigdgmm-dev (>= 19.4.1-1~),
  libva-dev,
  pkg-config
@@ -17,7 +17,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.3342-1~),
+ libigc (>= 1.0.3390-1~),
  libigdgmm11 (>= 19.4.1-1~)
 Breaks:
  intel-opencl
@@ -38,4 +38,4 @@ Description: Intel graphics compute runtime for OpenCL
  - Intel Core Processors with Gen9 graphics devices (Skylake, Kaby Lake, Coffee Lake) - OpenCL 2.1
  - Intel Atom Processors with Gen9 graphics devices (Apollo Lake, Gemini Lake) - OpenCL 1.2
  - Intel Core Processors with Gen11 graphics devices (Ice Lake) - OpenCL 2.1
- - Intel Core Processors with Gen12 graphics devices (formerly Tiger Lake) - OpenCL 2.1
+ - Intel Core Processors with Gen12 graphics devices (Tiger Lake) - OpenCL 2.1
