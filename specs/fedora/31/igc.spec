@@ -1,14 +1,14 @@
-%global igc_commit 8a1f2c37ee213e91d73fa734d19ca864ebed0ba9
-%global patch_version 3342
+%global igc_commit 2abceafe90258a02f255d5f723a3673b611db4c4
+%global patch_version 3390
 
 Name: intel-igc
-Version: 1.0.3342
+Version: 1.0.3390
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
 
 BuildRequires: cmake gcc-c++ make flex bison python3 llvm-devel clang-devel
 BuildRequires: intel-opencl-clang-devel
@@ -24,7 +24,7 @@ Summary:       Intel(R) Graphics Compiler Core
 %package       opencl
 Summary:       Intel(R) Graphics Compiler Frontend
 Requires:      %{name}-core = %{version}-%{release}
-Requires:      intel-opencl-clang >= 9.0.9
+Requires:      intel-opencl-clang >= 9.0.13
 
 %description   opencl
 
@@ -51,23 +51,20 @@ popd
 rm -fv %{buildroot}/usr/bin/GenX_IR
 
 %files core
-%defattr(-,root,root)
 %{_libdir}/libiga64.so.1
 %{_libdir}/libiga64.so.%{version}
 %{_libdir}/libigc.so.1
 %{_libdir}/libigc.so.%{version}
-/usr/bin/iga64
+%{_bindir}/iga64
 
 %files opencl
-%defattr(-,root,root)
 %{_libdir}/libigdfcl.so.1
 %{_libdir}/libigdfcl.so.%{version}
 
 %files opencl-devel
-%defattr(-,root,root)
-/usr/include/igc/*
-/usr/include/iga/*
-/usr/include/visa/*
+%{_includedir}/igc/*
+%{_includedir}/iga/*
+%{_includedir}/visa/*
 %{_libdir}/libiga64.so
 %{_libdir}/libigc.so
 %{_libdir}/libigdfcl.so
@@ -76,6 +73,9 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Fri Feb 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
+- Update to 1.0.3390
+
 * Fri Feb 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3342-1
 - Update to 1.0.3342
 

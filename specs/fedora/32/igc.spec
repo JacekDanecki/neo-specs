@@ -52,23 +52,20 @@ popd
 rm -fv %{buildroot}/usr/bin/GenX_IR
 
 %files core
-%defattr(-,root,root)
 %{_libdir}/libiga64.so.1
 %{_libdir}/libiga64.so.%{version}
 %{_libdir}/libigc.so.1
 %{_libdir}/libigc.so.%{version}
-/usr/bin/iga64
+%{_bindir}/iga64
 
 %files opencl
-%defattr(-,root,root)
 %{_libdir}/libigdfcl.so.1
 %{_libdir}/libigdfcl.so.%{version}
 
 %files opencl-devel
-%defattr(-,root,root)
-/usr/include/igc/*
-/usr/include/iga/*
-/usr/include/visa/*
+%{_includedir}/igc/*
+%{_includedir}/iga/*
+%{_includedir}/visa/*
 %{_libdir}/libiga64.so
 %{_libdir}/libigc.so
 %{_libdir}/libigdfcl.so
