@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3390-1~ppa1~xenial2) xenial; urgency=medium
+
+  * Revert commit cbc78036d1a5bd0a889acdc87c2fb902d5ace159
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 02 Mar 2020 08:57:40 +0100
+
 intel-graphics-compiler (1.0.3390-1~ppa1~xenial1) xenial; urgency=medium
 
   * Update to 1.0.3390 commit:2abceafe90258a02f255d5f723a3673b611db4c4
