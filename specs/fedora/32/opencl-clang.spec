@@ -8,8 +8,8 @@ Summary:    Intel(R) OpenCL(TM) Clang
 
 License:    MIT
 URL: https://github.com/intel/opencl-clang
-Source0: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
-Source1: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
+Source0: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
+Patch0: https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/fedora/32/clang.patch
 
 BuildRequires: cmake gcc-c++ make llvm-devel clang-devel pkg-config python3 git
 
