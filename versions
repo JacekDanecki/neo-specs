@@ -3,6 +3,8 @@ set -x
 neo_ver=20.08.15750
 gmm_ver=19.4.1
 igc_ver=1.0.3390
-opencl_clang_ver=9.0.9
-igc_commit=2abceafe90258a02f255d5f723a3673b611db4c4
+opencl_clang_ver=9.0.13
+opencl_clang_ver10=10.0.3
+igc_commit=c2cfb6e161e64d6e4471fdbb7c0d9df7d8a2e18c
+spirv_llvm_translator=10.0.3
 
