@@ -1,0 +1,54 @@
+intel-gmmlib (19.4.1-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Import to eoan 19.4.1 commit:ebfcfd5
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 03 Mar 2020 15:58:54 +0100
+
+intel-gmmlib (19.4.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.4.1 commit:ebfcfd5
+
+ -- OpenCL builder <compute-runtime@intel.com>  Fri, 03 Jan 2020 15:37:15 +0100
+
+intel-gmmlib (19.3.4-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.3.4 commit:94306f5443b97d9762dbb35ba65b341ee3e91cf0
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 05 Nov 2019 12:36:52 +0000
+
+intel-gmmlib (19.3.2-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.3.2 commit:bda1dcf
+  * Fix versioning in pc file
+
+ -- OpenCL builder <compute-runtime@intel.com>  Fri, 20 Sep 2019 11:44:49 +0000
+
+intel-gmmlib (19.2.3-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.2.3 commit:e834bcd
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 17 Jul 2019 11:42:54 +0000
+
+intel-gmmlib (19.2.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.2.1 commit:2818bfb
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 04 Jun 2019 13:43:25 +0000
+
+intel-gmmlib (19.1.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 19.1.1 commit:e65dff3
+
+ -- OpenCL builder <compute-runtime@intel.com>  Mon, 08 Apr 2019 10:27:52 +0000
+
+intel-gmmlib (18.4.348-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 18.4.348
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 07 Nov 2018 10:42:57 +0000
+
+intel-gmmlib (18.4.328-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 18.4.328
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 22 Oct 2018 15:51:59 +0000
