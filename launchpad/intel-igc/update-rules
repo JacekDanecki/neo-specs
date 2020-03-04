@@ -1,4 +1,4 @@
-for dist in xenial bionic
+for dist in xenial bionic eoan
 do
     pushd $dist
     ./update-rules

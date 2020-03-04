@@ -1,0 +1,86 @@
+intel-graphics-compiler (1.0.3445-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3445 commit:b25b5ebe8b4dd0a36a776250dff7bd9a21b613c6
+
+ -- OpenCL builder <compute-runtime@intel.com>  Mon, 24 Feb 2020 15:26:35 +0100
+
+intel-graphics-compiler (1.0.3390-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3390 commit:2abceafe90258a02f255d5f723a3673b611db4c4
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 18 Feb 2020 11:11:27 +0100
+
+intel-graphics-compiler (1.0.3342-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3342 commit:8a1f2c37ee213e91d73fa734d19ca864ebed0ba9
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 12 Feb 2020 10:08:36 +0100
+
+intel-graphics-compiler (1.0.3289-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3289 commit:41f775b56d04621364c65353b1deac858bb1fee5
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 04 Feb 2020 13:36:07 +0100
+
+intel-graphics-compiler (1.0.3151-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3151 commit:ee341708a3d95738e942b6d3c5cd25b1f4b430f1
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 15 Jan 2020 15:08:47 +0100
+
+intel-graphics-compiler (1.0.3041-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3041 commit:510938ce77351f6e8ae92dcd37080b542b7a9e68
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 10 Dec 2019 12:00:35 +0100
+
+intel-graphics-compiler (1.0.2990-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2990 commit:0933210dba9acb3e25d121b9b7d99e87d840e7ab
+
+ -- OpenCL builder <compute-runtime@intel.com>  Mon, 02 Dec 2019 10:43:18 +0100
+
+intel-graphics-compiler (1.0.2972-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2972 commit:b134d82cb6aca6488b3b0b5ea98d15a55c4a9275
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 26 Nov 2019 14:51:57 +0100
+
+intel-graphics-compiler (1.0.2934-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2934 commit:a2032c3c2b3afc0a8f1f8ee6750932a3c0ffd025
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 26 Nov 2019 08:58:41 +0100
+
+intel-graphics-compiler (1.0.2916-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2916 commit:796782e33f9dd5bd6836dda59e54a7a9e53c4203
+
+ -- OpenCL builder <compute-runtime@intel.com>  Thu, 21 Nov 2019 16:15:41 +0100
+
+intel-graphics-compiler (1.0.2878-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2878 commit:02fb853c6b0e33cfc5d550ff49dfd418deadf5c2
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 20 Nov 2019 16:32:42 +0100
+
+intel-graphics-compiler (1.0.2805-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2805 commit:8234eab514161d6a45ff04ed6418840f4e959942
+
+ -- OpenCL builder <compute-runtime@intel.com>  Thu, 14 Nov 2019 09:45:54 +0000
+
+intel-graphics-compiler (1.0.2714.1-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.2714.1 commit:igc-1.0.2714.1
+  * Updated SPIRV-LLVM-Translator
+  * Updated opencl-clang
+
+ -- OpenCL builder <compute-runtime@intel.com>  Wed, 13 Nov 2019 08:53:20 +0000
+
+intel-graphics-compiler (1.0.2597-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Import 1.0.2597 commit:b3ed5e584dac45d560e6f68e5f6e84af8a661e6e
+  * Switch to llvm 9
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 10 Oct 2019 14:25:55 +0000
