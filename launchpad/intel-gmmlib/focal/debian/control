@@ -1,0 +1,40 @@
+Source: intel-gmmlib
+Section: libs
+Priority: optional
+Maintainer: Jacek Danecki <jacek.danecki@intel.com>
+Build-Depends:
+ debhelper (>= 11),
+ cmake
+Standards-Version: 4.2.1
+Homepage: https://github.com/intel/gmmlib
+
+Package: intel-gmmlib
+Architecture: amd64
+Multi-Arch: same
+Depends:
+ ${misc:Depends},
+ ${shlibs:Depends}
+Description: Intel Graphics Memory Management Library -- shared library
+ The Intel Graphics Memory Management Library provides device specific
+ and buffer management for the Intel Graphics Compute Runtime for
+ OpenCL and the Intel Media Driver for VAAPI.
+ .
+ This library is only useful for Broadwell and newer CPUs.
+ .
+ This package includes the shared library.
+
+Package: intel-gmmlib-dev
+Section: libdevel
+Architecture: amd64
+Multi-Arch: same
+Depends:
+ intel-gmmlib (= ${binary:Version}),
+ ${misc:Depends}
+Description: Intel Graphics Memory Management Library -- development files
+ The Intel Graphics Memory Management Library provides device specific
+ and buffer management for the Intel Graphics Compute Runtime for
+ OpenCL and the Intel Media Driver for VAAPI.
+ .
+ This library is only useful for Broadwell and newer CPUs.
+ .
+ This package includes files for development.
