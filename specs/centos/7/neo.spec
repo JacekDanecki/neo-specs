@@ -1,5 +1,5 @@
 Name: intel-opencl
-Version: 20.08.15750
+Version: 20.09.15980
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
@@ -11,10 +11,10 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3 make
 BuildRequires: intel-gmmlib-devel = 19.4.1
-BuildRequires: intel-igc-opencl-devel = 1.0.3390
+BuildRequires: intel-igc-opencl-devel = 1.0.3445
 
 Requires: intel-gmmlib = 19.4.1
-Requires: intel-igc-opencl = 1.0.3390
+Requires: intel-igc-opencl = 1.0.3445
 
 %description
 Intel(R) Graphics Compute Runtime for OpenCL(TM).
@@ -43,6 +43,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-1
+- Update to 20.09.15980
+
 * Fri Feb 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.08.15750-1
 - Update to 20.08.15750
 
