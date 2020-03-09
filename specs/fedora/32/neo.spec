@@ -1,6 +1,6 @@
 Name: intel-opencl
 Version: 20.09.15980
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
 License: MIT
@@ -30,6 +30,7 @@ cd build
 %install
 %make_install -C build
 chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
+rm %{buildroot}/%{_libdir}/intel-opencl/libocloc.so
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
@@ -41,6 +42,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+- Remove libocloc.so from package
+
 * Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-1
 - Update to 20.09.15980
 

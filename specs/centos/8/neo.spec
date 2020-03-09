@@ -32,6 +32,7 @@ cd build
 cd build
 %make_install
 chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
+chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libocloc.so
 
 %files
 /usr/lib64/intel-opencl/libigdrcl.so

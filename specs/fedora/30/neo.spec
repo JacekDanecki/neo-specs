@@ -30,6 +30,7 @@ cd build
 %install
 %make_install -C build
 chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
+rm %{buildroot}/%{_libdir}/intel-opencl/libocloc.so
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
