@@ -16,7 +16,7 @@ do
     wget -O sf/$f ${URL}/$f
 done
 
-OS=~ppa1~xenial2
+OS=~ppa1~xenial1
 for p in libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1
 do
     f=${p}${OS}_amd64.deb

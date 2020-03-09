@@ -1,6 +1,6 @@
 Name: intel-opencl
 Version: 20.09.15980
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
 Group: System Environment/Libraries
@@ -32,7 +32,8 @@ scl enable devtoolset-7 "make -j`nproc`"
 cd build
 %make_install
 chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
-chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libocloc.so
+rm  ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libocloc.so
+chmod +x ${RPM_BUILD_ROOT}/usr/bin/ocloc
 
 %files
 /usr/lib64/intel-opencl/libigdrcl.so
@@ -44,6 +45,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libocloc.so
 %doc
 
 %changelog
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+- Fix ocloc permissions
+
 * Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-1
 - Update to 20.09.15980
 
