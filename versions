@@ -1,7 +1,7 @@
 neo_ver=19.45.14764
 gmm_ver=19.4.1
-igc_ver=1.0.3471
-opencl_clang_ver=9.0.13
-igc_commit=e63df7241914049c85fb547c83be6cf83b7aeaf8
+igc_ver=1.0.3529
+opencl_clang_ver=9.0.15
+igc_commit=fcfd6f6bd2b510250f3801f4c940e82579e841ca
 gmmlib_commit=ebfcfd5
 
