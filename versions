@@ -1,10 +1,10 @@
 set -e
 set -x
-neo_ver=20.09.15980
+neo_ver=20.10.16087
 gmm_ver=19.4.1
-igc_ver=1.0.3445
+igc_ver=1.0.3471
 opencl_clang_ver=9.0.13
 opencl_clang_ver10=10.0.4
-igc_commit=b25b5ebe8b4dd0a36a776250dff7bd9a21b613c6
+igc_commit=e63df7241914049c85fb547c83be6cf83b7aeaf8
 spirv_llvm_translator_ver=10.0.4
 

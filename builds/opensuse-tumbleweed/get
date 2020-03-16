@@ -9,5 +9,5 @@ wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/opens
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/opensuse-tumbleweed-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.suse.tw.x86_64.rpm
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/opensuse-tumbleweed-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.suse.tw.x86_64.rpm
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/opensuse-tumbleweed-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-2.suse.tw.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/opensuse-tumbleweed-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.suse.tw.x86_64.rpm
 

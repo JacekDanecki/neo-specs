@@ -1,6 +1,6 @@
 gmm_build=01142766
-igc_build=01291293
-neo_build=01298632
+igc_build=01304662
+neo_build=01306749
 opencl_clang_build=01279706
 spirv_llvm_translator_build=01279683
 

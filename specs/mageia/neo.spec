@@ -1,6 +1,6 @@
 Name: intel-opencl
-Version: 20.09.15980
-Release: 2%{?dist}
+Version: 20.10.16087
+Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
 
 Group: System Environment/Libraries
@@ -11,10 +11,10 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 BuildRequires: make libva-devel gcc-c++ cmake
 
 BuildRequires: intel-gmmlib-devel = 19.4.1
-BuildRequires: intel-igc-opencl-devel = 1.0.3445
+BuildRequires: intel-igc-opencl-devel = 1.0.3471
 
 Requires: intel-gmmlib = 19.4.1
-Requires: intel-igc-opencl = 1.0.3445
+Requires: intel-igc-opencl = 1.0.3471
 
 %description
 Intel(R) Graphics Compute Runtime for OpenCL(TM).
@@ -43,6 +43,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/bin/ocloc
 %doc
 
 %changelog
+* Fri Mar 13 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.10.16087-1
+- Update to 20.10.16087
+
 * Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
 - Fix ocloc permissions
 
