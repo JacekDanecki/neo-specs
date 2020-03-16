@@ -1,5 +1,5 @@
 #!/bin/bash
 
-apt-get -y update
-apt-get -y install libigc-dev
+apt -y update
+apt -y install libigc-dev
 
