@@ -2,11 +2,11 @@
 %global opencl_clang_commit v9.0.1
 %global spirv_llvm_translator_commit v9.0.1-1
 %global llvm_patches_commit 1c93162ab33af968c22fe1cbfb12ea87f5a25bfa
-%global igc_commit fcfd6f6bd2b510250f3801f4c940e82579e841ca
-%global patch_version 3529
+%global igc_commit 9d80b13069055c3a320988b8d1a3c305e7007571
+%global patch_version 3572
 
 Name: intel-igc
-Version: 1.0.3529
+Version: 1.0.3572
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -105,6 +105,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
 %doc
 
 %changelog
+* Tue Mar 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3572-1
+- Update to 1.0.3572
+
 * Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3529-1
 - Update to 1.0.3529
 

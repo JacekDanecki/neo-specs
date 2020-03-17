@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3572-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.3572 commit:9d80b13069055c3a320988b8d1a3c305e7007571
+
+ -- OpenCL builder <compute-runtime@intel.com>  Tue, 17 Mar 2020 10:07:57 +0100
+
 intel-graphics-compiler (1.0.3529-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 1.0.3529 commit:fcfd6f6bd2b510250f3801f4c940e82579e841ca
