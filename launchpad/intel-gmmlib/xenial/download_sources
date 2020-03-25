@@ -4,6 +4,6 @@
 
 rm -f intel-gmmlib_${gmm_ver}.orig.tar.gz
 wget --no-check-certificate https://github.com/intel/gmmlib/archive/${gmmlib_commit}/intel-gmmlib_${gmm_ver}.orig.tar.gz
-rm gmmlib.tar.gz
+rm -f gmmlib.tar.gz
 ln -s intel-gmmlib_${gmm_ver}.orig.tar.gz gmmlib.tar.gz
 
