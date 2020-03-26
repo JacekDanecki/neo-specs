@@ -3,8 +3,8 @@ source builds
 source ../../versions
 url=https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-rawhide-x86_64
 
-wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-${gmm_ver}-1.fc32.x86_64.rpm
-wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-devel-${gmm_ver}-1.fc32.x86_64.rpm
+wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-${gmm_ver}-1.fc33.x86_64.rpm
+wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-devel-${gmm_ver}-1.fc33.x86_64.rpm
 
 wget ${url}/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.fc33.x86_64.rpm
 wget ${url}/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.fc33.x86_64.rpm
