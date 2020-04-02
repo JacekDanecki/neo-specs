@@ -1,0 +1,6 @@
+level-zero (@VER@-1~ppa1~xenial1) xenial; urgency=medium
+
+  * Update to @VER@ commit:@COMMIT@
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  @DATE@
+

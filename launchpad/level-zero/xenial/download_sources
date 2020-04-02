@@ -1,0 +1,11 @@
+#!/bin/bash
+
+. ../../../versions
+
+rm -f level-zero_*.orig.tar.gz
+wget --no-check-certificate https://github.com/oneapi-src/level-zero/archive/${level_zero_commit}/level-zero_${level_zero_ver}.orig.tar.gz
+rm -f level-zero.tar.gz
+ln -s level-zero_${level_zero_ver}.orig.tar.gz level-zero.tar.gz
+
+scp level-zero_${level_zero_ver}.orig.tar.gz mirror:/tmp
+

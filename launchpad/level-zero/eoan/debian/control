@@ -1,0 +1,37 @@
+Source: level-zero
+Section: libs
+Priority: optional
+Maintainer: Jacek Danecki <jacek.danecki@intel.com>
+Build-Depends:
+ debhelper (>=11),
+ cmake,
+ opencl-headers,
+ pkg-config
+Standards-Version: 4.3.0
+Homepage: https://github.com/oneapi-src/level-zero
+
+Package: libze-loader
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+Breaks:
+ level-zero
+Replaces:
+ level-zero
+Description: oneAPI Level Zero Loader
+ oneAPI Level Zero Loader
+
+Package: libze-loader-dev
+Section: libdevel
+Architecture: amd64
+Depends:
+ ${misc:Depends},
+ libze-loader (= ${binary:Version})
+Breaks:
+ level-zero-devel
+Replaces:
+ level-zero-devel
+Description: Development package for Level Zero
+ This package contains Level Zero development files.
+
