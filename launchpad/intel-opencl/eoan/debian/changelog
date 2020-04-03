@@ -1,3 +1,9 @@
+intel-opencl (20.12.16259-1~ppa1~eoan2) eoan; urgency=medium
+
+  * Fix dependencies
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 03 Apr 2020 16:37:31 +0200
+
 intel-opencl (20.12.16259-1~ppa1~eoan1) eoan; urgency=medium
 
   * Update to 20.12.16259 commit:43016c65591bd125a9590ea05ca83d094a628f79
