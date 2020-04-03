@@ -5,9 +5,10 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=11),
  cmake,
- libigc-dev (>= 1.0.3529-1~),
+ libigc-dev (>= 1.0.3586-1~),
  libigdgmm-dev (>= 19.4.1-1~),
  libva-dev,
+ libze-loader-dev (>= 0.91.2-1~),
  pkg-config
 Standards-Version: 3.9.7
 Homepage: https://github.com/intel/compute-runtime
@@ -17,7 +18,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.3529-1~),
+ libigc (>= 1.0.3586-1~),
  libigdgmm11 (>= 19.4.1-1~)
 Breaks:
  intel-opencl
@@ -39,3 +40,20 @@ Description: Intel graphics compute runtime for OpenCL
  - Intel Atom Processors with Gen9 graphics devices (Apollo Lake, Gemini Lake) - OpenCL 1.2
  - Intel Core Processors with Gen11 graphics devices (Ice Lake) - OpenCL 2.1
  - Intel Core Processors with Gen12 graphics devices (Tiger Lake) - OpenCL 2.1
+
+Package: libze-intel-gpu
+Architecture: amd64
+Depends:
+ ${shlibs:Depends},
+ ${misc:Depends},
+ libigc (>= 1.0.3586-1~),
+ libigdgmm11 (>= 19.4.1-1~)
+Breaks:
+ intel-level-zero-gpu
+Replaces:
+ intel-level-zero-gpu
+Description: Intel(R) Graphics Compute Runtime for oneAPI Level Zero.
+ Level Zero is the primary low-level interface for language and runtime
+ libraries. Level Zero offers fine-grain control over accelerators
+ capabilities, delivering a simplified and low-latency interface to
+ hardware, and efficiently exposing hardware capabilities to applications.

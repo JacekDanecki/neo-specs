@@ -1,0 +1,4 @@
+etc/OpenCL/vendors/intel.icd
+usr/bin/ocloc
+usr/lib/x86_64-linux-gnu/intel-opencl/libigdrcl.so
+
