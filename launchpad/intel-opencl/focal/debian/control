@@ -8,6 +8,7 @@ Build-Depends:
  libigc-dev (>= 1.0.3586-1~),
  libigdgmm-dev (>= 19.4.1-2~),
  libva-dev,
+ libze-loader-dev (>= 0.91.2-1~),
  pkg-config
 Standards-Version: 4.3.0
 Homepage: https://github.com/intel/compute-runtime
