@@ -1,3 +1,9 @@
+intel-opencl (20.12.16259-1~ppa1~focal2) focal; urgency=medium
+
+  * Fix dependencies
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 03 Apr 2020 14:40:46 +0000
+
 intel-opencl (20.12.16259-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 20.12.16259 commit:43016c65591bd125a9590ea05ca83d094a628f79
