@@ -1,3 +1,6 @@
+set -e
+set -x
+
 neo_ver=20.12.16259
 neo_commit=43016c65591bd125a9590ea05ca83d094a628f79
 gmm_ver=19.4.1

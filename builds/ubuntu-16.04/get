@@ -5,6 +5,6 @@ wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigdg
 wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigdgmm-dev_${gmm_ver}-1~ppa1~xenial1_amd64.deb
 wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigc-dev_${igc_ver}-1~ppa1~xenial1_amd64.deb
 wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libigc_${igc_ver}-1~ppa1~xenial1_amd64.deb
-wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/intel-opencl-icd_${neo_ver}-1~ppa1~xenial1_amd64.deb
-
-
+wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/intel-opencl-icd_${neo_ver}-1~ppa1~xenial2_amd64.deb
+wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libze-intel-gpu_${neo_ver}-1~ppa1~xenial2_amd64.deb
+wget https://launchpad.net/~jdanecki/+archive/ubuntu/intel-opencl/+files/libze-loader_${level_zero_ver}-1~ppa1~xenial1_amd64.deb
