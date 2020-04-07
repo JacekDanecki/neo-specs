@@ -5,4 +5,4 @@ wget https://github.com/intel/compute-runtime/releases/download/${neo_ver}/intel
 wget https://github.com/intel/compute-runtime/releases/download/${neo_ver}/intel-igc-core_${igc_ver}_amd64.deb
 wget https://github.com/intel/compute-runtime/releases/download/${neo_ver}/intel-igc-opencl_${igc_ver}_amd64.deb
 wget https://github.com/intel/compute-runtime/releases/download/${neo_ver}/intel-opencl_${neo_ver}_amd64.deb
-
+wget https://github.com/intel/compute-runtime/releases/download/${neo_ver}/intel-level-zero-gpu_${level_zero_gpu_ver}.${neo_build}_amd64.deb

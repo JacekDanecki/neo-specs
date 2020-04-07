@@ -1,8 +1,13 @@
-Name: intel-opencl
-Version: 20.11.16158
-Release: 1%{?dist}
-Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
+%global NEO_MAJOR 20
+%global NEO_MINOR 12
+%global NEO_BUILD 16259
+%global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
+%global L0_ver 0.8
 
+Name: intel-opencl
+Version: %{NEO_ver}
+Release: 2%{?dist}
+Summary: Intel(R) Graphics Compute Runtime
 Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/compute-runtime
@@ -11,21 +16,29 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3 make
 BuildRequires: intel-gmmlib-devel = 19.4.1
-BuildRequires: intel-igc-opencl-devel = 1.0.3529
+BuildRequires: intel-igc-opencl-devel = 1.0.3586
+BuildRequires: level-zero-devel = 0.91.2
 
 Requires: intel-gmmlib = 19.4.1
-Requires: intel-igc-opencl = 1.0.3529
+Requires: intel-igc-opencl = 1.0.3586
 
-%description
+%description -n intel-opencl
 Intel(R) Graphics Compute Runtime for OpenCL(TM).
 
+%package -n intel-level-zero-gpu
+Summary: Intel(R) Graphics Compute Runtime for Level Zero
+Version: %{L0_ver}.%{NEO_BUILD}
+%description -n intel-level-zero-gpu
+Intel(R) Graphics Compute Runtime for Level Zero
+Requires: level-zero = 0.91.2
+
 %prep
-%autosetup -n compute-runtime-%{version}
+%autosetup -n compute-runtime-%{NEO_ver}
 
 %build
 mkdir build
 cd build
-scl enable devtoolset-7 'cmake3 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -DNEO_DRIVER_VERSION=%{version} -DCMAKE_CXX_FLAGS="${RPM_OPT_FLAGS}" -DSKIP_UNIT_TESTS=1 ..'
+scl enable devtoolset-7 'cmake3 -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DCMAKE_CXX_FLAGS="${RPM_OPT_FLAGS}" -DSKIP_UNIT_TESTS=1 ..'
 scl enable devtoolset-7 "make -j`nproc`"
 
 %install
@@ -40,9 +53,20 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %config(noreplace)
 /etc/OpenCL/vendors/intel.icd
 
+%files -n intel-level-zero-gpu
+%{_libdir}/libze_intel_gpu.so.%{L0_ver}
+%{_libdir}/libze_intel_gpu.so.%{L0_ver}.%{NEO_BUILD}
+
 %doc
 
 %changelog
+* Tue Mar 31 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-2
+- Fix reported version
+
+* Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-1
+- Update to 20.12.16259
+- Compile with Level Zero
+
 * Fri Mar 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.11.16158-1
 - Update to 20.11.16158
 

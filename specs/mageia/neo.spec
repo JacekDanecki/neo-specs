@@ -1,7 +1,13 @@
+%global NEO_MAJOR 20
+%global NEO_MINOR 12
+%global NEO_BUILD 16259
+%global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
+%global L0_ver 0.8
+
 Name: intel-opencl
-Version: 20.11.16158
+Version: %{NEO_ver}
 Release: 1%{?dist}
-Summary: Intel(R) Graphics Compute Runtime for OpenCL(TM)
+Summary: Intel(R) Graphics Compute Runtime
 
 Group: System Environment/Libraries
 License: MIT
@@ -11,19 +17,27 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 BuildRequires: make libva-devel gcc-c++ cmake
 
 BuildRequires: intel-gmmlib-devel = 19.4.1
-BuildRequires: intel-igc-opencl-devel = 1.0.3529
+BuildRequires: intel-igc-opencl-devel = 1.0.3586
+BuildRequires: level-zero-devel = 0.91.2
 
 Requires: intel-gmmlib = 19.4.1
-Requires: intel-igc-opencl = 1.0.3529
+Requires: intel-igc-opencl = 1.0.3586
 
-%description
+%description -n intel-opencl
 Intel(R) Graphics Compute Runtime for OpenCL(TM).
 
+%package -n intel-level-zero-gpu
+Summary: Intel(R) Graphics Compute Runtime for Level Zero
+Version: %{L0_ver}.%{NEO_BUILD}
+%description -n intel-level-zero-gpu
+Intel(R) Graphics Compute Runtime for Level Zero
+Requires: level-zero = 0.91.2
+
 %prep
-%autosetup -n compute-runtime-%{version}
+%autosetup -n compute-runtime-%{NEO_ver}
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_DRIVER_VERSION=%{version} -DSKIP_UNIT_TESTS=1
+%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1
 %make_build
 
 %install
@@ -38,9 +52,17 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %config(noreplace)
 /etc/OpenCL/vendors/intel.icd
 
+%files -n intel-level-zero-gpu
+%{_libdir}/libze_intel_gpu.so.%{L0_ver}
+%{_libdir}/libze_intel_gpu.so.%{L0_ver}.%{NEO_BUILD}
+
 %doc
 
 %changelog
+* Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-1
+- Update to 20.12.16259
+- Compile with Level Zero
+
 * Fri Mar 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.11.16158-1
 - Update to 20.11.16158
 

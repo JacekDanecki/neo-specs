@@ -1,14 +1,14 @@
-%global opencl_clang_commit 9.0.1
+%global opencl_clang_commit 6c384160d03b7b8eb9c0a5e5eff265aa2b0084fd
 %global spirv_llvm_translator_commit 9.0.1-1
 
 Name:       intel-opencl-clang
-Version:    9.0.15
+Version:    9.0.17
 Release:    1%{?dist}
 Summary:    Intel(R) OpenCL(TM) Clang
 
 License:    MIT
 URL: https://github.com/intel/opencl-clang
-Source0: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
+Source0: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Source1: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 
 BuildRequires: cmake gcc-c++ make llvm-devel clang-devel pkg-config python3 git
@@ -70,6 +70,9 @@ popd
 %doc
 
 %changelog
+* Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 9.0.17-1
+- Update to 9.0.17
+
 * Fri Mar 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 9.0.15-1
 - Update to 9.0.15
 

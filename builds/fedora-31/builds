@@ -1,4 +1,5 @@
 gmm_build=01142767
-igc_build=01315367
-neo_build=01315461
-opencl_clang_build=01315342
+igc_build=01322052
+neo_build=01324146
+opencl_clang_build=01321945
+level_zero_build=01323689

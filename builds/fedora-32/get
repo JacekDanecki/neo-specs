@@ -15,5 +15,7 @@ wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedor
 wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${spirv_llvm_translator_build}-spirv-llvm-translator/spirv-llvm-translator-${spirv_llvm_translator_ver}-1.fc32.x86_64.rpm
 wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${spirv_llvm_translator_build}-spirv-llvm-translator/spirv-llvm-translator-devel-${spirv_llvm_translator_ver}-1.fc32.x86_64.rpm
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc32.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-2.fc32.x86_64.rpm
 
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${level_zero_build}-level-zero/level-zero-${level_zero_ver}-1.fc32.x86_64.rpm
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${level_zero_build}-level-zero/level-zero-devel-${level_zero_ver}-1.fc32.x86_64.rpm
