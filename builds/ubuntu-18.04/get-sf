@@ -11,7 +11,7 @@ URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/$
 for p in intel-gmmlib_${gmm_ver} \
     intel-igc-core_${igc_ver} intel-igc-opencl_${igc_ver} \
     intel-opencl_${neo_ver} \
-    intel-level-zero-gpu_${level_zero_gpu_ver}.${neo_build}
+    intel-level-zero-gpu_${level_zero_gpu_ver}.${neo_build_ver}
 do
     f=${p}_amd64.deb
     wget -O sf/$f ${URL}/$f
