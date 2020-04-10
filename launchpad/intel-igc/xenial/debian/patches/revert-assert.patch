@@ -1,6 +1,6 @@
-From a8bdb44761754c90564f9df6af4881875b0dc4ca Mon Sep 17 00:00:00 2001
+From c9a2c1fa5d1228e7969a191addef31e3b25fe1b8 Mon Sep 17 00:00:00 2001
 From: Jacek Danecki <jacek.danecki@intel.com>
-Date: Mon, 24 Feb 2020 15:34:35 +0100
+Date: Fri, 10 Apr 2020 10:56:12 +0200
 Subject: Revert "remove static assert macros: __CODEGEN_C_ASSERT,
  __CODEGEN_ASSERT, C_ASSERT, STATIC_ASSERT"
 
@@ -392,10 +392,10 @@ index 15574495..559a3ce4 100644
  }  // namespace G6HWC
  
 diff --git a/igc/IGC/AdaptorOCL/OCL/sp/sp_convert_g8.h b/igc/IGC/AdaptorOCL/OCL/sp/sp_convert_g8.h
-index 26c45d68..6cacea1f 100644
+index 62c06d2c..1bb95973 100644
 --- a/igc/IGC/AdaptorOCL/OCL/sp/sp_convert_g8.h
 +++ b/igc/IGC/AdaptorOCL/OCL/sp/sp_convert_g8.h
-@@ -48,8 +48,8 @@ static const G6HWC::GFXSHAREDSTATE_TEXCOORDMODE g_cConvertSamplerTextureAddressM
+@@ -49,8 +49,8 @@ static const G6HWC::GFXSHAREDSTATE_TEXCOORDMODE g_cConvertSamplerTextureAddressM
      G6HWC::GFXSHAREDSTATE_TEXCOORDMODE_MIRROR_101      // SAMPLER_TEXTURE_ADDRESS_MODE_MIRROR101
  };
  
@@ -406,7 +406,7 @@ index 26c45d68..6cacea1f 100644
  
  /*****************************************************************************\
  CONST: g_cConvertSamplerMapFilter
-@@ -64,8 +64,8 @@ static const G6HWC::GFXSHAREDSTATE_MAPFILTER g_cConvertSamplerMapFilter[] =
+@@ -65,8 +65,8 @@ static const G6HWC::GFXSHAREDSTATE_MAPFILTER g_cConvertSamplerMapFilter[] =
      G6HWC::GFXSHAREDSTATE_MAPFILTER_MONO            // SAMPLER_MAPFILTER_MONO
  };
  
@@ -417,7 +417,7 @@ index 26c45d68..6cacea1f 100644
  
  /*****************************************************************************\
  CONST: g_cConvertSamplerMipFilter
-@@ -77,7 +77,7 @@ static const G6HWC::GFXSHAREDSTATE_MIPFILTER g_cConvertSamplerMipFilter[] =
+@@ -78,7 +78,7 @@ static const G6HWC::GFXSHAREDSTATE_MIPFILTER g_cConvertSamplerMipFilter[] =
      G6HWC::GFXSHAREDSTATE_MIPFILTER_NONE            // SAMPLER_MIPFILTER_NONE
  };
  
@@ -426,7 +426,7 @@ index 26c45d68..6cacea1f 100644
      sizeof(G6HWC::GFXSHAREDSTATE_MAPFILTER) * NUM_SAMPLER_MIPFILTER_TYPES);
  
  /*****************************************************************************\
-@@ -95,7 +95,7 @@ static const G6HWC::GFXSHAREDSTATE_PREFILTER_OPERATION g_cConvertCompareFunc[] =
+@@ -96,7 +96,7 @@ static const G6HWC::GFXSHAREDSTATE_PREFILTER_OPERATION g_cConvertCompareFunc[] =
      G6HWC::GFXSHAREDSTATE_PREFILTER_GREATER    // SAMPLER_COMPARE_FUNC_GREATER_EQUAL
  };
  
@@ -435,7 +435,7 @@ index 26c45d68..6cacea1f 100644
      sizeof(G6HWC::GFXSHAREDSTATE_PREFILTER_OPERATION) * NUM_SAMPLER_COMPARE_FUNC_TYPES);
  
  /*****************************************************************************\
-@@ -303,8 +303,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACEFORMAT g_cConvertSurfaceFormat[] =
+@@ -304,8 +304,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACEFORMAT g_cConvertSurfaceFormat[] =
      G6HWC::GFXSHAREDSTATE_SURFACEFORMAT_RAW,                        // IGC::SURFACE_FORMAT_RAW
  };
  
@@ -446,7 +446,7 @@ index 26c45d68..6cacea1f 100644
  
  /*****************************************************************************\
  CONST: g_cConvertSurfaceMipMapLayout
-@@ -315,8 +315,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACE_MIPMAPLAYOUT g_cConvertSurfaceMipMapL
+@@ -316,8 +316,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACE_MIPMAPLAYOUT g_cConvertSurfaceMipMapL
      G6HWC::GFXSHAREDSTATE_SURFACE_MIPMAPLAYOUT_RIGHT,   // RESOURCE_MIPMAP_LAYOUT_RIGHT
  };
  
@@ -457,7 +457,7 @@ index 26c45d68..6cacea1f 100644
  
  /*****************************************************************************\
  CONST: g_cConvertSurfaceType
-@@ -338,8 +338,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACETYPE g_cConvertSurfaceType[] =
+@@ -339,8 +339,8 @@ static const G6HWC::GFXSHAREDSTATE_SURFACETYPE g_cConvertSurfaceType[] =
      G6HWC::GFXSHAREDSTATE_SURFACETYPE_2D        // SURFACE_2D_MEDIA_BLOCK
  };
  
@@ -468,14 +468,14 @@ index 26c45d68..6cacea1f 100644
  
  #if 0
  /*****************************************************************************\
-@@ -359,8 +359,8 @@ static const iOpenCL::IMAGE_MEMORY_OBJECT_TYPE g_cConvertResourceType[] =
-     iOpenCL::IMAGE_MEMORY_OBJECT_2D_MEDIA,  // SHADER_RESOURCE_2D_MEDIA
+@@ -360,8 +360,8 @@ static const iOpenCL::IMAGE_MEMORY_OBJECT_TYPE g_cConvertResourceType[] =
+     iOpenCL::IMAGE_MEMORY_OBJECT_2D_MEDIA,  // IGC::SHADER_RESOURCE_2D_MEDIA
  };
  
 -static_assert(sizeof(g_cConvertResourceType) ==
--    sizeof(iOpenCL::IMAGE_MEMORY_OBJECT_TYPE) * USC::NUM_SHADER_RESOURCE_TYPES);
+-    sizeof(iOpenCL::IMAGE_MEMORY_OBJECT_TYPE) * IGC::NUM_SHADER_RESOURCE_TYPES);
 +C_ASSERT( sizeof(g_cConvertResourceType) ==
-+    sizeof(iOpenCL::IMAGE_MEMORY_OBJECT_TYPE) * USC::NUM_SHADER_RESOURCE_TYPES );
++    sizeof(iOpenCL::IMAGE_MEMORY_OBJECT_TYPE) * IGC::NUM_SHADER_RESOURCE_TYPES );
  #endif
  
  } // namespace iOpenCL
