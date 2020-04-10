@@ -1,4 +1,4 @@
 . ../../../versions
 
-dput ppa:jdanecki/intel-opencl level-zero_${level_zero_ver}-1~ppa1~focal1_source.changes
+dput ppa:jdanecki/intel-opencl level-zero_${level_zero_ver}-1~ppa2~focal1_source.changes
 
