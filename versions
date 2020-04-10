@@ -3,10 +3,9 @@ set -x
 
 neo_ver=19.45.14764
 gmm_ver=20.1.1
-igc_ver=1.0.3627
-opencl_clang_ver=9.0.17
-opencl_clang_ver10=10.0.4
-igc_commit=f1e279a30faaa77be51085d69360da8182ca57e3
+igc_ver=1.0.3752
+opencl_clang_ver=10.0.6
+igc_commit=d2f99291dc66eb49c6fb50a0f6b50dda49003dae
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
-spirv_llvm_translator_ver=10.0.4
+spirv_llvm_translator_ver=10.0.6
 
