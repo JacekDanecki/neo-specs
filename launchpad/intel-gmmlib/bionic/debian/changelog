@@ -1,3 +1,9 @@
+intel-gmmlib (20.1.1-1~ppa2~bionic1) bionic; urgency=medium
+
+  * Fix versions
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 10 Apr 2020 17:56:41 +0200
+
 intel-gmmlib (20.1.1-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 20.1.1 commit:09324e1fe8129b66bdf6b16ed533d56ce654eaa4
