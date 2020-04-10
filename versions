@@ -8,6 +8,6 @@ igc_commit=3605a569ac938ef2cb50ac69e30f8619cd44ceb3
 gmm_ver=20.1.1
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
 opencl_clang_ver=9.0.17
-level_zero_ver=0.91.2
-level_zero_commit=950f710571c357a0cd654f40253d970ee216a73c
+level_zero_ver=0.91.10
+level_zero_commit=ebb363e938a279cf866cb93d28e31aaf0791ea19
 
