@@ -1,1 +1,12 @@
-../xenial/change_changelog
+. ./version
+. ../../../versions
+
+cat changelog.template | \
+sed "s/@VER@/${igc_ver}/"  | \
+sed "s/@DATE@/`date -R`/" | \
+sed "s/@COMMIT@/${igc_commit}/"  > changelog.new
+mv debian/changelog debian/changelog.old
+cat changelog.new debian/changelog.old > debian/changelog
+rm debian/changelog.old
+rm changelog.new
+

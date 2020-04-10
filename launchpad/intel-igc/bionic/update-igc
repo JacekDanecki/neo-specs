@@ -1,1 +1,5 @@
-../xenial/update-igc
+#!/bin/bash
+
+apt -y update
+apt -y install libigc-dev
+

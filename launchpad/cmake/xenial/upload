@@ -1,4 +1,0 @@
-. ./version
-
-dput ppa:jdanecki/intel-opencl cmake_${cmake_ver}-1~ppa1~xenial1_source.changes
-

@@ -1,4 +1,0 @@
-. ../../../versions
-
-pbuilder-dist xenial build intel-opencl_${neo_ver}-1~ppa1~xenial2.dsc
-

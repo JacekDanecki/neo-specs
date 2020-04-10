@@ -1,1 +1,8 @@
-../xenial/prepare-source
+rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo *.ppa.upload
+rm -rf level-zero
+mkdir level-zero
+tar xzf level-zero.tar.gz -C level-zero --strip-components=1
+cd level-zero
+cp -ar ../debian .
+dpkg-buildpackage -S
+

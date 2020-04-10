@@ -1,9 +1,0 @@
-#!/bin/bash
-
-. ../../../versions
-
-rm -f level-zero_*.orig.tar.gz
-scp mirror:/tmp/level-zero_${level_zero_ver}.orig.tar.gz .
-rm -f level-zero.tar.gz
-ln -s level-zero_${level_zero_ver}.orig.tar.gz level-zero.tar.gz
-

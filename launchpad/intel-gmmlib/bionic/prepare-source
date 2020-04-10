@@ -1,1 +1,8 @@
-../xenial/prepare-source
+rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo
+rm -rf gmmlib
+mkdir gmmlib
+tar xzf gmmlib.tar.gz -C gmmlib --strip-components=1
+cd gmmlib
+cp -ar ../debian .
+dpkg-buildpackage -S
+

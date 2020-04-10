@@ -1,4 +1,0 @@
-. ../../../versions
-
-pbuilder-dist xenial build level-zero_${level_zero_ver}-1~ppa1~xenial1.dsc
-

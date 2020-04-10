@@ -1,8 +1,0 @@
-rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo *.ppa.upload
-rm -rf intel-opencl
-mkdir intel-opencl
-tar xzf intel-opencl.tar.gz -C intel-opencl --strip-components=1
-cd intel-opencl
-cp -ar ../debian .
-dpkg-buildpackage -S
-

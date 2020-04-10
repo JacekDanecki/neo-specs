@@ -1,1 +1,5 @@
-../xenial/version
+export llvm_commit=llvmorg-9.0.0
+export opencl_clang_commit=6c384160d03b7b8eb9c0a5e5eff265aa2b0084fd
+export spirv_llvm_translator_commit=v9.0.1-1
+export llvm_patches_commit=1c93162ab33af968c22fe1cbfb12ea87f5a25bfa
+
