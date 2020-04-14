@@ -1,12 +1,12 @@
 set -e
 set -x
-neo_build_ver=16259
-neo_ver=20.12.${neo_build_ver}
-gmm_ver=19.4.1
-igc_ver=1.0.3586
+neo_build_ver=16352
+neo_ver=20.13.${neo_build_ver}
+gmm_ver=20.1.1
+igc_ver=1.0.3627
 opencl_clang_ver=9.0.17
-opencl_clang_ver10=10.0.4
-igc_commit=3605a569ac938ef2cb50ac69e30f8619cd44ceb3
-spirv_llvm_translator_ver=10.0.4
-level_zero_ver=0.91.2
+opencl_clang_ver10=10.0.6
+igc_commit=f1e279a30faaa77be51085d69360da8182ca57e3
+spirv_llvm_translator_ver=10.0.6
+level_zero_ver=0.91.10
 level_zero_gpu_ver=0.8

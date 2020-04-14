@@ -12,7 +12,7 @@ wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedor
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-${opencl_clang_ver}-1.fc31.x86_64.rpm
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-devel-${opencl_clang_ver}-1.fc31.x86_64.rpm
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-2.fc31.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc31.x86_64.rpm
 
 wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${level_zero_build}-level-zero/level-zero-${level_zero_ver}-1.fc31.x86_64.rpm
 wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/fedora-31-x86_64/${level_zero_build}-level-zero/level-zero-devel-${level_zero_ver}-1.fc31.x86_64.rpm
