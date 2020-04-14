@@ -1,13 +1,13 @@
 set -e
 set -x
 
-neo_ver=20.12.16259
-neo_commit=43016c65591bd125a9590ea05ca83d094a628f79
-igc_ver=1.0.3586
-igc_commit=3605a569ac938ef2cb50ac69e30f8619cd44ceb3
+neo_ver=20.14.16441
+neo_commit=4786f1a6c2910207b9f544ef3a087c4cb04280dc
+igc_ver=1.0.3698
+igc_commit=f9706c22c9f697f5ac8bbb3bb675659f62f4ccc5
 gmm_ver=20.1.1
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
-opencl_clang_ver=9.0.17
+opencl_clang_ver=10.0.6
 level_zero_ver=0.91.10
 level_zero_commit=ebb363e938a279cf866cb93d28e31aaf0791ea19
 
