@@ -1,22 +1,22 @@
-%global opencl_clang_commit 0a5a9f67b56431ef7b9436d1af812df6dfb44975
+%global opencl_clang_commit 10.0.0
 
 Name:       intel-opencl-clang
-Version:    10.0.4
+Version:    10.0.6
 Release:    1%{?dist}
 Summary:    Intel(R) OpenCL(TM) Clang
 
 License:    MIT
-Source0: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
+Source0: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Patch0: https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/fedora/32/clang.patch
 
 BuildRequires: cmake gcc-c++ make git clang-devel
-BuildRequires: spirv-llvm-translator-devel >= 10.0.4
+BuildRequires: spirv-llvm-translator-devel >= 10.0.6
 BuildRequires: llvm-devel
 Requires: clang-libs
-Requires: spirv-llvm-translator >= 10.0.4
+Requires: spirv-llvm-translator >= 10.0.6
 
 %description
-Common clang is a thin wrapper library around clang. Common clang has OpenCL-oriented API and is capable to compile OpenCL C kernels to SPIR-V modules.
+OpenCL clang is a thin wrapper library around clang. OpenCL clang has OpenCL-oriented API and is capable to compile OpenCL C kernels to SPIR-V modules.
 
 %package        devel
 Summary:        Development files Intel(R) OpenCL(TM) Clang
@@ -51,6 +51,9 @@ popd
 %doc
 
 %changelog
+* Wed Apr 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.6-1
+* Update to 10.0.6
+
 * Tue Mar 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.4-1
 - Rebuild with spirv-llvm-translator 10.0.4
 - Add workaround to link with clang-cpp library

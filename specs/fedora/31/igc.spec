@@ -1,9 +1,9 @@
-%global igc_commit f1e279a30faaa77be51085d69360da8182ca57e3
-%global patch_version 3627
+%global igc_commit 049ed67092e59eb82327400f16a80057708a4f1f
+%global patch_version 3800
 
 Name: intel-igc
-Version: 1.0.3627
-Release: 2%{?dist}
+Version: 1.0.3800
+Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 Group: System Environment/Libraries
@@ -48,33 +48,41 @@ cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
 popd
 
 %install
-cd build
-%make_install
-rm -fv $RPM_BUILD_ROOT/usr/bin/GenX_IR
+%make_install -C build
+rm -fv %{buildroot}/usr/bin/GenX_IR
 
 %files core
-%defattr(-,root,root)
-/usr/lib64/libiga64.so.*
-/usr/lib64/libigc.so.*
-/usr/bin/iga64
+%{_libdir}/libiga64.so.1
+%{_libdir}/libiga64.so.%{version}
+%{_libdir}/libigc.so.1
+%{_libdir}/libigc.so.%{version}
+%{_bindir}/iga64
 
 %files opencl
-%defattr(-,root,root)
-/usr/lib64/libigdfcl.so.*
+%{_libdir}/libigdfcl.so.1
+%{_libdir}/libigdfcl.so.%{version}
 
 %files opencl-devel
-%defattr(-,root,root)
-/usr/include/igc/*
-/usr/include/iga/*
-/usr/include/visa/*
-/usr/lib64/libiga64.so
-/usr/lib64/libigc.so
-/usr/lib64/libigdfcl.so
-/usr/lib64/pkgconfig/*
+%{_includedir}/igc/*
+%{_includedir}/iga/*
+%{_includedir}/visa/*
+%{_libdir}/libiga64.so
+%{_libdir}/libigc.so
+%{_libdir}/libigdfcl.so
+%{_libdir}/pkgconfig/*
 
 %doc
 
 %changelog
+* Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3800-1
+- Update to 1.0.3800
+
+* Wed Apr 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3752-1
+- Update to 1.0.3752
+
+* Tue Apr 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3750-1
+- Update to 1.0.3750
+
 * Wed Mar 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-2
 - Rebuild with opencl-clang 9.0.17
 

@@ -1,12 +1,12 @@
-%global spirv_llvm_translator_commit 93fede2434bead30713010ca5dc7cc0be6cec4b1
+%global spirv_llvm_translator_commit 10.0.0
 
 Name:           spirv-llvm-translator
-Version:        10.0.4
+Version:        10.0.6
 Release:        1%{?dist}
 
 Summary:        LLVM/SPIR-V Bi-Directional Translator
 License:        NCSA
-Source0:        https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
+Source0:        https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 BuildRequires:  cmake
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -50,6 +50,9 @@ cd build
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Tue Apr 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.6-1
+- Update to 10.0.6-1
+
 * Tue Mar 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.4-1
 - Update to 10.0.4-1
 
