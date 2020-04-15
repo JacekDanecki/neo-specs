@@ -1,4 +1,0 @@
-. ../../../versions
-
-dput ppa:ocl-dev/intel-opencl intel-graphics-compiler_${igc_ver}-1~ppa1~xenial1_source.changes
-

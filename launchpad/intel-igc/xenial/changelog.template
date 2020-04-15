@@ -1,6 +1,0 @@
-intel-graphics-compiler (@VER@-1~ppa1~xenial1) xenial; urgency=medium
-
-  * Update to @VER@ commit:@COMMIT@
-
- -- OpenCL builder <compute-runtime@intel.com>  @DATE@
-
