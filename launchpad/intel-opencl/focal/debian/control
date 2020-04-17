@@ -5,10 +5,10 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=11),
  cmake,
- libigc-dev (>= 1.0.3586-1~),
- libigdgmm-dev (>= 19.4.1-2~),
+ libigc-dev (>= 1.0.3698-1~),
+ libigdgmm-dev (>= 20.1.1),
  libva-dev,
- libze-loader-dev (>= 0.91.2-1~),
+ libze-loader-dev (>= 0.91.10-1~),
  pkg-config
 Standards-Version: 4.3.0
 Homepage: https://github.com/intel/compute-runtime
@@ -18,8 +18,8 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.3586-1~),
- libigdgmm11 (>= 19.4.1-2~)
+ libigc (>= 1.0.3698-1~),
+ libigdgmm11 (>= 20.1.1)
 Breaks:
  intel-opencl
 Replaces:
@@ -46,8 +46,8 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.3586-1~),
- libigdgmm11 (>= 19.4.1-1~)
+ libigc (>= 1.0.3698-1~),
+ libigdgmm11 (>= 20.1.1)
 Breaks:
  intel-level-zero-gpu
 Replaces:

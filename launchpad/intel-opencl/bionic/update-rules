@@ -3,13 +3,9 @@ set -x
 
 source `git rev-parse --show-toplevel`/versions
 
-release=$(awk -F '=' '/^NEO_DRIVER_VERSION/ {print $2}' debian/rules)
-echo "current neo: ${release}"
+sed -i "s/^NEO_MAJOR=.*/NEO_MAJOR=${neo_major}/" debian/rules
+sed -i "s/^NEO_MINOR=.*/NEO_MINOR=${neo_minor}/" debian/rules
+sed -i "s/^NEO_BUILD=.*/NEO_BUILD=${neo_build}/" debian/rules
 
-new_build=$(echo ${neo_ver} | awk -F '.' '{print $3}')
-echo "new build: ${new_build}"
-
-
-sed -i "s/^NEO_DRIVER_VERSION=${release}/NEO_DRIVER_VERSION=${neo_ver}/" debian/rules
 ./change_changelog
 
