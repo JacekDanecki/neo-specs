@@ -1,4 +1,4 @@
 . ../../../versions
 
-dput ppa:jdanecki/intel-opencl intel-opencl_${neo_ver}-1~ppa1~eoan2_source.changes
+dput ppa:jdanecki/intel-opencl intel-opencl_${neo_ver}-1~ppa1~eoan1_source.changes
 
