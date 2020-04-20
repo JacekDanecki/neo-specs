@@ -1,2 +1,3 @@
 find . \( -name "*.rpm" -o -name "*.deb" \) -delete
+find . -name sf -exec rm -r {} \;
 

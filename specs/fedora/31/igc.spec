@@ -1,8 +1,8 @@
-%global igc_commit f1e279a30faaa77be51085d69360da8182ca57e3
-%global patch_version 3627
+%global igc_commit f9706c22c9f697f5ac8bbb3bb675659f62f4ccc5
+%global patch_version 3698
 
 Name: intel-igc
-Version: 1.0.3627
+Version: 1.0.3698
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -73,6 +73,9 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Tue Apr 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3698-1
+- Update to 1.0.3698
+
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-1
 - Update to 1.0.3627
 

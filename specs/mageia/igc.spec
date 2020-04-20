@@ -1,12 +1,12 @@
-%global llvm_commit llvmorg-9.0.0
-%global opencl_clang_commit 6c384160d03b7b8eb9c0a5e5eff265aa2b0084fd
-%global spirv_llvm_translator_commit 9.0.1-1
+%global llvm_commit llvmorg-10.0.0
+%global opencl_clang_commit 10.0.0
+%global spirv_llvm_translator_commit 10.0.0
 %global llvm_patches_commit 1c93162ab33af968c22fe1cbfb12ea87f5a25bfa
-%global igc_commit f1e279a30faaa77be51085d69360da8182ca57e3
-%global patch_version 3627
+%global igc_commit f9706c22c9f697f5ac8bbb3bb675659f62f4ccc5
+%global patch_version 3698
 
 Name: intel-igc
-Version: 1.0.3627
+Version: 1.0.3698
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -14,7 +14,7 @@ Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
-Source1: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
+Source1: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/v%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
@@ -73,10 +73,10 @@ cd build
 %make_install
 
 rm -fv $RPM_BUILD_ROOT/usr/bin/GenX_IR
-rm -fv $RPM_BUILD_ROOT/usr/bin/clang-9
+rm -fv $RPM_BUILD_ROOT/usr/bin/clang-10
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c.h
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c-base.h
-chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
+chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 
 %files core
 %defattr(-,root,root)
@@ -102,6 +102,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.9
 %doc
 
 %changelog
+* Tue Apr 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3698-1
+- Update to 1.0.3698
+
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-1
 - Update to 1.0.3627
 

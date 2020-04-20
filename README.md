@@ -11,15 +11,11 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 ## Supported Linux operating systems
 
 * Centos 7, 8
-* Fedora 30, 31, rawhide
+* Fedora 30, 31, 32, rawhide
 * Mageia 7
 * OpenSUSE Leap 15.1, Tumbleweed
-* Ubuntu 16.04, 18.04, 19.04, 19.10, 20.04
+* Ubuntu 18.04, 19.10, 20.04
  
-## Outdated copr chroots
-
-* RHEL 8 (beta)
-
 ## Branches
 
 * **master** contains scripts to build packages on [copr://jdanecki/intel-opencl](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl)
@@ -32,7 +28,6 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 **ci** branch prepares newer packages required by CI systems:
   * [Semaphore CI](https://semaphoreci.com/jacekdanecki/compute-runtime-2)
   * [Travis CI](https://travis-ci.org/intel/compute-runtime)
-  * [Shippable](https://app.shippable.com/github/intel/compute-runtime)
 
 ## Downloading built packages
 

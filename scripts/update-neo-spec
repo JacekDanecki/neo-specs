@@ -5,4 +5,5 @@ source `git rev-parse --show-toplevel`/versions
 GITUSER=`git config --get user.name`
 EMAIL=`git config --get user.email`
 
-rpmdev-bumpspec --new "${neo_ver}" --comment="Update to ${neo_ver}" --userstring="${GITUSER} <${EMAIL}>" neo.spec
+#rpmdev-bumpspec --new "${neo_ver}" --comment="Update to ${neo_ver}" --userstring="${GITUSER} <${EMAIL}>" neo.spec
+rpmdev-bumpspec  --comment="Update to ${neo_ver}" --userstring="${GITUSER} <${EMAIL}>" neo.spec
