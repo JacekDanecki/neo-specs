@@ -41,10 +41,11 @@ ci |  [copr://jdanecki/intel-opencl-ci](https://copr.fedorainfracloud.org/coprs/
 
 ## Source code repositories used to build packages
 
-* intel-gmmlib (https://github.com/intel/gmmlib)
-* intel-igc (https://github.com/intel/intel-graphics-compiler)
-* intel-opencl-clang (https://github.com/intel/opencl-clang)
-* intel-opencl (https://github.com/intel/compute-runtime)
-* llvm-patches (https://github.com/intel/llvm-patches)
-* SPIRV-LLVM-Translator (https://github.com/KhronosGroup/SPIRV-LLVM-Translator)
-* llvm-project (https://github.com/llvm/llvm-project)
+* [intel-gmmlib](https://github.com/intel/gmmlib)
+* [intel-igc](https://github.com/intel/intel-graphics-compiler)
+* [intel-opencl-clang](https://github.com/intel/opencl-clang)
+* [intel-opencl](https://github.com/intel/compute-runtime)
+* [llvm-patches](https://github.com/intel/llvm-patches)
+* [SPIRV-LLVM-Translator](https://github.com/KhronosGroup/SPIRV-LLVM-Translator)
+* [llvm-project](https://github.com/llvm/llvm-project)
+* [Level Zero Loader](https://github.com/oneapi-src/level-zero)
