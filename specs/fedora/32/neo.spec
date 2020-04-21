@@ -1,6 +1,6 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 14
-%global NEO_BUILD 16441
+%global NEO_MINOR 15
+%global NEO_BUILD 16524
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 0.8
 
@@ -15,11 +15,11 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 BuildRequires: make libva-devel gcc-c++ cmake
 
 BuildRequires: intel-gmmlib-devel = 20.1.1
-BuildRequires: intel-igc-opencl-devel = 1.0.3698
+BuildRequires: intel-igc-opencl-devel = 1.0.3771
 BuildRequires: level-zero-devel = 0.91.10
 
 Requires: intel-gmmlib = 20.1.1
-Requires: intel-igc-opencl = 1.0.3698
+Requires: intel-igc-opencl = 1.0.3771
 
 %description -n intel-opencl
 Intel(R) Graphics Compute Runtime for OpenCL(TM).
@@ -58,6 +58,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.15.16524-1
+- Update to 20.15.16524
+
 * Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.13.16441-1
 - Update to 20.14.16441
 
