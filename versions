@@ -2,13 +2,13 @@ set -e
 set -x
 
 neo_major=20
-neo_minor=14
-neo_build=16441
+neo_minor=15
+neo_build=16524
 neo_ver=${neo_major}.${neo_minor}.${neo_build}
-neo_commit=4786f1a6c2910207b9f544ef3a087c4cb04280dc
-igc_build=3698
+neo_commit=e0633548a9bd025c70bc7f3539eef094b1bc9ce1
+igc_build=3771
 igc_ver=1.0.${igc_build}
-igc_commit=f9706c22c9f697f5ac8bbb3bb675659f62f4ccc5
+igc_commit=577887bf74c51a6084058836720fe58f8c35ca58
 gmm_ver=20.1.1
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
 opencl_clang_ver=10.0.6
