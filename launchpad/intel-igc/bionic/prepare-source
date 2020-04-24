@@ -4,10 +4,10 @@ set -x
 
 . ../../../versions
 
-rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo
-rm -rf intel-graphics-compiler-${igc_ver}
-mkdir intel-graphics-compiler-${igc_ver}
-cd  intel-graphics-compiler-${igc_ver}
+rm -f *.dsc *.changes *.tar.xz *.buildinfo *.ppa.upload
+rm -rf intel-graphics-compiler
+mkdir intel-graphics-compiler
+cd  intel-graphics-compiler
 
 mkdir igc
 tar xzf ../intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz -C igc --strip-components=1
