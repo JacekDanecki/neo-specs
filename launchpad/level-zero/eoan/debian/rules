@@ -1,0 +1,11 @@
+#!/usr/bin/make -f
+LEVEL_ZERO_PATCH=10
+%:
+	dh $@
+
+override_dh_auto_configure:
+	echo $(LEVEL_ZERO_PATCH) > VERSION_PATCH ; \
+	dh_auto_configure -- \
+	-DCMAKE_BUILD_TYPE=Release \
+	-Wno-dev \
+	-DCMAKE_INSTALL_PREFIX=/usr

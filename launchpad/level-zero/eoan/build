@@ -1,0 +1,4 @@
+. ../../../versions
+
+pbuilder-dist eoan build level-zero_${level_zero_ver}-1~ppa1~eoan1.dsc
+
