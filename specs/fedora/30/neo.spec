@@ -1,9 +1,9 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 16
-%global NEO_BUILD 16582
+%global NEO_MINOR 17
+%global NEO_BUILD 16650
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 0.8
-%global IGC_BUILD 3826
+%global IGC_BUILD 3864
 %global GMM_BUILD 20.1.1
 
 Name: intel-opencl
@@ -60,6 +60,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Tue May 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.17.16650-1
+- Update to 20.17.16650
+
 * Fri Apr 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.16.16582-1
 - Update to 20.16.16582
 
