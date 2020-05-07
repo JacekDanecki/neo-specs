@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3951-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 1.0.3951 commit:32b9769184e469deae0dfd6cdc33bd9beff6e293
+
+ -- OpenCL builder <compute-runtime@intel.com>  Thu, 07 May 2020 15:00:07 +0200
+
 intel-graphics-compiler (1.0.3899-1~ppa1~eoan1) eoan; urgency=medium
 
   * Update to 1.0.3899 commit:d5cf8dc51b5b710df7bcf28019cff0afb40571fc
