@@ -10,6 +10,7 @@ Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Patch0:  %{url}/commit/f7e21b5712862afb70e62c8c2114cf4539b14791.patch
 
 BuildRequires: cmake clang gcc-c++ make procps flex bison python3 llvm-devel clang-devel pkg-config
 BuildRequires: intel-opencl-clang-devel >= 9.0.17
