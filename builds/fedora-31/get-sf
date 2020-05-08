@@ -10,7 +10,7 @@ OS=fc31
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
 for p in intel-gmmlib-${gmm_ver}-1 intel-gmmlib-devel-${gmm_ver}-1 \
-    intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
+    intel-igc-core-${igc_ver}-2 intel-igc-opencl-${igc_ver}-2 intel-igc-opencl-devel-${igc_ver}-2 \
     intel-opencl-clang-${opencl_clang9_ver}-1 intel-opencl-clang-devel-${opencl_clang9_ver}-1 \
     intel-opencl-${neo_ver}-1 \
     level-zero-${level_zero_ver}-1 level-zero-devel-${level_zero_ver}-1
