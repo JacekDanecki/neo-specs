@@ -113,7 +113,7 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 * Wed Jan 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-1
 - Update to 1.0.3151
 
-* Tue Dec 19 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-2
+* Thu Dec 19 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-2
 - Fix IGC commit
 
 * Tue Dec 10 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-1
