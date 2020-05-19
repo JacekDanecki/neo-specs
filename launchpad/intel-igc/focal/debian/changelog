@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.3951-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 1.0.3951 commit:32b9769184e469deae0dfd6cdc33bd9beff6e293
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 19 May 2020 11:24:07 +0200
+
 intel-graphics-compiler (1.0.3899-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 1.0.3899 commit:d5cf8dc51b5b710df7bcf28019cff0afb40571fc
