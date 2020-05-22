@@ -1,8 +1,8 @@
-%global igc_commit ee02884c6a2fc3eca62651a53e8dad65608fc352
-%global patch_version 3977
+%global igc_commit 8647693dbf6a0d47b1ef0f3dea3f6b172cc07093
+%global patch_version 4036
 
 Name: intel-igc
-Version: 1.0.3977
+Version: 1.0.4036
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -10,7 +10,6 @@ Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
-Patch0:  %{url}/commit/f7e21b5712862afb70e62c8c2114cf4539b14791.patch
 
 BuildRequires: cmake clang gcc-c++ make procps flex bison python3 llvm-devel clang-devel pkg-config
 BuildRequires: intel-opencl-clang-devel >= 9.0.17
@@ -75,6 +74,9 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Wed May 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4036-1
+- Update to 1.0.4036
+
 * Tue May 12 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3977-1
 - Update to 1.0.3977
 

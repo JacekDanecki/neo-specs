@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.4036-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 1.0.4036 commit:8647693dbf6a0d47b1ef0f3dea3f6b172cc07093
+
+ -- OpenCL builder <compute-runtime@intel.com>  Fri, 22 May 2020 15:52:27 +0200
+
 intel-graphics-compiler (1.0.3977-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 1.0.3977 commit:ee02884c6a2fc3eca62651a53e8dad65608fc352

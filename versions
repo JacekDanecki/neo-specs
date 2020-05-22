@@ -3,11 +3,11 @@ set -x
 
 #neo_ver=19.45.14764
 gmm_ver=20.1.1
-igc_ver=1.0.3977
-opencl_clang_ver=10.0.6
+igc_ver=1.0.4036
+opencl_clang_ver=10.0.8
 level_zero_ver=0.91.10
-igc_commit=ee02884c6a2fc3eca62651a53e8dad65608fc352
+igc_commit=8647693dbf6a0d47b1ef0f3dea3f6b172cc07093
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
 level_zero_commit=ebb363e938a279cf866cb93d28e31aaf0791ea19
-spirv_llvm_translator_ver=10.0.6
+spirv_llvm_translator_ver=10.0.8
 
