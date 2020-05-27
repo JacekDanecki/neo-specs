@@ -2,15 +2,15 @@ set -e
 set -x
 
 neo_major=20
-neo_minor=19
-neo_build=16754
-igc_build=3951
+neo_minor=20
+neo_build=16837
+igc_build=3977
 gmm_ver=20.1.1
 opencl_clang_ver=10.0.6
 level_zero_ver=0.91.10
 
-neo_commit=ef4fae39035edba7cc94799973bc700c94b74e63
-igc_commit=32b9769184e469deae0dfd6cdc33bd9beff6e293
+neo_commit=b9b34659c8817393dd8ce35bf37c167c23cefcff
+igc_commit=ee02884c6a2fc3eca62651a53e8dad65608fc352
 gmmlib_commit=09324e1fe8129b66bdf6b16ed533d56ce654eaa4
 level_zero_commit=ebb363e938a279cf866cb93d28e31aaf0791ea19
 llvm_patches_commit=595c1e3eeb30afc8b6c20855f6a69560f7a9864a
