@@ -5,7 +5,7 @@ do
     popd
 done
 
-for dist in 30 31 32
+for dist in 31 32
 do
     pushd fedora/$dist
     ./update-gmmlib-spec

@@ -1,9 +1,9 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 19
-%global NEO_BUILD 16754
+%global NEO_MINOR 20
+%global NEO_BUILD 16837
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 0.8
-%global IGC_BUILD 3951
+%global IGC_BUILD 3977
 %global GMM_BUILD 20.1.1
 
 Name: intel-opencl
@@ -48,11 +48,13 @@ cd build
 chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 
 %files
-/usr/lib64/intel-opencl/libigdrcl.so
-/usr/bin/ocloc
+%{_libdir}/intel-opencl/libigdrcl.so
+%{_bindir}/ocloc
+%{_includedir}/ocloc_api.h
+%{_libdir}/libocloc.so
 
 %config(noreplace)
-/etc/OpenCL/vendors/intel.icd
+%{_sysconfdir}/OpenCL/vendors/intel.icd
 
 %files -n intel-level-zero-gpu
 %{_libdir}/libze_intel_gpu.so.%{L0_ver}
@@ -61,6 +63,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Tue May 26 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.20.16837-1
+- Update to 20.20.16837
+
 * Fri May 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.19.16754-1
 - Update to 20.19.16754
 
