@@ -1,3 +1,9 @@
+intel-opencl (20.21.16886-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 20.21.16886 commit:852977542973e2f1f2e4d94391530d3d683eb924
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 02 Jun 2020 13:41:19 +0200
+
 intel-opencl (20.20.16837-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 20.20.16837 commit:b9b34659c8817393dd8ce35bf37c167c23cefcff
