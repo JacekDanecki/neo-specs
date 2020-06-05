@@ -13,7 +13,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 * Centos 7, 8
 * Fedora 31, 32, rawhide
 * Mageia 7
-* OpenSUSE Leap 15.1, Tumbleweed
+* OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
 * Ubuntu 18.04, 19.10, 20.04
  
 ## Branches
