@@ -19,7 +19,7 @@ Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_l
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 
-BuildRequires: git make patch pkgconfig python3 bison flex cmake
+BuildRequires: cmake gcc-c++ make flex bison python3 pkg-config git
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -61,10 +61,10 @@ tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
 
 %build
 mkdir build
-
 pushd build
+
 cmake ../igc -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr \
- -DCOMMON_CLANG_LIBRARY_NAME=opencl-clang -DIGC_PACKAGE_RELEASE=%{patch_version}
+ -DIGC_PACKAGE_RELEASE=%{patch_version}
 %make_build
 popd
 
@@ -104,80 +104,5 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 
 %changelog
 * Fri Jun 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4116-1
-- Update to 1.0.4116
-
-* Tue May 26 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-1
-- Update to 1.0.4062
-
-* Wed May 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4036-1
-- Update to 1.0.4036
-
-* Tue May 12 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3977-1
-- Update to 1.0.3977
-
-* Thu May 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3951-1
-- Update to 1.0.3951
-
-* Wed Apr 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3899-1
-- Update to 1.0.3899
-
-* Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3826-1
-- Update to 1.0.3826
-
-* Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3800-1
-- Update to 1.0.3800
-
-* Wed Apr 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3752-1
-- Update to 1.0.3752
-
-* Tue Apr 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3750-1
-- Update to 1.0.3750
-
-* Wed Mar 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-1
-- Update to 1.0.3627
-
-* Tue Mar 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3572-1
-- Update to 1.0.3572
-
-* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3529-1
-- Update to 1.0.3529
-
-* Mon Feb 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3445-1
-- Update to 1.0.3445
-
-* Tue Feb 18 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
-- Update to 1.0.3390
-
-* Wed Feb 12 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3342-1
-- Update to 1.0.3342
-
-* Tue Feb 04 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
-- Update to 1.0.3289
-
-* Wed Jan 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-1
-- Update to 1.0.3151
-
-* Tue Dec 10 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-1
-- Update to 1.0.3041
-
-* Mon Dec 02 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-1
-- Update to 1.0.2990
-
-* Tue Nov 26 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2972-1
-- Update to 1.0.2972
-
-* Tue Nov 26 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2934-1
-- Update to 1.0.2934
-
-* Thu Nov 21 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2916-1
-- Update to 1.0.2916
-
-* Wed Nov 20 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2878-1
-- Update to 1.0.2878
-
-* Thu Nov 14 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2805-1
-- Update to 1.0.2805
-
-* Wed Oct 30 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2714.1-1
-- Update to 1.0.2714.1
+- Package 1.0.4116
 
