@@ -1,7 +1,7 @@
 %global opencl_clang_commit 92f3f7f1a06f25fb13708f87c26b0fbf50924c96
 
 Name:       intel-opencl-clang
-Version:    10.0.11
+Version:    10.0.12
 Release:    1%{?dist}
 Summary:    Intel(R) OpenCL(TM) Clang
 
@@ -9,10 +9,10 @@ License:    MIT
 Source0: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 
 BuildRequires: cmake gcc-c++ make git clang-devel
-BuildRequires: spirv-llvm-translator-devel >= 10.0.8
+BuildRequires: spirv-llvm-translator-devel >= 10.0.12
 BuildRequires: llvm-devel
 Requires: clang-libs
-Requires: spirv-llvm-translator >= 10.0.8
+Requires: spirv-llvm-translator >= 10.0.12
 
 %description
 OpenCL clang is a thin wrapper library around clang. OpenCL clang has OpenCL-oriented API and is capable to compile OpenCL C kernels to SPIR-V modules.
@@ -50,6 +50,9 @@ popd
 %doc
 
 %changelog
+* Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.12-1
+- Update to 10.0.12
+
 * Fri Jun 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.11-1
 - Update to 10.0.11 (v10.0.0-2)
 
