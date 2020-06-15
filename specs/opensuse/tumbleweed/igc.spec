@@ -2,18 +2,19 @@
 %global opencl_clang_commit 10.0.0
 %global spirv_llvm_translator_commit 424e375edc4b915218ab5d1f08670a8d1e92c9d3
 %global llvm_patches_commit 595c1e3eeb30afc8b6c20855f6a69560f7a9864a
-%global igc_commit bd171d27a65dd82a0966f54f012b113e2796d87e
-%global patch_version 4053
+%global igc_commit 18081c401f7bbfeefede84572a066f038a2d0709
+%global patch_version 4062
 
 Name: intel-igc
-Version: 1.0.4053
-Release: 1%{?dist}
+Version: 1.0.4062
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
+Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
 Source1: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
 Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
@@ -55,7 +56,10 @@ popd
 
 mkdir igc
 tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
-
+pushd igc
+patch -p1 < $RPM_SOURCE_DIR/f4efb15429bdaca0122640ae63042a8950b491df.patch
+popd
+ 
 mkdir llvm_patches
 tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
 
@@ -108,6 +112,12 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Mon Jun 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-2
+- Add patch from https://github.com/intel/intel-graphics-compiler/pull/135
+
+* Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-1
+- Update to 1.0.4062
+
 * Mon Jun 01 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4053-1
 - Update to 1.0.4053
 
