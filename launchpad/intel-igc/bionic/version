@@ -1,4 +1,4 @@
 export llvm_commit=llvmorg-10.0.0
-export opencl_clang_commit=v10.0.0
+export opencl_clang_commit=v10.0.0-2
 export spirv_llvm_translator_commit=424e375edc4b915218ab5d1f08670a8d1e92c9d3
 
