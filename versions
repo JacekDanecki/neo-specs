@@ -1,15 +1,15 @@
 set -e
 set -x
 neo_major=20
-neo_minor=24
-neo_build_ver=17065
+neo_minor=25
+neo_build_ver=17111
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
 gmm_ver=20.1.1
-igc_build_ver=4154
+igc_build_ver=4155
 igc_ver=1.0.${igc_build_ver}
 opencl_clang_ver=10.0.12
 opencl_clang9_ver=9.0.17
-igc_commit=173eb2a0f5d0a16f4abc07bbd093056bf0c04ae5
+igc_commit=4d5de0d8643c798e8fdbf408eee247b58671a280
 spirv_llvm_translator_ver=10.0.12
 level_zero_ver=0.91.10
 level_zero_gpu_ver=0.8
