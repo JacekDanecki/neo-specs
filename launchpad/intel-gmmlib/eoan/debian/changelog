@@ -1,3 +1,9 @@
+intel-gmmlib (20.2.2-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 20.2.2 commit:40c7d14fd16a4282410a2f6b0cd59251c8e41d5c
+
+ -- OpenCL builder <compute-runtime@intel.com>  Mon, 06 Jul 2020 16:56:03 +0200
+
 intel-gmmlib (20.1.1-1~ppa1~eoan1) eoan; urgency=medium
 
   * Update to 20.1.1 commit:09324e1fe8129b66bdf6b16ed533d56ce654eaa4
