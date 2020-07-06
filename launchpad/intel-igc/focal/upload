@@ -1,4 +1,4 @@
 . ../../../versions
 
-dput ppa:ocl-dev/intel-opencl  intel-graphics-compiler_${igc_ver}-1~ppa1~focal1_source.changes
+dput ppa:ocl-dev/intel-opencl  intel-graphics-compiler_${igc_ver}-1~ppa1~focal2_source.changes
 
