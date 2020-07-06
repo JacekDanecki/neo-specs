@@ -19,7 +19,7 @@ Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_l
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 
-BuildRequires: git make patch pkgconfig python3 bison flex cmake
+BuildRequires: git make patch pkgconfig python3 python2 bison flex cmake
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
