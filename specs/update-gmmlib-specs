@@ -9,7 +9,7 @@ do
     popd
 done
 
-pushd fedora
+pushd fedora/31
 ./update-gmmlib-spec
 popd
 

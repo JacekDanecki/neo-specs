@@ -1,10 +1,10 @@
-%global major_version 19
-%global minor_version 4
-%global patch_version 1
-%global api_patch_version 762
+%global major_version 20
+%global minor_version 2
+%global patch_version 2
+%global api_patch_version 830
 
 Name:		intel-gmmlib
-Version:    20.1.1
+Version:    20.2.2
 Release:	1%{?dist}
 Summary:	Intel(R) Graphics Memory Management Library Package
 
