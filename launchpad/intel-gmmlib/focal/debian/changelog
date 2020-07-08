@@ -1,3 +1,9 @@
+intel-gmmlib (20.2.2-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 20.2.2 commit:40c7d14fd16a4282410a2f6b0cd59251c8e41d5c
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 08 Jul 2020 14:46:34 +0200
+
 intel-gmmlib (19.4.1-2~ppa1~focal1) focal; urgency=medium
 
   * Rebuild 19.4.1
