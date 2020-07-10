@@ -1,12 +1,12 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit 10.0.0-2
 %global spirv_llvm_translator_commit 4d43f68a30a510b4e7607351caab3df8e7426a6b
-%global llvm_patches_commit 595c1e3eeb30afc8b6c20855f6a69560f7a9864a
-%global igc_commit 4d5de0d8643c798e8fdbf408eee247b58671a280
-%global patch_version 4155
+%global llvm_patches_commit 0e35a4a02de23c235f28505f52c1222731667d17
+%global igc_commit 9a456d81355b266ac60b26c1865935b4a266d6e2
+%global patch_version 4241
 
 Name: intel-igc
-Version: 1.0.4155
+Version: 1.0.4241
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -19,7 +19,7 @@ Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_l
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 
-BuildRequires: cmake gcc-c++ make flex bison python3 pkg-config git
+BuildRequires: cmake gcc-c++ make flex bison python python-base python3 pkg-config git
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -109,6 +109,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
+- Update to 1.0.4241
+
 * Mon Jun 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4155-1
 - Update to 1.0.4155
 
