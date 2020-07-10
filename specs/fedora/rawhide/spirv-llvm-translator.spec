@@ -1,7 +1,7 @@
-%global spirv_llvm_translator_commit 4d43f68a30a510b4e7607351caab3df8e7426a6b
+%global spirv_llvm_translator_commit 424e375edc4b915218ab5d1f08670a8d1e92c9d3
 
 Name:           spirv-llvm-translator
-Version:        10.0.12
+Version:        10.0.14
 Release:        1%{?dist}
 
 Summary:        LLVM/SPIR-V Bi-Directional Translator
@@ -50,6 +50,9 @@ cd build
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Fri Jul 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.14-1
+- Update to 10.0.14-1
+
 * Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 10.0.12-1
 - Update to 10.0.12-1
 

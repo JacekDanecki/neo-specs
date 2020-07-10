@@ -1,5 +1,5 @@
 export llvm_commit=llvmorg-10.0.0
-export opencl_clang_commit=v10.0.0-2
-export spirv_llvm_translator_commit=4d43f68a30a510b4e7607351caab3df8e7426a6b
+export opencl_clang_commit=6a9cd2c7dc37f168dae327564a98cab7c4382a2c
+export spirv_llvm_translator_commit=424e375edc4b915218ab5d1f08670a8d1e92c9d3
 export llvm_patches_commit=0e35a4a02de23c235f28505f52c1222731667d17
 
