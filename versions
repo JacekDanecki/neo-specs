@@ -2,8 +2,8 @@ set -e
 set -x
 
 neo_major=20
-neo_minor=26
-neo_build=17199
+neo_minor=27
+neo_build=17231
 igc_build=4241
 gmm_ver=20.2.2
 opencl_clang_ver=10.0.12
