@@ -1,14 +1,17 @@
-%global igc_commit 6934fa8d2714031192e8d67cf54d89b68b1ff74e
-%global patch_version 4312
-
+%global igc_commit 6baed3e124026a1c3e4296fb356f7b6d0481421c
+%global patch_version 4361
+%global vc_commit d7c5f99bd910a681b907815ebd44ef319ff417c4
+%global spirv_llvm_translator_commit e87b59a77abb30d3b5fb0b3e0555a39acbe5ebb4
 Name: intel-igc
-Version: 1.0.4312
+Version: 1.0.4361
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
+Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
 
 BuildRequires: cmake gcc-c++ make flex bison python3 llvm-devel clang-devel
@@ -37,6 +40,10 @@ Requires:      %{name}-opencl = %{version}-%{release}
 
 %prep
 %autosetup -p1 -n intel-graphics-compiler-%{igc_commit}
+mkdir ../vc-intrinsics
+tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C ../vc-intrinsics --strip-components=1
+mkdir ../llvm-spirv
+tar xzf $RPM_SOURCE_DIR/spirv-llvm-translator.tar.gz -C ../llvm-spirv --strip-components=1
 
 %build
 mkdir build
@@ -75,6 +82,9 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Mon Jul 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4361-1
+- Update to 1.0.4361
+
 * Fri Jul 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4312-1
 - Update to 1.0.4312
 

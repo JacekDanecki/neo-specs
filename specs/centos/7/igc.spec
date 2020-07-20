@@ -1,12 +1,14 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit 6a9cd2c7dc37f168dae327564a98cab7c4382a2c
 %global spirv_llvm_translator_commit 424e375edc4b915218ab5d1f08670a8d1e92c9d3
-%global llvm_patches_commit 0e35a4a02de23c235f28505f52c1222731667d17
-%global igc_commit 6934fa8d2714031192e8d67cf54d89b68b1ff74e
-%global patch_version 4312
+%global llvm_patches_commit 50058902254167a4587d01d14bd6eaaa238d69ab
+%global igc_commit 6baed3e124026a1c3e4296fb356f7b6d0481421c
+%global patch_version 4361
+%global vc_commit d7c5f99bd910a681b907815ebd44ef319ff417c4
+%global vc_spirv_llvm_translator_commit e87b59a77abb30d3b5fb0b3e0555a39acbe5ebb4
 
 Name: intel-igc
-Version: 1.0.4312
+Version: 1.0.4361
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -18,6 +20,8 @@ Source1: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/in
 Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
 Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
+Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
+Source6: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{vc_spirv_llvm_translator_commit}/vc-spirv-llvm-translator.tar.gz
 
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3
@@ -61,6 +65,11 @@ tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
 
 mkdir llvm_patches
 tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
+
+mkdir vc-intrinsics
+tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
+mkdir llvm-spirv
+tar xzf $RPM_SOURCE_DIR/vc-spirv-llvm-translator.tar.gz -C llvm-spirv --strip-components=1
 
 %build
 mkdir build
@@ -106,6 +115,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Mon Jul 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4361-1
+- Update to 1.0.4361
+
 * Fri Jul 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4312-1
 - Update to 1.0.4312
 
