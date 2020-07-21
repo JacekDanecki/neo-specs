@@ -8,10 +8,8 @@
 
 Name: intel-opencl
 Version: %{NEO_ver}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compute Runtime
-
-Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
@@ -39,13 +37,15 @@ Requires: level-zero = 0.91.10
 %autosetup -n compute-runtime-%{NEO_ver}
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1
-%make_build
+mkdir build
+cd build
+%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1 ..
+%cmake_build
 
 %install
 cd build
-%make_install
-chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
+%cmake_install
+chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
@@ -63,6 +63,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Wed Jul 22 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-2
+- Fix build
+
 * Tue Jul 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-1
 - Update to 20.28.17293
 
@@ -105,11 +108,14 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 * Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.15.16524-1
 - Update to 20.15.16524
 
-* Tue Apr 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.14.16441-1
+* Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.13.16441-1
 - Update to 20.14.16441
 
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.13.16352-1
 - Update to 20.13.16352
+
+* Tue Mar 31 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-2
+- Fix reported version
 
 * Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-1
 - Update to 20.12.16259
@@ -121,17 +127,17 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 * Fri Mar 13 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.10.16087-1
 - Update to 20.10.16087
 
-* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-3
 - Fix ocloc permissions
+
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+- Remove libocloc.so from package
 
 * Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-1
 - Update to 20.09.15980
 
-* Fri Feb 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.08.15750-1
+* Mon Mar 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.08.15750-1
 - Update to 20.08.15750
-
-* Fri Feb 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.07.15711-1
-- Update to 20.07.15711
 
 * Fri Feb 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.06.15619-1
 - Update to 20.06.15619
@@ -164,6 +170,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 * Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.49.15055-1
 - Update to 19.49.15055
 - Updated IGC
+
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-2
+- Rebuild with IGC 1.0.2990-2
 
 * Fri Dec 06 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-1
 - Update to 19.48.14977
