@@ -1,3 +1,9 @@
+intel-gmmlib (20.2.3-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 20.2.3 commit:84096c42c8f696e621d0a76caa200a509c524e64
+
+ -- OpenCL builder <compute-runtime@intel.com>  Thu, 30 Jul 2020 17:23:13 +0200
+
 intel-gmmlib (20.2.2-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 20.2.2 commit:40c7d14fd16a4282410a2f6b0cd59251c8e41d5c

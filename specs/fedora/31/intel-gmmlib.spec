@@ -4,7 +4,7 @@
 %global api_patch_version 830
 
 Name:		intel-gmmlib
-Version:    20.2.2
+Version:    20.2.3
 Release:	1%{?dist}
 Summary:	Intel(R) Graphics Memory Management Library Package
 
@@ -59,6 +59,9 @@ cd build
 /usr/lib64/pkgconfig/igdgmm.pc
 
 %changelog
+* Thu Jul 30 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.3-1
+- Update to 20.2.3
+
 * Wed Mar 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.1.1-1
 - Update to 20.1.1
 
