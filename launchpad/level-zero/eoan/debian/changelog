@@ -1,3 +1,9 @@
+level-zero (1.0-1~ppa1~eoan1) eoan; urgency=medium
+
+  * Update to 1.0 commit:fcc7b7aceacf3cbfabaf3c0952ae0cc02d083592
+
+ -- OpenCL builder <compute-runtime@intel.com>  Fri, 07 Aug 2020 18:53:38 +0200
+
 level-zero (0.91.10-1~ppa1~eoan1) eoan; urgency=medium
 
   * Initial package 0.91.10 commit:ebb363e938a279cf866cb93d28e31aaf0791ea19

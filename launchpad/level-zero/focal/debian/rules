@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-LEVEL_ZERO_PATCH=10
+LEVEL_ZERO_PATCH=0
 %:
 	dh $@
 
