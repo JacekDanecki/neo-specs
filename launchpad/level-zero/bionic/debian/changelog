@@ -1,3 +1,9 @@
+level-zero (1.0-2~ppa1~bionic1) bionic; urgency=medium
+
+  * Rebuild without opencl-headers
+
+ -- OpenCL builder <compute-runtime@intel.com>  Mon, 24 Aug 2020 12:21:42 +0200
+
 level-zero (1.0-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 1.0 commit:fcc7b7aceacf3cbfabaf3c0952ae0cc02d083592
