@@ -1,4 +1,0 @@
-. ../../../versions
-
-dput ppa:ocl-dev/intel-opencl level-zero_${level_zero_ver}-2~ppa1~eoan1_source.changes
-

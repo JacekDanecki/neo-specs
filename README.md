@@ -13,7 +13,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 * Fedora 31, 32, rawhide
 * Mageia 7
 * OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
-* Ubuntu 18.04, 19.10, 20.04
+* Ubuntu 18.04, 20.04
 
 ## Supported Linux operating systems on master branch
 
@@ -21,12 +21,8 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 * Fedora 31, 32, rawhide
 * Mageia 7
 * OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
-* Ubuntu 18.04, 19.10, 20.04
+* Ubuntu 18.04, 20.04
  
-## Outdated copr chroots
-
-* RHEL 8 (beta)
-
 ## Branches
 
 * **master** contains scripts to build packages on [copr://jdanecki/intel-opencl](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl)

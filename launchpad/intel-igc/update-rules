@@ -1,4 +1,4 @@
-for dist in bionic eoan focal
+for dist in bionic focal
 do
     pushd $dist
     ./update-rules
