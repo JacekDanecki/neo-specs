@@ -1,3 +1,9 @@
+intel-gmmlib (20.2.4-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 20.2.4 commit:c882f7266bb25b3463635ab231078b049e62f7d1
+
+ -- OpenCL builder <compute-runtime@intel.com>  Thu, 03 Sep 2020 10:30:32 +0200
+
 intel-gmmlib (20.2.3-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 20.2.3 commit:84096c42c8f696e621d0a76caa200a509c524e64
