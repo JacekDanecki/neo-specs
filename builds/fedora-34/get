@@ -1,0 +1,20 @@
+#!/bin/bash
+source builds
+source ../../versions
+url=https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-rawhide-x86_64
+
+wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-${gmm_ver}-1.fc33.x86_64.rpm
+wget ${url}/${gmm_build}-intel-gmmlib/intel-gmmlib-devel-${gmm_ver}-1.fc33.x86_64.rpm
+
+wget ${url}/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.fc33.x86_64.rpm
+wget ${url}/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.fc33.x86_64.rpm
+wget ${url}/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.fc33.x86_64.rpm
+
+wget ${url}/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-${opencl_clang_ver10}-1.fc32.x86_64.rpm
+wget ${url}/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-devel-${opencl_clang_ver10}-1.fc32.x86_64.rpm
+
+wget ${url}/${spirv_llvm_translator_build}-spirv-llvm-translator/spirv-llvm-translator-${spirv_llvm_translator_ver}-1.fc32.x86_64.rpm
+wget ${url}/${spirv_llvm_translator_build}-spirv-llvm-translator/spirv-llvm-translator-devel-${spirv_llvm_translator_ver}-1.fc32.x86_64.rpm
+
+#wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl-ci/fedora-rawhide-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc32.x86_64.rpm
+

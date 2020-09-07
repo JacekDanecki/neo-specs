@@ -9,9 +9,12 @@ do
     popd
 done
 
-pushd fedora/31
-./update-gmmlib-spec
-popd
+for dist in 31 33
+do
+    pushd fedora/$dist
+    ./update-gmmlib-spec
+    popd
+done
 
 pushd mageia
 ./update-gmmlib-spec
