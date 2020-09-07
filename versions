@@ -2,12 +2,12 @@ set -e
 set -x
 
 #neo_ver=19.45.14764
-gmm_ver=20.2.4
+gmm_ver=20.2.5
 igc_ver=1.0.4361
 opencl_clang_ver=10.0.14
 level_zero_ver=1.0
 igc_commit=6baed3e124026a1c3e4296fb356f7b6d0481421c
-gmmlib_commit=c882f7266bb25b3463635ab231078b049e62f7d1
+gmmlib_commit=c1b7e077b5b0b6b97057562aaec574f0da97b37b
 level_zero_commit=fcc7b7aceacf3cbfabaf3c0952ae0cc02d083592
 spirv_llvm_translator_ver=10.0.14
 
