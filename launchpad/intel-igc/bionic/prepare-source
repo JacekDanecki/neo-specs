@@ -24,6 +24,9 @@ tar xzf ../intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz -C llvm-spi
 mkdir opencl-clang
 tar xzf ../intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz -C opencl-clang --strip-components=1
 
+mkdir vc-intrinsics
+tar xzf ../intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
+
 cp -ar ../debian .
 dpkg-buildpackage -S --source-option=--create-empty-orig
 

@@ -12,6 +12,13 @@ cd ..
 tar czf intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz SPIRV-LLVM-Translator
 rm -rf SPIRV-LLVM-Translator
 
+git clone https://github.com/intel/vc-intrinsics
+cd vc-intrinsics
+git checkout -b vc ${vc_intrinsics_commit}
+cd ..
+tar czf intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz vc-intrinsics
+rm -rf vc-intrinsics
+
 wget --no-check-certificate https://github.com/intel/llvm-patches/archive/${llvm_patches_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz
 wget --no-check-certificate https://github.com/intel/intel-graphics-compiler/archive/${igc_commit}/intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz
 
@@ -20,4 +27,5 @@ scp intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz mirror:/tmp
+scp intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz mirror:/tmp
 
