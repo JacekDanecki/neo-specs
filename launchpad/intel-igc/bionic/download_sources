@@ -5,7 +5,13 @@
 
 wget --no-check-certificate https://github.com/llvm/llvm-project/archive/${llvm_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-project.tar.gz
 wget --no-check-certificate https://github.com/intel/opencl-clang/archive/${opencl_clang_commit}/intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz
-wget --no-check-certificate https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/${spirv_llvm_translator_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz
+git clone -b llvm_release_100 https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+cd SPIRV-LLVM-Translator
+git checkout -b open-clang ${spirv_llvm_translator_commit}
+cd ..
+tar czf intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz SPIRV-LLVM-Translator
+rm -rf SPIRV-LLVM-Translator
+
 wget --no-check-certificate https://github.com/intel/llvm-patches/archive/${llvm_patches_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz
 wget --no-check-certificate https://github.com/intel/intel-graphics-compiler/archive/${igc_commit}/intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz
 
