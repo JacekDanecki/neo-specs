@@ -7,7 +7,6 @@ Build-Depends:
  cmake,
  debhelper (>= 11),
  flex,
- python2,
  python3,
  git
 Standards-Version: 4.3.0
