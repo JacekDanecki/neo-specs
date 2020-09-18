@@ -4,7 +4,7 @@ Priority: optional
 Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  bison,
- cmake,
+ cmake (>= 3.13.4),
  debhelper (>= 11),
  flex,
  python,
