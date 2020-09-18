@@ -1,0 +1,8 @@
+rm -f *.dsc *.changes *.debian.tar.xz *.buildinfo
+rm -rf cmake
+mkdir cmake
+tar xzf cmake.tar.gz -C cmake --strip-components=1
+cd cmake
+cp -ar ../debian .
+dpkg-buildpackage -S
+

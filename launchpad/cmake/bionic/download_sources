@@ -1,0 +1,10 @@
+#!/bin/bash
+
+ver=3.13.4
+
+rm -f cmake_${ver}.orig.tar.gz
+wget --no-check-certificate http://deb.debian.org/debian/pool/main/c/cmake/cmake_${ver}.orig.tar.gz
+#wget --no-check-certificate http://deb.debian.org/debian/pool/main/c/cmake/cmake_${ver}-1.debian.tar.xz
+rm -f cmake.tar.gz
+ln -s cmake_${ver}.orig.tar.gz cmake.tar.gz
+
