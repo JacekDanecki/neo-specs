@@ -1,20 +1,19 @@
 Name:       level-zero
-%global patch_version 10
-%global major_version 0
-%global minor_version 91
+%global major_version 1
+%global minor_version 0
+%global patch_version 0
 Version:    %{major_version}.%{minor_version}.%{patch_version}
 Release:    1%{?dist}
 Summary:    oneAPI Level Zero Specification Headers and Loader 
 
 License:    MIT
 URL:        https://github.com/oneapi-src/level-zero
-Source0:    %{url}/archive/v%{version}.tar.gz
+Source0:    %{url}/archive/v%{major_version}.%{minor_version}.tar.gz
 ExclusiveArch:  x86_64
 %define debug_package %{nil}
 
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3 make
-BuildRequires: opencl-headers
 
 %description
 oneAPI Level Zero Specification Headers and Loader 
@@ -28,7 +27,7 @@ The %{name}-devel package contains library and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n level-zero-%{version}
+%autosetup -p1 -n level-zero-%{major_version}.%{minor_version}
 echo %{patch_version} > VERSION_PATCH
 
 %build
@@ -42,9 +41,9 @@ popd
 %make_install -C build
 
 %files
-%{_libdir}/libze_loader.so.%{major_version}.%{minor_version}
+%{_libdir}/libze_loader.so.%{major_version}
 %{_libdir}/libze_loader.so.%{major_version}.%{minor_version}.%{patch_version}
-%{_libdir}/libze_validation_layer.so.%{major_version}.%{minor_version}
+%{_libdir}/libze_validation_layer.so.%{major_version}
 %{_libdir}/libze_validation_layer.so.%{major_version}.%{minor_version}.%{patch_version}
 
 %files devel
@@ -53,6 +52,9 @@ popd
 %{_libdir}/libze_validation_layer.so
 
 %changelog
+* Fri Oct 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 0.91.10-1
 - Update to 0.91.10
 
