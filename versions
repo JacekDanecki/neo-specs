@@ -1,8 +1,8 @@
 set -e
 set -x
 neo_major=20
-neo_minor=38
-neo_build_ver=17961
+neo_minor=39
+neo_build_ver=17972
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
 gmm_ver=20.2.5
 igc_build_ver=5064
@@ -12,7 +12,7 @@ opencl_clang9_ver=9.0.17
 igc_commit=5abb954a968dae18e9e393a09fc0b1195f6b7fd0
 spirv_llvm_translator_ver=10.0.14
 spirv_llvm_translator_commit=424e375edc4b915218ab5d1f08670a8d1e92c9d3
-level_zero_ver=v1.0
+level_zero_ver=1.0.0
 level_zero_gpu_ver=1.0
 llvm_patches_commit=c4a03454d55ed786138128bfd73fba491b31ca7c
 
