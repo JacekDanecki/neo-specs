@@ -6,8 +6,8 @@
 override_dh_auto_configure:
 	dh_auto_configure -- \
 	-DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TYPE=release -DRUN_TEST_SUITE:BOOL='OFF' -Wno-dev \
-	-DMAJOR_VERSION=20 -DMINOR_VERSION=3 -DPATCH_VERSION=1 \
-	-DGMMLIB_API_PATCH_VERSION=899
+	-DMAJOR_VERSION=20 -DMINOR_VERSION=3 -DPATCH_VERSION=2 \
+	-DGMMLIB_API_PATCH_VERSION=905
 
 override_dh_missing:
 	dh_missing --fail-missing
