@@ -1,0 +1,5 @@
+#!/bin/bash
+. ../versions
+
+rsync -av -e ssh src ${USER}@frs.sourceforge.net:/home/frs/project/intel-compute-runtime/${neo_ver}/
+

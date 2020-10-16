@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ../versions
+
+rm -rf llvm-spirv spirv-llvm-translator.tar.gz src
+git clone https://github.com/KhronosGroup/SPIRV-LLVM-Translator.git llvm-spirv
+cd llvm-spirv
+git checkout -b build ${spirv_llvm_translator_commit}
+cd ..
+mkdir src
+tar czf src/spirv-llvm-translator.tar.gz llvm-spirv
+
+
