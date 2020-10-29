@@ -1,10 +1,10 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 40
-%global NEO_BUILD 18075
+%global NEO_MINOR 41
+%global NEO_BUILD 18123
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
-%global IGC_BUILD 5176
-%global GMM_BUILD 20.2.5
+%global IGC_BUILD 5186
+%global GMM_BUILD 20.3.1
 
 Name: intel-opencl
 Version: %{NEO_ver}
@@ -64,6 +64,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Oct 16 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.41.18123-1
+- Update to 20.41.18123
+
 * Thu Oct 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.40.18075-1
 - Update to 20.40.18075
 
