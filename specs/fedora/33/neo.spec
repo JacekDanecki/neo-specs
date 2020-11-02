@@ -8,7 +8,7 @@
 
 Name: intel-opencl
 Version: %{NEO_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Intel(R) Graphics Compute Runtime
 License: MIT
 URL: https://github.com/intel/compute-runtime
@@ -16,11 +16,11 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 
 BuildRequires: make libva-devel gcc-c++ cmake
 
-BuildRequires: intel-gmmlib-devel = %{GMM_BUILD}
+BuildRequires: intel-gmmlib-devel >= %{GMM_BUILD}
 BuildRequires: intel-igc-opencl-devel = 1.0.%{IGC_BUILD}
 BuildRequires: level-zero-devel = 0.91.10
 
-Requires: intel-gmmlib = %{GMM_BUILD}
+Requires: intel-gmmlib >= %{GMM_BUILD}
 Requires: intel-igc-opencl = 1.0.%{IGC_BUILD}
 
 %description -n intel-opencl
@@ -63,6 +63,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Thu Oct 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-3
+- Rebuild with newer gmmlib
+
 * Wed Jul 22 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-2
 - Fix build
 
