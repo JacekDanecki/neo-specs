@@ -1,10 +1,10 @@
 set -e
 set -x
 neo_major=20
-neo_minor=41
-neo_build_ver=18123
+neo_minor=42
+neo_build_ver=18209
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
-gmm_ver=20.3.1
+gmm_ver=20.3.2
 igc_build_ver=5186
 igc_ver=1.0.${igc_build_ver}
 opencl_clang_ver=10.0.16
