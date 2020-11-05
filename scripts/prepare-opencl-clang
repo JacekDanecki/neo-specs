@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. ../versions
+
+if [ ! -d src ]; then mkdir src ; fi
+
+rm -rf opencl-clang opencl-clang.tar.gz src/opencl-clang.tar.gz
+git clone -b ocl-open-100 https://github.com/intel/opencl-clang
+cd opencl-clang
+git reset --hard ${opencl_clang_commit}
+cd ..
+tar czf src/opencl-clang.tar.gz opencl-clang

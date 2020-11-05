@@ -1,14 +1,14 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 28
-%global NEO_BUILD 17293
+%global NEO_MINOR 43
+%global NEO_BUILD 18277
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
-%global L0_ver 0.8
-%global IGC_BUILD 4241
-%global GMM_BUILD 20.2.2
+%global L0_ver 1.0
+%global IGC_BUILD 5353
+%global GMM_BUILD 20.3.2
 
 Name: intel-opencl
 Version: %{NEO_ver}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime
 License: MIT
 URL: https://github.com/intel/compute-runtime
@@ -18,7 +18,7 @@ BuildRequires: make libva-devel gcc-c++ cmake
 
 BuildRequires: intel-gmmlib-devel >= %{GMM_BUILD}
 BuildRequires: intel-igc-opencl-devel = 1.0.%{IGC_BUILD}
-BuildRequires: level-zero-devel = 0.91.10
+BuildRequires: level-zero-devel = 1.0.16
 
 Requires: intel-gmmlib >= %{GMM_BUILD}
 Requires: intel-igc-opencl = 1.0.%{IGC_BUILD}
@@ -31,7 +31,7 @@ Summary: Intel(R) Graphics Compute Runtime for Level Zero
 Version: %{L0_ver}.%{NEO_BUILD}
 %description -n intel-level-zero-gpu
 Intel(R) Graphics Compute Runtime for Level Zero
-Requires: level-zero = 0.91.10
+Requires: level-zero = 1.0.16
 
 %prep
 %autosetup -n compute-runtime-%{NEO_ver}
@@ -63,6 +63,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.43.18277-1
+- Update to 20.43.18277
+
 * Thu Oct 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-3
 - Rebuild with newer gmmlib
 

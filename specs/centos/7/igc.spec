@@ -1,13 +1,13 @@
 %global llvm_commit llvmorg-10.0.0
-%global opencl_clang_commit fdcfda343f493efdd262f0b6f2fae99809030c2f
-%global llvm_patches_commit cfc800519a71522194efcaa9a5dd67ecbff43ffa
-%global igc_commit aaed3363afb9f7298f0e6d02cdc5885b50bc5d3a
-%global patch_version 5186
-%global vc_commit c8c52b5fb14b33e32de9df573b7de186a0c97c94
-%global spirv_src 20.40.18075
+%global opencl_clang_commit 55e6029d724b74bd852f34e699dff3010dfe315d
+%global llvm_patches_commit d8b63ab67d688db9e60bca469d58f6aa3ec6b2a1
+%global igc_commit igc-1.0.5353.1
+%global patch_version 5353
+%global vc_commit eabcd2022cf868a658b257b8ea6ad62acbbe7dc5
+%global src 20.43.18277
 
 Name: intel-igc
-Version: 1.0.5186
+Version: 1.0.5353
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -15,9 +15,9 @@ Group: System Environment/Libraries
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
-Source1: https://github.com/intel/opencl-clang/archive/%{opencl_clang_commit}/intel-opencl-clang.tar.gz
-Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{spirv_src}/src/spirv-llvm-translator.tar.gz
-Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
+Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/opencl-clang.tar.gz
+Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
+Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 
@@ -50,11 +50,10 @@ Requires:      %{name}-opencl = %{version}-%{release}
 
 mkdir llvm-project
 tar xzf $RPM_SOURCE_DIR/llvm-project.tar.gz -C llvm-project --strip-components=1
-mv llvm-project/clang llvm-project/llvm/tools/
 
 pushd llvm-project/llvm/projects
 mkdir opencl-clang llvm-spirv
-tar xzf $RPM_SOURCE_DIR/intel-opencl-clang.tar.gz -C opencl-clang --strip-components=1
+tar xzf $RPM_SOURCE_DIR/opencl-clang.tar.gz -C opencl-clang --strip-components=1
 tar xzf $RPM_SOURCE_DIR/spirv-llvm-translator.tar.gz -C llvm-spirv --strip-components=1
 popd
 
@@ -66,6 +65,9 @@ tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
 
 mkdir vc-intrinsics
 tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
+
+git config --global user.email "jacek.danecki@intel.com"
+git config --global user.name "Jacek Danecki"
 
 %build
 mkdir build
@@ -112,6 +114,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Wed Nov 04 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5353-1
+- Update to 1.0.5353
+
 * Fri Oct 16 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5186-1
 - Update to 1.0.5186
 

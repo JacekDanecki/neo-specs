@@ -1,14 +1,14 @@
 Name:       level-zero
 %global major_version 1
 %global minor_version 0
-%global patch_version 13
+%global patch_version 16
 Version:    %{major_version}.%{minor_version}.%{patch_version}
 Release:    1%{?dist}
 Summary:    oneAPI Level Zero Specification Headers and Loader 
 
 License:    MIT
 URL:        https://github.com/oneapi-src/level-zero
-Source0:    %{url}/archive/v%{major_version}.%{minor_version}.tar.gz
+Source0:    %{url}/archive/v%{version}.tar.gz
 ExclusiveArch:  x86_64
 %define debug_package %{nil}
 
@@ -27,7 +27,7 @@ The %{name}-devel package contains library and header files for
 developing applications that use %{name}.
 
 %prep
-%autosetup -p1 -n level-zero-%{major_version}.%{minor_version}
+%autosetup -p1 -n level-zero-%{version}
 echo %{patch_version} > VERSION_PATCH
 
 %build
@@ -50,8 +50,12 @@ popd
 %{_includedir}/level_zero/*
 %{_libdir}/libze_loader.so
 %{_libdir}/libze_validation_layer.so
-
+%{_libdir}/pkgconfig/libze_loader.pc
+ 
 %changelog
+* Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.16-1
+- Update to 1.0.16
+
 * Thu Oct 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.13-1
 - Update to 1.0.13
 

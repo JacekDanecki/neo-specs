@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. ../versions
+
+if [ ! -d src ]; then mkdir src ; fi
+
+rm -rf llvm-project llvm-project.tar.gz src/llvm-project.tar.gz
+git clone -b release/10.x --depth 200 https://github.com/llvm/llvm-project
+cd llvm-project
+git reset --hard ${llvm_commit}
+cd ..
+tar czf src/llvm-project.tar.gz llvm-project
+
