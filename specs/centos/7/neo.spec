@@ -1,6 +1,6 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 43
-%global NEO_BUILD 18277
+%global NEO_MINOR 44
+%global NEO_BUILD 18297
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
 %global IGC_BUILD 5353
@@ -64,6 +64,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Nov 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.44.18297-1
+- Update to 20.44.18297
+
 * Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.43.18277-1
 - Update to 20.43.18277
 

@@ -1,8 +1,8 @@
 set -e
 set -x
 neo_major=20
-neo_minor=43
-neo_build_ver=18277
+neo_minor=44
+neo_build_ver=18297
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
 gmm_ver=20.3.2
 igc_build_ver=5353
