@@ -1,10 +1,11 @@
 %global NEO_MAJOR 20
-%global NEO_MINOR 43
-%global NEO_BUILD 18277
+%global NEO_MINOR 44
+%global NEO_BUILD 18297
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
 %global IGC_BUILD 5353
 %global GMM_BUILD 20.3.2
+%define debug_package %{nil}
 
 Name: intel-opencl
 Version: %{NEO_ver}
@@ -39,7 +40,7 @@ Requires: level-zero = 1.0.16
 %build
 mkdir build
 cd build
-%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1 ..
+cmake -B "x86_64-redhat-linux-gnu" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1 ..
 %cmake_build
 
 %install
@@ -57,12 +58,15 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %{_sysconfdir}/OpenCL/vendors/intel.icd
 
 %files -n intel-level-zero-gpu
-%{_libdir}/libze_intel_gpu.so.%{L0_ver}
+%{_libdir}/libze_intel_gpu.so.1
 %{_libdir}/libze_intel_gpu.so.%{L0_ver}.%{NEO_BUILD}
 
 %doc
 
 %changelog
+* Fri Nov 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.44.18297-1
+- Update to 20.44.18297
+
 * Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.43.18277-1
 - Update to 20.43.18277
 
