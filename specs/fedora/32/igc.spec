@@ -1,18 +1,28 @@
-%global igc_commit 9a456d81355b266ac60b26c1865935b4a266d6e2
-%global patch_version 4241
+%global llvm_commit llvmorg-10.0.0
+%global opencl_clang_commit 55e6029d724b74bd852f34e699dff3010dfe315d
+%global llvm_patches_commit d8b63ab67d688db9e60bca469d58f6aa3ec6b2a1
+%global igc_commit igc-1.0.5353.1
+%global patch_version 5353
+%global vc_commit eabcd2022cf868a658b257b8ea6ad62acbbe7dc5
+%global src 20.43.18277
 
 Name: intel-igc
-Version: 1.0.4241
+Version: 1.0.5353
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/opencl-clang.tar.gz
+Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
+Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
+Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
+Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
 
-BuildRequires: cmake gcc-c++ make flex bison python3 llvm-devel clang-devel
-BuildRequires: intel-opencl-clang-devel >= 10.0.12
+
+BuildRequires: cmake gcc-c++ make flex bison python3 git
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -25,7 +35,6 @@ Summary:       Intel(R) Graphics Compiler Core
 %package       opencl
 Summary:       Intel(R) Graphics Compiler Frontend
 Requires:      %{name}-core = %{version}-%{release}
-Requires:      intel-opencl-clang >= 10.0.12
 
 %description   opencl
 
@@ -36,13 +45,33 @@ Requires:      %{name}-opencl = %{version}-%{release}
 %description   opencl-devel
 
 %prep
-%autosetup -p1 -n intel-graphics-compiler-%{igc_commit}
+
+mkdir llvm-project
+tar xzf $RPM_SOURCE_DIR/llvm-project.tar.gz -C llvm-project --strip-components=1
+
+pushd llvm-project/llvm/projects
+mkdir opencl-clang llvm-spirv
+tar xzf $RPM_SOURCE_DIR/opencl-clang.tar.gz -C opencl-clang --strip-components=1
+tar xzf $RPM_SOURCE_DIR/spirv-llvm-translator.tar.gz -C llvm-spirv --strip-components=1
+popd
+
+mkdir igc
+tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
+
+mkdir llvm_patches
+tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
+
+mkdir vc-intrinsics
+tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
+
+git config --global user.email "jacek.danecki@intel.com"
+git config --global user.name "Jacek Danecki"
 
 %build
 mkdir build
 pushd build
 
-cmake .. -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
+cmake ../igc -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
  -DIGC_PREFERRED_LLVM_VERSION=10.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version}
 %make_build
 popd
@@ -50,6 +79,10 @@ popd
 %install
 %make_install -C build
 rm -fv %{buildroot}/usr/bin/GenX_IR
+rm -fv $RPM_BUILD_ROOT/usr/bin/clang-10
+rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c.h
+rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c-base.h
+chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 
 %files core
 %{_libdir}/libiga64.so.1
@@ -58,10 +91,12 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %{_libdir}/libigc.so.%{version}
 %{_bindir}/iga64
 %{_libdir}/igc/NOTICES.txt
+%{_libdir}/libSPIRVDLL.so
 
 %files opencl
 %{_libdir}/libigdfcl.so.1
 %{_libdir}/libigdfcl.so.%{version}
+%{_libdir}/libopencl-clang.so.*
 
 %files opencl-devel
 %{_includedir}/igc/*
@@ -75,6 +110,9 @@ rm -fv %{buildroot}/usr/bin/GenX_IR
 %doc
 
 %changelog
+* Tue Nov 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5353-1
+- Update to 1.0.5353
+
 * Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
 - Update to 1.0.4241
 
