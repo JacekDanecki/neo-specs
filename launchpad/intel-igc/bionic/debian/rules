@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-IGC_PACKAGE_RELEASE=5585
+IGC_PACKAGE_RELEASE=5723
 %:
 	export DEB_BUILD_OPTIONS='parallel=1'; dh $@ -D igc/IGC --parallel
 
