@@ -1,3 +1,9 @@
+level-zero (1.0.22-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.22 commit:v1.0.22
+
+ -- OpenCL builder <compute-runtime@intel.com>  Fri, 08 Jan 2021 14:11:00 +0100
+
 level-zero (1.0.16-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 1.0.16 commit:v1.0.16
