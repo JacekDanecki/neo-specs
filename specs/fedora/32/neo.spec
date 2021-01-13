@@ -1,9 +1,9 @@
-%global NEO_MAJOR 20
-%global NEO_MINOR 47
-%global NEO_BUILD 18513
+%global NEO_MAJOR 21
+%global NEO_MINOR 01
+%global NEO_BUILD 18793
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
-%global IGC_BUILD 5585
+%global IGC_BUILD 5964
 %global GMM_BUILD 20.3.2
 %define debug_package %{nil}
 
@@ -19,7 +19,7 @@ BuildRequires: make libva-devel gcc-c++ cmake
 
 BuildRequires: intel-gmmlib-devel >= %{GMM_BUILD}
 BuildRequires: intel-igc-opencl-devel = 1.0.%{IGC_BUILD}
-BuildRequires: level-zero-devel = 1.0.16
+BuildRequires: level-zero-devel = 1.0.22
 
 Requires: intel-gmmlib >= %{GMM_BUILD}
 Requires: intel-igc-opencl = 1.0.%{IGC_BUILD}
@@ -32,7 +32,7 @@ Summary: Intel(R) Graphics Compute Runtime for Level Zero
 Version: %{L0_ver}.%{NEO_BUILD}
 %description -n intel-level-zero-gpu
 Intel(R) Graphics Compute Runtime for Level Zero
-Requires: level-zero = 1.0.16
+Requires: level-zero = 1.0.22
 
 %prep
 %autosetup -n compute-runtime-%{NEO_ver}
@@ -65,6 +65,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.01.18793-1
+- Update to 21.01.18793
+
 * Fri Nov 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.47.18513-1
 - Update to 20.47.18513
 

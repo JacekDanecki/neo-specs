@@ -1,7 +1,7 @@
 Name:       level-zero
 %global major_version 1
 %global minor_version 0
-%global patch_version 16
+%global patch_version 22
 Version:    %{major_version}.%{minor_version}.%{patch_version}
 Release:    1%{?dist}
 Summary:    oneAPI Level Zero Specification Headers and Loader 
@@ -45,14 +45,20 @@ cd build
 %{_libdir}/libze_loader.so.%{major_version}.%{minor_version}.%{patch_version}
 %{_libdir}/libze_validation_layer.so.%{major_version}
 %{_libdir}/libze_validation_layer.so.%{major_version}.%{minor_version}.%{patch_version}
+%{_libdir}/libze_tracing_layer.so.%{major_version}
+%{_libdir}/libze_tracing_layer.so.%{major_version}.%{minor_version}.%{patch_version}
 
 %files devel
 %{_includedir}/level_zero/*
 %{_libdir}/libze_loader.so
 %{_libdir}/libze_validation_layer.so
+%{_libdir}/libze_tracing_layer.so
 %{_libdir}/pkgconfig/libze_loader.pc
 
 %changelog
+* Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.22-1
+- Update to 1.0.22
+
 * Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.16-1
 - Update to 1.0.16
 
