@@ -1,3 +1,9 @@
+level-zero (1.0.22-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 1.0.22 commit:v1.0.22
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 13 Jan 2021 19:44:48 +0100
+
 level-zero (0.91.10-1~ppa2~bionic1) bionic; urgency=medium
 
   * Fix version

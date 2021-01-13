@@ -2,18 +2,17 @@ set -e
 set -x
 
 gmm_ver=20.3.2
-neo_major=20
-neo_minor=28
-neo_build=17293
-igc_build=4241
-opencl_clang_ver=10.0.12
-level_zero_ver=0.91.10
+igc_build=5964
+opencl_clang_ver=10.0.24
+level_zero_ver=1.0.22
+neo_major=21
+neo_minor=01
+neo_build=18793
 
-neo_commit=0d5d793a010e79120bdb0cd54403b88d69349bff
-igc_commit=9a456d81355b266ac60b26c1865935b4a266d6e2
-level_zero_commit=ebb363e938a279cf866cb93d28e31aaf0791ea19
-llvm_patches_commit=0e35a4a02de23c235f28505f52c1222731667d17
+igc_commit=e28b6595883d2e7397e386604b54670563fa1921
 gmmlib_commit=2072b0d1e8ba2cba2f94bc2c1fda89d6e457a50b
+level_zero_commit=v1.0.22
+neo_commit=d7fd9a55e075fde61f7761c7ac6616eeada88cf3
 
 neo_ver=${neo_major}.${neo_minor}.${neo_build}
 igc_ver=1.0.${igc_build}
