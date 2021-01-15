@@ -24,7 +24,7 @@ do
     wget -O sf/$f ${URL}/$f
 done
 
-OS=~ppa2~bionic1
+OS=~ppa1~bionic1
 for p in libze-loader_${level_zero_ver}-1
 do
     f=${p}${OS}_amd64.deb
