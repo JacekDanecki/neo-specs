@@ -1,4 +1,4 @@
 . ../../../versions
 
-pbuilder-dist focal build intel-graphics-compiler_${igc_ver}-1~ppa1~focal1.dsc
+pbuilder-dist focal build intel-graphics-compiler_${igc_ver}-1~ppa1~focal2.dsc
 
