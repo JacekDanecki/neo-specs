@@ -1,6 +1,6 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 01
-%global NEO_BUILD 18793
+%global NEO_MINOR 02
+%global NEO_BUILD 18820
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
 %global IGC_BUILD 5964
@@ -65,6 +65,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Jan 15 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.02.18820-1
+- Update to 21.02.18820
+
 * Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.01.18793-1
 - Update to 21.01.18793
 

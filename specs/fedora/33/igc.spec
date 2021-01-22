@@ -8,7 +8,7 @@
 
 Name: intel-igc
 Version: 1.0.5964
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
@@ -20,7 +20,6 @@ Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
-
 
 BuildRequires: cmake gcc-c++ make flex bison python3 git
 
@@ -35,6 +34,7 @@ Summary:       Intel(R) Graphics Compiler Core
 %package       opencl
 Summary:       Intel(R) Graphics Compiler Frontend
 Requires:      %{name}-core = %{version}-%{release}
+Conflicts:     intel-opencl-clang
 
 %description   opencl
 
@@ -113,6 +113,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Thu Jan 21 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5964-2
+- Rebuild with added conflict with intel-opencl-clang
+
 * Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5964-1
 - Update to 1.0.5964
 
