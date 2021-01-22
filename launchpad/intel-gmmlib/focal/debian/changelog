@@ -1,3 +1,9 @@
+intel-gmmlib (20.3.2-2~ppa1~focal1) focal; urgency=medium
+
+  * Rebuild
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 22 Jan 2021 17:21:05 +0100
+
 intel-gmmlib (20.3.2-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 20.3.2 commit:2072b0d1e8ba2cba2f94bc2c1fda89d6e457a50b
