@@ -4,10 +4,29 @@
 . ../../../versions
 
 rm -f intel-graphics-compiler_*.tar.gz
+git clone -b release/10.x --depth 200 https://github.com/llvm/llvm-project
+cd llvm-project
+git reset --hard ${llvm_commit}
+cd ..
+tar czf intel-graphics-compiler_${igc_ver}.orig-llvm-project.tar.gz llvm-project
+rm -rf llvm-project
 
-wget --no-check-certificate https://github.com/llvm/llvm-project/archive/${llvm_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-project.tar.gz
-wget --no-check-certificate https://github.com/intel/opencl-clang/archive/${opencl_clang_commit}/intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz
-wget --no-check-certificate https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/${spirv_llvm_translator_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz
+git clone -b ocl-open-100 https://github.com/intel/opencl-clang
+cd opencl-clang
+git reset --hard ${opencl_clang_commit}
+cd ..
+tar czf intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz opencl-clang
+rm -rf opencl-clang
+
+wget --no-check-certificate https://github.com/intel/vc-intrinsics/archive/${vc_intrinsics_commit}/intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz
+
+git clone -b llvm_release_100 https://github.com/KhronosGroup/SPIRV-LLVM-Translator
+cd SPIRV-LLVM-Translator
+git reset --hard ${spirv_llvm_translator_commit}
+cd ..
+tar czf intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz SPIRV-LLVM-Translator
+rm -rf SPIRV-LLVM-Translator
+
 wget --no-check-certificate https://github.com/intel/llvm-patches/archive/${llvm_patches_commit}/intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz
 wget --no-check-certificate https://github.com/intel/intel-graphics-compiler/archive/${igc_commit}/intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz
 
@@ -16,4 +35,5 @@ scp intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-llvm-spirv.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-llvm-patches.tar.gz mirror:/tmp
 scp intel-graphics-compiler_${igc_ver}.orig-igc.tar.gz mirror:/tmp
+scp intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz mirror:/tmp
 

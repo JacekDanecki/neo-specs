@@ -3,12 +3,12 @@ Upstream-Name: compute-runtime
 Source: https://github.com/intel/compute-runtime
 
 Files: *
-Copyright: 2018-2020, Intel Corporation
+Copyright: 2018-2021, Intel Corporation
 License: MIT
 
 Files: debian/*
 Copyright:
-         2018-2020 Jacek Danecki <jacek.danecki@intel.com>
+         2018-2021 Jacek Danecki <jacek.danecki@intel.com>
 License: MIT
 
 License: MIT

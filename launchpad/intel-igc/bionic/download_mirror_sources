@@ -4,7 +4,7 @@
 . ../../../versions
 
 rm -f intel-graphics-compiler_*.tar.gz
-for f in llvm-project opencl-clang llvm-spirv llvm-patches igc 
+for f in llvm-project opencl-clang llvm-spirv llvm-patches igc vc-intrinsics
 do
 	scp mirror:/tmp/intel-graphics-compiler_${igc_ver}.orig-${f}.tar.gz .
 done
