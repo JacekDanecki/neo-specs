@@ -1,7 +1,7 @@
 Name:       level-zero
 %global major_version 1
 %global minor_version 0
-%global patch_version 22
+%global patch_version 26
 Version:    %{major_version}.%{minor_version}.%{patch_version}
 Release:    1%{?dist}
 Summary:    oneAPI Level Zero Specification Headers and Loader 
@@ -56,6 +56,9 @@ cd build
 %{_libdir}/pkgconfig/libze_loader.pc
 
 %changelog
+* Fri Jan 22 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.26-1
+- Update to 1.0.26
+
 * Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.22-1
 - Update to 1.0.22
 
