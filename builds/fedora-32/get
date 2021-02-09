@@ -5,9 +5,9 @@ source ../../versions
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${gmm_build}-intel-gmmlib/intel-gmmlib-${gmm_ver}-1.fc32.x86_64.rpm
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${gmm_build}-intel-gmmlib/intel-gmmlib-devel-${gmm_ver}-1.fc32.x86_64.rpm
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-2.fc32.x86_64.rpm
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-2.fc32.x86_64.rpm
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-2.fc32.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.fc32.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.fc32.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.fc32.x86_64.rpm
 
 #wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-${opencl_clang_ver}-1.fc32.x86_64.rpm
 #wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-32-x86_64/${opencl_clang_build}-intel-opencl-clang/intel-opencl-clang-devel-${opencl_clang_ver}-1.fc32.x86_64.rpm

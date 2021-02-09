@@ -17,7 +17,7 @@ do
     wget -O sf/$f ${URL}/$f
 done
 
-OS=~ppa1~focal2
+OS=~ppa1~focal1
 
 for p in libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1
 do
