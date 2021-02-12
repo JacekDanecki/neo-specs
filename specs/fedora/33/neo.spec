@@ -1,11 +1,10 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 04
-%global NEO_BUILD 18912
+%global NEO_MINOR 05
+%global NEO_BUILD 18936
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
 %global IGC_BUILD 6083
 %global GMM_BUILD 20.3.2
-%define debug_package %{nil}
 
 Name: intel-opencl
 Version: %{NEO_ver}
@@ -47,6 +46,9 @@ cmake -B "x86_64-redhat-linux-gnu" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYP
 cd build
 %cmake_install
 chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
+rm -f %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so.debug
+rm -f %{buildroot}/%{_libdir}/libocloc.so.debug
+rm -rf %{buildroot}/usr/lib/debug/
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
@@ -64,6 +66,9 @@ chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Tue Feb 09 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.05.18936-1
+- Update to 21.05.18936
+
 * Mon Feb 01 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.04.18912-1
 - Update to 21.04.18912
 
