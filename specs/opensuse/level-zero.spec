@@ -1,7 +1,7 @@
 Name:       level-zero
-%global patch_version 10
-%global major_version 0
-%global minor_version 91
+%global major_version 1
+%global minor_version 1
+%global patch_version 0
 Version:    %{major_version}.%{minor_version}.%{patch_version}
 Release:    1%{?dist}
 Summary:    oneAPI Level Zero Specification Headers and Loader 
@@ -12,7 +12,7 @@ Source0:    %{url}/archive/v%{version}.tar.gz
 ExclusiveArch:  x86_64
 %define debug_package %{nil}
 
-BuildRequires: gcc-c++ cmake make opencl-headers
+BuildRequires: gcc-c++ cmake make
 
 %description
 oneAPI Level Zero Specification Headers and Loader 
@@ -37,17 +37,24 @@ echo %{patch_version} > VERSION_PATCH
 %make_install -C build
 
 %files
-%{_libdir}/libze_loader.so.%{major_version}.%{minor_version}
+%{_libdir}/libze_loader.so.%{major_version}
 %{_libdir}/libze_loader.so.%{major_version}.%{minor_version}.%{patch_version}
-%{_libdir}/libze_validation_layer.so.%{major_version}.%{minor_version}
+%{_libdir}/libze_validation_layer.so.%{major_version}
 %{_libdir}/libze_validation_layer.so.%{major_version}.%{minor_version}.%{patch_version}
+%{_libdir}/libze_tracing_layer.so.%{major_version}
+%{_libdir}/libze_tracing_layer.so.%{major_version}.%{minor_version}.%{patch_version}
 
 %files devel
 %{_includedir}/level_zero/*
 %{_libdir}/libze_loader.so
 %{_libdir}/libze_validation_layer.so
+%{_libdir}/libze_tracing_layer.so
+%{_libdir}/pkgconfig/libze_loader.pc
 
 %changelog
+* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.1.0-1
+- Update to 1.1.0
+
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 0.91.10-1
 - Update to 0.91.10
 

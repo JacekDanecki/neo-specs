@@ -1,24 +1,25 @@
 %global llvm_commit llvmorg-10.0.0
-%global opencl_clang_commit 10.0.0-2
-%global spirv_llvm_translator_commit 4d43f68a30a510b4e7607351caab3df8e7426a6b
-%global llvm_patches_commit 0e35a4a02de23c235f28505f52c1222731667d17
-%global igc_commit 9a456d81355b266ac60b26c1865935b4a266d6e2
-%global patch_version 4241
+%global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
+%global llvm_patches_commit 9cbc7cfb9bc374be22e1bb2418c5e9385000d755
+%global igc_commit igc-1.0.6087
+%global patch_version 6087
+%global vc_commit 50326439b1d0733c6af697de856d922273e4cfbe
+%global src 21.01.18793
 
 Name: intel-igc
-Version: 1.0.4241
-Release: 1%{?dist}
+Version: 1.0.6087
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
-Source0: https://github.com/intel/intel-graphics-compiler/archive/%{igc_commit}/igc-%{version}.tar.gz
-Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
-Source1: https://github.com/intel/opencl-clang/archive/v%{opencl_clang_commit}/intel-opencl-clang.tar.gz
-Source2: https://github.com/KhronosGroup/SPIRV-LLVM-Translator/archive/%{spirv_llvm_translator_commit}/spirv-llvm-translator.tar.gz
-Source3: https://github.com/llvm/llvm-project/archive/%{llvm_commit}/llvm-project.tar.gz
+Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
+Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/opencl-clang.tar.gz
+Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
+Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
+Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 
 BuildRequires: cmake gcc-c++ make flex bison python python-base python3 pkg-config git
 
@@ -33,6 +34,7 @@ Summary:       Intel(R) Graphics Compiler Core
 %package       opencl
 Summary:       Intel(R) Graphics Compiler Frontend
 Requires:      %{name}-core = %{version}-%{release}
+Conflicts:     intel-opencl-clang
 
 %description   opencl
 
@@ -46,22 +48,24 @@ Requires:      %{name}-opencl = %{version}-%{release}
 
 mkdir llvm-project
 tar xzf $RPM_SOURCE_DIR/llvm-project.tar.gz -C llvm-project --strip-components=1
-mv llvm-project/clang llvm-project/llvm/tools/
 
 pushd llvm-project/llvm/projects
 mkdir opencl-clang llvm-spirv
-tar xzf $RPM_SOURCE_DIR/intel-opencl-clang.tar.gz -C opencl-clang --strip-components=1
+tar xzf $RPM_SOURCE_DIR/opencl-clang.tar.gz -C opencl-clang --strip-components=1
 tar xzf $RPM_SOURCE_DIR/spirv-llvm-translator.tar.gz -C llvm-spirv --strip-components=1
 popd
 
 mkdir igc
 tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
-pushd igc
-patch -p1 < $RPM_SOURCE_DIR/f4efb15429bdaca0122640ae63042a8950b491df.patch
-popd
  
 mkdir llvm_patches
 tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
+
+mkdir vc-intrinsics
+tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
+
+git config --global user.email "jacek.danecki@intel.com"
+git config --global user.name "Jacek Danecki"
 
 %build
 mkdir build
@@ -90,29 +94,39 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 
 %files core
 %defattr(-,root,root)
-/usr/lib64/libiga64.so.*
-/usr/lib64/libigc.so.*
-/usr/bin/iga64
+%{_libdir}/libiga64.so.1
+%{_libdir}/libiga64.so.%{version}
+%{_libdir}/libigc.so.1
+%{_libdir}/libigc.so.%{version}
+%{_bindir}/iga64
 %{_libdir}/igc/NOTICES.txt
+%{_libdir}/libSPIRVDLL.so
 
 %files opencl
 %defattr(-,root,root)
-/usr/lib64/libigdfcl.so.*
-/usr/lib64/libopencl-clang.so.*
+%{_libdir}/libigdfcl.so.1
+%{_libdir}/libigdfcl.so.%{version}
+%{_libdir}/libopencl-clang.so.*
 
 %files opencl-devel
 %defattr(-,root,root)
-/usr/include/igc/*
-/usr/include/iga/*
-/usr/include/visa/*
-/usr/lib64/libiga64.so
-/usr/lib64/libigc.so
-/usr/lib64/libigdfcl.so
-/usr/lib64/pkgconfig/*
+%{_includedir}/igc/*
+%{_includedir}/iga/*
+%{_includedir}/visa/*
+%{_libdir}/libiga64.so
+%{_libdir}/libigc.so
+%{_libdir}/libigdfcl.so
+%{_libdir}/pkgconfig/*
 
 %doc
 
 %changelog
+* Thu Feb 18 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-2
+- Rebuild without patch https://github.com/intel/intel-graphics-compiler/pull/135
+
+* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
+- Update to 1.0.6087
+
 * Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
 - Update to 1.0.4241
 

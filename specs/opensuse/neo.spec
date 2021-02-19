@@ -1,10 +1,10 @@
-%global NEO_MAJOR 20
-%global NEO_MINOR 28
-%global NEO_BUILD 17293
+%global NEO_MAJOR 21
+%global NEO_MINOR 06
+%global NEO_BUILD 18993
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
-%global L0_ver 0.8
-%global IGC_BUILD 4241
-%global GMM_BUILD 20.2.2
+%global L0_ver 1.0
+%global IGC_BUILD 6087
+%global GMM_BUILD 20.3.2
 
 Name: intel-opencl
 Version: %{NEO_ver}
@@ -18,11 +18,11 @@ Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 
 BuildRequires: make libva-devel gcc-c++ cmake
 
-BuildRequires: libigdgmm11-devel = %{GMM_BUILD}
+BuildRequires: libigdgmm11-devel >= %{GMM_BUILD}
 BuildRequires: intel-igc-opencl-devel = 1.0.%{IGC_BUILD}
-BuildRequires: level-zero-devel = 0.91.10
+BuildRequires: level-zero-devel = 1.1.0
 
-Requires: libigdgmm11 = %{GMM_BUILD}
+Requires: libigdgmm11 >= %{GMM_BUILD}
 Requires: intel-igc-opencl = 1.0.%{IGC_BUILD}
 
 %description -n intel-opencl
@@ -33,7 +33,7 @@ Summary: Intel(R) Graphics Compute Runtime for Level Zero
 Version: %{L0_ver}.%{NEO_BUILD}
 %description -n intel-level-zero-gpu
 Intel(R) Graphics Compute Runtime for Level Zero
-Requires: level-zero = 0.91.10
+Requires: level-zero = 1.1.0
 
 %prep
 %autosetup -n compute-runtime-%{NEO_ver}
@@ -45,7 +45,10 @@ Requires: level-zero = 0.91.10
 %install
 cd build
 %make_install
-chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
+chmod +x ${RPM_BUILD_ROOT}/%{_libdir}/intel-opencl/libigdrcl.so
+rm -f ${RPM_BUILD_ROOT}/%{_libdir}/intel-opencl/libigdrcl.so.debug
+rm -f ${RPM_BUILD_ROOT}/%{_libdir}/libocloc.so.debug
+rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
@@ -60,12 +63,15 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %{_sysconfdir}/OpenCL/vendors/intel.icd
 
 %files -n intel-level-zero-gpu
-%{_libdir}/libze_intel_gpu.so.%{L0_ver}
+%{_libdir}/libze_intel_gpu.so.1
 %{_libdir}/libze_intel_gpu.so.%{L0_ver}.%{NEO_BUILD}
 
 %doc
 
 %changelog
+* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.06.18993-1
+- Update to 21.06.18993
+
 * Tue Jul 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-1
 - Update to 20.28.17293
 

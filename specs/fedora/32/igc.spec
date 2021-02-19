@@ -1,14 +1,14 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
 %global llvm_patches_commit 9cbc7cfb9bc374be22e1bb2418c5e9385000d755
-%global igc_commit igc-1.0.6083
-%global patch_version 6083
+%global igc_commit igc-1.0.6087
+%global patch_version 6087
 %global vc_commit 50326439b1d0733c6af697de856d922273e4cfbe
 %global src 21.01.18793
 
 Name: intel-igc
-Version: 1.0.6083
-Release: 1%{?dist}
+Version: 1.0.6087
+Release: 2%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
 License: MIT
@@ -19,7 +19,6 @@ Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/
 Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
 Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
 Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
-Patch0:  %{url}/commit/f4efb15429bdaca0122640ae63042a8950b491df.patch
 
 BuildRequires: cmake gcc-c++ make flex bison python3 git
 
@@ -110,6 +109,12 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Thu Feb 18 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-2
+- Rebuild without patch https://github.com/intel/intel-graphics-compiler/pull/135
+
+* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
+- Update to 1.0.6087
+
 * Mon Feb 01 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6083-1
 - Update to 1.0.6083
 
