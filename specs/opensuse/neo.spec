@@ -1,6 +1,6 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 06
-%global NEO_BUILD 18993
+%global NEO_MINOR 07
+%global NEO_BUILD 19042
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.0
 %global IGC_BUILD 6087
@@ -69,6 +69,9 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 %doc
 
 %changelog
+* Fri Feb 19 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.07.19042-1
+- Update to 21.07.19042
+
 * Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.06.18993-1
 - Update to 21.06.18993
 
