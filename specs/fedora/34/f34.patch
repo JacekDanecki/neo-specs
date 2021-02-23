@@ -1,0 +1,11 @@
+--- igc-orig/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp	2021-01-18 10:31:34.000000000 +0000
++++ igc/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp	2021-02-23 15:36:36.679863553 +0000
+@@ -1305,7 +1305,7 @@ namespace TC
+             pBuffer = new char[optionsSize];
+             nextTok = new char[optionsSize];
+ 
+-            strcpy_s(pBuffer, optionsSize, options);
++            strcpy_s(pBuffer, sizeof(pBuffer), options);
+             pParam = GetParam(pBuffer, nextTok);
+ 
+             if (pParam)
