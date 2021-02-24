@@ -1,11 +1,47 @@
---- igc-orig/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp	2021-01-18 10:31:34.000000000 +0000
-+++ igc/IGC/OCLFE/igd_fcl_mcl/source/clang_tb.cpp	2021-02-23 15:36:36.679863553 +0000
-@@ -1305,7 +1305,7 @@ namespace TC
-             pBuffer = new char[optionsSize];
-             nextTok = new char[optionsSize];
+--- igc-orig/inc/common/secure_string.h	2021-01-18 10:31:34.000000000 +0000
++++ igc/inc/common/secure_string.h	2021-02-24 13:52:31.014123580 +0000
+@@ -33,7 +33,10 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ static inline int
+ strcpy_s(char *strDestination, size_t numberOfElements, const char *strSource)
+ {
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
+     strncpy(strDestination, strSource, numberOfElements);
++#pragma GCC diagnostic pop
+     strDestination[numberOfElements - 1] = '\0';
+     return 0;
+ }
+@@ -42,10 +45,16 @@ static inline int
+ strncpy_s(char *strDestination, size_t numberOfElements, const char *strSource, size_t count)
+ {
+     if( numberOfElements - 1 > count ) {
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
+         strncpy(strDestination, strSource, count);
++#pragma GCC diagnostic pop
+         strDestination[count] = '\0';
+     } else {
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
+         strncpy(strDestination, strSource, numberOfElements - 1);
++#pragma GCC diagnostic pop
+         strDestination[numberOfElements - 1] = '\0';
+     }
+     return 0;
+@@ -59,10 +68,16 @@ strncat_s(char *strDestination, size_t n
+     unsigned int elementsLeft = numberOfElements - existingIndex;
  
--            strcpy_s(pBuffer, optionsSize, options);
-+            strcpy_s(pBuffer, sizeof(pBuffer), options);
-             pParam = GetParam(pBuffer, nextTok);
- 
-             if (pParam)
+     if( elementsLeft > count ) {
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
+         strncpy(strDestination + existingIndex, strSource, count);
++#pragma GCC diagnostic pop
+         strDestination[existingIndex + count] = '\0';
+     } else if( elementsLeft > 1 ) {
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wstringop-overflow"
+         strncpy(strDestination + existingIndex, strSource, elementsLeft - 1);
++#pragma GCC diagnostic pop
+         strDestination[existingIndex + elementsLeft] = '\0';
+     }
+     return 0;
