@@ -1,0 +1,4106 @@
+Author: Björn Esser <me@besser82.io>
+Date:   Tue Aug 23 13:35:29 2016 +0200
+
+Modified by sagitter <sagitter@fedoraproject.org>
+Date    Sun Apr 26 2020
+
+    cmake3-rename.patch
+
+diff --git a/Auxiliary/CMakeLists.txt b/Auxiliary/CMakeLists.txt
+index c003b28..f1e9f42 100644
+--- a/Auxiliary/CMakeLists.txt
++++ b/Auxiliary/CMakeLists.txt
+@@ -1,4 +1,7 @@
+-install(DIRECTORY vim/indent vim/syntax DESTINATION ${CMAKE_DATA_DIR}/editors/vim)
+-install(FILES cmake-mode.el DESTINATION ${CMAKE_DATA_DIR}/editors/emacs)
+-install(FILES cmake.m4 DESTINATION ${CMAKE_XDGDATA_DIR}/aclocal)
++#foreach(_file cmake-help.vim cmake-indent.vim cmake-syntax.vim)
++#  string(REPLACE "cmake" "cmake3" new_name "${_file}")
++#  install(FILES ${_file} DESTINATION ${CMAKE_DATA_DIR}/editors/vim RENAME ${new_name})
++#endforeach(_file cmake-help.vim cmake-indent.vim cmake-syntax.vim)
++install(FILES cmake-mode.el DESTINATION ${CMAKE_DATA_DIR}/editors/emacs RENAME cmake3-mode.el)
++install(FILES cmake.m4 DESTINATION share/aclocal RENAME cmake3.m4)
+ add_subdirectory (bash-completion)
+--- a/Auxiliary/cmake-mode.orig.el	2019-07-16 13:19:54.000000000 +0200
++++ b/Auxiliary/cmake-mode.el	2019-08-30 12:46:28.956582109 +0200
+@@ -12,8 +12,8 @@
+ ;;
+ ;; Add this code to your .emacs file to use the mode:
+ ;;
+-;;  (setq load-path (cons (expand-file-name "/dir/with/cmake-mode") load-path))
+-;;  (require 'cmake-mode)
++;;  (setq load-path (cons (expand-file-name "./cmake3-mode") load-path))
++;;  (require 'cmake3-mode)
+ 
+ ;------------------------------------------------------------------------------
+ 
+diff --git a/Auxiliary/bash-completion/CMakeLists.txt b/Auxiliary/bash-completion/CMakeLists.txt
+index c0a8899..bb7ce47 100644
+--- a/Auxiliary/bash-completion/CMakeLists.txt
++++ b/Auxiliary/bash-completion/CMakeLists.txt
+@@ -5,4 +5,7 @@
+ # add symlinks to the files in appropriate places
+ #  /etc/bash_completion.d/
+ #  DATADIR/completions (may be /usr/share/<package>/completions
+-install(FILES cmake cpack ctest DESTINATION ${CMAKE_DATA_DIR}/completions)
++foreach(_file cmake cpack ctest)
++  set(new_name "${_file}3")
++  install(FILES "${_file}" DESTINATION ${CMAKE_DATA_DIR}/completions RENAME ${new_name})
++endforeach(_file cmake cpack ctest)
+diff --git a/Auxiliary/bash-completion/cmake b/Auxiliary/bash-completion/cmake
+index 6061129..5e6277e 100644
+--- a/Auxiliary/bash-completion/cmake
++++ b/Auxiliary/bash-completion/cmake
+@@ -1,6 +1,6 @@
+-# bash completion for cmake(1)                             -*- shell-script -*-
++# bash completion for cmake3(1)                             -*- shell-script -*-
+ 
+-_cmake()
++_cmake3()
+ {
+     local cur prev words cword split=false
+     if type -t _init_completion >/dev/null; then
+@@ -42,7 +42,7 @@ _cmake()
+                     type="${cur#*:}"
+                     type="${type%%=*}"
+                 else # get type from cache if it's not set explicitly
+-                    type=$( cmake -LA -N 2>/dev/null | grep "$var:" \
++                    type=$( cmake3 -LA -N 2>/dev/null | grep "$var:" \
+                         2>/dev/null )
+                     type="${type#*:}"
+                     type="${type%%=*}"
+@@ -83,7 +83,7 @@
+             return
+             ;;
+         -U)
+-            COMPREPLY=( $( compgen -W '$( cmake -LA -N | tail -n +2 |
++            COMPREPLY=( $( compgen -W '$( cmake3 -LA -N | tail -n +2 |
+                 cut -f1 -d: )' -P "$prefix" -- "$cur" ) )
+             return
+             ;;
+@@ -101,7 +101,7 @@
+             return
+             ;;
+         -E)
+-            COMPREPLY=( $( compgen -W "$( cmake -E help |& sed -n \
++            COMPREPLY=( $( compgen -W "$( cmake3 -E help |& sed -n \
+                 '/^  [^ ]/{s|^  \([^ ]\{1,\}\) .*$|\1|;p}' 2>/dev/null )" \
+                 -- "$cur" ) )
+             return
+@@ -110,7 +110,7 @@
+             local IFS=$'\n'
+             local quoted
+             printf -v quoted %q "$cur"
+-            COMPREPLY=( $( compgen -W '$( cmake --help 2>/dev/null | sed -n \
++            COMPREPLY=( $( compgen -W '$( cmake3 --help 2>/dev/null | sed -n \
+                 -e "1,/^Generators/d" \
+                 -e "/^  *[^ =]/{s|^ *\([^=]*[^ =]\).*$|\1|;s| |\\\\ |g;p}" \
+                 2>/dev/null )' -- "$quoted" ) )
+@@ -120,33 +120,33 @@
+             COMPREPLY=( $(compgen -W 'error warning notice status verbose debug trace' -- $cur ) )
+             ;;
+         --help-command)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-command-list 2>/dev/null|
+-                grep -v "^cmake version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-command-list 2>/dev/null|
++                grep -v "^cmake3 version " )' -- "$cur" ) )
+             return
+             ;;
+         --help-manual)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-manual-list 2>/dev/null|
+-                grep -v "^cmake version " | sed -e "s/([0-9])$//" )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-manual-list 2>/dev/null|
++                grep -v "^cmake3 version " | sed -e "s/([0-9])$//" )' -- "$cur" ) )
+             return
+             ;;
+         --help-module)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-module-list 2>/dev/null|
+-                grep -v "^cmake version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-module-list 2>/dev/null|
++                grep -v "^cmake3 version " )' -- "$cur" ) )
+             return
+             ;;
+          --help-policy)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-policy-list 2>/dev/null |
+-                grep -v "^cmake version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-policy-list 2>/dev/null |
++                grep -v "^cmake3 version " )' -- "$cur" ) )
+             return
+             ;;
+          --help-property)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-property-list \
+-                2>/dev/null | grep -v "^cmake version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-property-list \
++                2>/dev/null | grep -v "^cmake3 version " )' -- "$cur" ) )
+             return
+             ;;
+          --help-variable)
+-            COMPREPLY=( $( compgen -W '$( cmake --help-variable-list \
+-                2>/dev/null | grep -v "^cmake version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cmake3 --help-variable-list \
++                2>/dev/null | grep -v "^cmake3 version " )' -- "$cur" ) )
+             return
+             ;;
+     esac
+@@ -161,6 +161,6 @@
+ 
+     _filedir
+ } &&
+-complete -F _cmake cmake
++complete -F _cmake3 cmake3
+ 
+ # ex: ts=4 sw=4 et filetype=sh
+diff --git a/Auxiliary/bash-completion/cpack b/Auxiliary/bash-completion/cpack
+index cf5751f..1ed1b71 100644
+--- a/Auxiliary/bash-completion/cpack
++++ b/Auxiliary/bash-completion/cpack
+@@ -1,6 +1,6 @@
+-# bash completion for cpack(1)                             -*- shell-script -*-
++# bash completion for cpack3(1)                             -*- shell-script -*-
+ 
+-_cpack()
++_cpack3()
+ {
+     local cur prev words cword
+     if type -t _init_completion >/dev/null; then
+@@ -14,7 +14,7 @@ _cpack()
+ 
+     case "$prev" in
+         -G)
+-            COMPREPLY=( $( compgen -W '$( cpack --help 2>/dev/null |
++            COMPREPLY=( $( compgen -W '$( cpack3 --help 2>/dev/null |
+                 sed -e "1,/^Generators/d" -e "s|^ *\([^ ]*\) .*$|\1|" \
+                 2>/dev/null )' -- "$cur" ) )
+             return
+@@ -26,8 +26,8 @@ _cpack()
+             ;;
+         -D)
+             [[ $cur == *=* ]] && return # no completion for values
+-            COMPREPLY=( $( compgen -W '$( cpack --help-variable-list \
+-                2>/dev/null | grep -v "^cpack version " )' -S = -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cpack3 --help-variable-list \
++                2>/dev/null | grep -v "^cpack3 version " )' -S = -- "$cur" ) )
+             compopt -o nospace
+             return
+             ;;
+@@ -44,8 +44,8 @@ _cpack()
+             return
+             ;;
+         --help-command)
+-            COMPREPLY=( $( compgen -W '$( cpack --help-command-list 2>/dev/null|
+-                grep -v "^cpack version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cpack3 --help-command-list 2>/dev/null|
++                grep -v "^cpack3 version " )' -- "$cur" ) )
+             return
+             ;;
+         --help-manual)
+@@ -69,8 +69,8 @@ _cpack()
+             return
+             ;;
+         --help-variable)
+-            COMPREPLY=( $( compgen -W '$( cpack --help-variable-list \
+-                2>/dev/null | grep -v "^cpack version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( cpack3 --help-variable-list \
++                2>/dev/null | grep -v "^cpack3 version " )' -- "$cur" ) )
+             return
+             ;;
+     esac
+@@ -83,6 +83,6 @@ _cpack()
+ 
+     _filedir
+ } &&
+-complete -F _cpack cpack
++complete -F _cpack3 cpack3
+ 
+ # ex: ts=4 sw=4 et filetype=sh
+diff --git a/Auxiliary/bash-completion/ctest b/Auxiliary/bash-completion/ctest
+index 49343bb..69affe4 100644
+--- a/Auxiliary/bash-completion/ctest
++++ b/Auxiliary/bash-completion/ctest
+@@ -1,6 +1,6 @@
+-# bash completion for ctest(1)                             -*- shell-script -*-
++# bash completion for ctest3(1)                             -*- shell-script -*-
+ 
+-_ctest()
++_ctest3()
+ {
+     local cur prev words cword
+     if type -t _init_completion >/dev/null; then
+@@ -27,7 +27,7 @@ _ctest()
+             return
+             ;;
+         -L|--label-regex|-LE|--label-exclude)
+-            COMPREPLY=( $( compgen -W '$( ctest --print-labels 2>/dev/null |
++            COMPREPLY=( $( compgen -W '$( ctest3 --print-labels 2>/dev/null |
+                 grep "^  " 2>/dev/null | cut -d" " -f 3 )' -- "$cur" ) )
+             return
+             ;;
+@@ -36,7 +36,7 @@ _ctest()
+             return
+             ;;
+         -R|--tests-regex|-E|--exclude-regex)
+-            COMPREPLY=( $( compgen -W '$( ctest -N 2>/dev/null |
++            COMPREPLY=( $( compgen -W '$( ctest3 -N 2>/dev/null |
+                 grep "^  Test" 2>/dev/null | cut -d: -f 2 )' -- "$cur" ) )
+             return
+             ;;
+@@ -65,7 +65,7 @@ _ctest()
+             return
+             ;;
+         -S|--script|-SP|--script-new-process)
+-            _filedir '@(cmake|ctest)'
++            _filedir '@(cmake3|ctest3)'
+             return
+             ;;
+         --interactive-debug-mode)
+@@ -74,8 +74,8 @@ _ctest()
+             ;;
+ 
+         --help-command)
+-            COMPREPLY=( $( compgen -W '$( ctest --help-command-list 2>/dev/null|
+-                grep -v "^ctest version " )' -- "$cur" ) )
++            COMPREPLY=( $( compgen -W '$( ctest3 --help-command-list 2>/dev/null|
++                grep -v "^ctest3 version " )' -- "$cur" ) )
+             return
+             ;;
+         --help-manual)
+@@ -113,6 +113,6 @@ _ctest()
+ 
+     _filedir
+ } &&
+-complete -F _ctest ctest
++complete -F _ctest3 ctest3
+ 
+ # ex: ts=4 sw=4 et filetype=sh
+--- a/Auxiliary/cmake.orig.m4	2019-07-16 13:19:54.000000000 +0200
++++ b/Auxiliary/cmake.m4	2019-08-30 11:44:52.162852622 +0200
+@@ -5,7 +5,7 @@
+ [AC_ARG_VAR([CMAKE_BINARY], [path to the cmake binary])dnl
+ 
+ if test "x$ac_cv_env_CMAKE_BINARY_set" != "xset"; then
+-    AC_PATH_TOOL([CMAKE_BINARY], [cmake])dnl
++    AC_PATH_TOOL([CMAKE_BINARY], [cmake3])dnl
+ fi
+ ])dnl
+ 
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 787f319..3ef8605 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -176,17 +176,17 @@ macro(CMAKE_SETUP_TESTING)
+     # and not the ctest from the cmake building and testing
+     # cmake.
+     if(CMake_TEST_EXTERNAL_CMAKE)
+-      set(CMAKE_CTEST_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/ctest")
+-      set(CMAKE_CMAKE_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/cmake")
+-      set(CMAKE_CPACK_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/cpack")
++      set(CMAKE_CTEST_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/ctest3")
++      set(CMAKE_CMAKE_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/cmake3")
++      set(CMAKE_CPACK_COMMAND "${CMake_TEST_EXTERNAL_CMAKE}/cpack3")
+       foreach(exe cmake ctest cpack)
+         add_executable(${exe} IMPORTED)
+         set_property(TARGET ${exe} PROPERTY IMPORTED_LOCATION ${CMake_TEST_EXTERNAL_CMAKE}/${exe})
+       endforeach()
+     else()
+-      set(CMAKE_CTEST_COMMAND "${CMake_BIN_DIR}/ctest")
+-      set(CMAKE_CMAKE_COMMAND "${CMake_BIN_DIR}/cmake")
+-      set(CMAKE_CPACK_COMMAND "${CMake_BIN_DIR}/cpack")
++      set(CMAKE_CTEST_COMMAND "${CMake_BIN_DIR}/ctest3")
++      set(CMAKE_CMAKE_COMMAND "${CMake_BIN_DIR}/cmake3")
++      set(CMAKE_CPACK_COMMAND "${CMake_BIN_DIR}/cpack3")
+     endif()
+   endif()
+ 
+--- a/Help/command/add_compile_definitions.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/command/add_compile_definitions.rst	2019-08-28 20:32:45.880021119 +0200
+@@ -20,4 +20,4 @@
+ Arguments to ``add_compile_definitions`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/command/add_compile_options.rst b/Help/command/add_compile_options.rst
+index 3fe2a33..eff73aa 100644
+--- a/Help/command/add_compile_options.rst
++++ b/Help/command/add_compile_options.rst
+@@ -17,4 +17,4 @@
+ Arguments to ``add_compile_options`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/command/add_custom_command.rst b/Help/command/add_custom_command.rst
+index d421364..34d3a12 100644
+--- a/Help/command/add_custom_command.rst
++++ b/Help/command/add_custom_command.rst
+@@ -97,7 +97,7 @@
+   command name is a program to be found on the ``PATH`` at build time.
+ 
+   Arguments to ``COMMAND`` may use
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`.
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`.
+   Use the ``TARGET_FILE`` generator expression to refer to the location of
+   a target later in the command line (i.e. as a command argument rather
+   than as the command to execute).
+@@ -153,12 +153,12 @@
+   create the ``OUTPUT``, the rule will always run.
+ 
+   Arguments to ``DEPENDS`` may use
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`.
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`.
+ 
+ ``COMMAND_EXPAND_LISTS``
+   Lists in ``COMMAND`` arguments will be expanded, including those
+   created with
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`,
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`,
+   allowing ``COMMAND`` arguments such as
+   ``${CC} "-I$<JOIN:$<TARGET_PROPERTY:foo,INCLUDE_DIRECTORIES>,;-I>" foo.cc``
+   to be properly expanded.
+@@ -222,7 +222,7 @@
+   build tree directory corresponding to the current source directory.
+ 
+   Arguments to ``WORKING_DIRECTORY`` may use
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`.
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`.
+ 
+ ``DEPFILE``
+   Specify a ``.d`` depfile for the :generator:`Ninja` generator.
+diff --git a/Help/command/add_custom_target.rst b/Help/command/add_custom_target.rst
+index 6980d61..2e17ded 100644
+--- a/Help/command/add_custom_target.rst
++++ b/Help/command/add_custom_target.rst
+@@ -76,7 +76,7 @@
+   command name is a program to be found on the ``PATH`` at build time.
+ 
+   Arguments to ``COMMAND`` may use
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`.
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`.
+   Use the ``TARGET_FILE`` generator expression to refer to the location of
+   a target later in the command line (i.e. as a command argument rather
+   than as the command to execute).
+@@ -108,7 +108,7 @@
+ ``COMMAND_EXPAND_LISTS``
+   Lists in ``COMMAND`` arguments will be expanded, including those
+   created with
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`,
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`,
+   allowing ``COMMAND`` arguments such as
+   ``${CC} "-I$<JOIN:$<TARGET_PROPERTY:foo,INCLUDE_DIRECTORIES>,;-I>" foo.cc``
+   to be properly expanded.
+@@ -146,4 +146,4 @@
+   build tree directory corresponding to the current source directory.
+ 
+   Arguments to ``WORKING_DIRECTORY`` may use
+-  :manual:`generator expressions <cmake-generator-expressions(7)>`.
++  :manual:`generator expressions <cmake3-generator-expressions(7)>`.
+diff --git a/Help/command/add_definitions.rst b/Help/command/add_definitions.rst
+index a04faf5..4e0cb02 100644
+--- a/Help/command/add_definitions.rst
++++ b/Help/command/add_definitions.rst
+@@ -23,5 +23,5 @@ backwards compatibility.  See documentation of the
+ properties for details on adding preprocessor definitions to specific
+ scopes and configurations.
+ 
+-See the :manual:`cmake-buildsystem(7)` manual for more on defining
++See the :manual:`cmake3-buildsystem(7)` manual for more on defining
+ buildsystem properties.
+diff --git a/Help/command/add_executable.rst b/Help/command/add_executable.rst
+index 19ca658..00da2b2 100644
+--- a/Help/command/add_executable.rst
++++ b/Help/command/add_executable.rst
+@@ -37,8 +37,8 @@
+ target property for details.
+ 
+ Source arguments to ``add_executable`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ See also :prop_sf:`HEADER_FILE_ONLY` on what to do if some sources are
+diff --git a/Help/command/add_library.rst b/Help/command/add_library.rst
+index 36adcbe..bc7ca75 100644
+--- a/Help/command/add_library.rst
++++ b/Help/command/add_library.rst
+@@ -56,8 +56,8 @@
+ target property for details.
+ 
+ Source arguments to ``add_library`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ See also :prop_sf:`HEADER_FILE_ONLY` on what to do if some sources are
+diff --git a/Help/command/add_test.rst b/Help/command/add_test.rst
+index d8a96e9..9329d3f 100644
+--- a/Help/command/add_test.rst
++++ b/Help/command/add_test.rst
+@@ -1,7 +1,7 @@
+ add_test
+ --------
+ 
+-Add a test to the project to be run by :manual:`ctest(1)`.
++Add a test to the project to be run by :manual:`ctest3(1)`.
+ 
+ .. code-block:: cmake
+ 
+@@ -37,14 +37,14 @@
+ The given test command is expected to exit with code ``0`` to pass and
+ non-zero to fail, or vice-versa if the :prop_test:`WILL_FAIL` test
+ property is set.  Any output written to stdout or stderr will be
+-captured by :manual:`ctest(1)` but does not affect the pass/fail status
++captured by :manual:`ctest3(1)` but does not affect the pass/fail status
+ unless the :prop_test:`PASS_REGULAR_EXPRESSION`,
+ :prop_test:`FAIL_REGULAR_EXPRESSION` or
+ :prop_test:`SKIP_REGULAR_EXPRESSION` test property is used.
+ 
+ The ``COMMAND`` and ``WORKING_DIRECTORY`` options may use "generator
+ expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+ 
+ Example usage:
+ 
+--- a/Help/command/add_link_options.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/command/add_link_options.rst	2019-08-28 20:30:01.160177427 +0200
+@@ -19,4 +19,4 @@
+ Arguments to ``add_link_options`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/command/build_command.rst b/Help/command/build_command.rst
+index b83edaf..4194516 100644
+--- a/Help/command/build_command.rst
++++ b/Help/command/build_command.rst
+@@ -16,7 +16,7 @@
+ 
+  <cmake> --build . [--config <config>] [--target <target>...] [-- -i]
+ 
+-where ``<cmake>`` is the location of the :manual:`cmake(1)` command-line
++where ``<cmake>`` is the location of the :manual:`cmake3(1)` command-line
+ tool, and ``<config>`` and ``<target>`` are the values provided to the
+ ``CONFIGURATION`` and ``TARGET`` options, if any.  The trailing ``-- -i``
+ option is added for :ref:`Makefile Generators` if policy :policy:`CMP0061`
+index b51b951..bfe8c41 100644
+--- a/Help/command/cmake_policy.rst
++++ b/Help/command/cmake_policy.rst
+@@ -1,7 +1,7 @@
+ cmake_policy
+ ------------
+ 
+-Manage CMake Policy settings.  See the :manual:`cmake-policies(7)`
++Manage CMake Policy settings.  See the :manual:`cmake3-policies(7)`
+ manual for defined policies.
+ 
+ As CMake evolves it is sometimes necessary to change existing behavior
+diff --git a/Help/command/ctest_build.rst b/Help/command/ctest_build.rst
+index e1b7793..ce796ac 100644
+--- a/Help/command/ctest_build.rst
++++ b/Help/command/ctest_build.rst
+@@ -36,7 +36,7 @@ The options are:
+ ``CONFIGURATION <config>``
+   Specify the build configuration (e.g. ``Debug``).  If not
+   specified the ``CTEST_BUILD_CONFIGURATION`` variable will be checked.
+-  Otherwise the ``-C <cfg>`` option given to the :manual:`ctest(1)`
++  Otherwise the ``-C <cfg>`` option given to the :manual:`ctest3(1)`
+   command will be used, if any.
+ 
+ ``FLAGS <flags>``
+diff --git a/Help/command/ctest_read_custom_files.rst b/Help/command/ctest_read_custom_files.rst
+index cf8e17a..04b8e0e 100644
+--- a/Help/command/ctest_read_custom_files.rst
++++ b/Help/command/ctest_read_custom_files.rst
+@@ -10,5 +10,5 @@ read CTestCustom files.
+ Read all the CTestCustom.ctest or CTestCustom.cmake files from the
+ given directory.
+ 
+-By default, invoking :manual:`ctest(1)` without a script will read custom
++By default, invoking :manual:`ctest3(1)` without a script will read custom
+ files from the binary directory.
+diff --git a/Help/command/ctest_test.rst b/Help/command/ctest_test.rst
+index 412e323..e2d0425 100644
+--- a/Help/command/ctest_test.rst
++++ b/Help/command/ctest_test.rst
+@@ -93,7 +93,7 @@
+   While running tests in parallel, try not to start tests when they
+   may cause the CPU load to pass above a given threshold.  If not
+   specified the :variable:`CTEST_TEST_LOAD` variable will be checked,
+-  and then the ``--test-load`` command-line argument to :manual:`ctest(1)`.
++  and then the ``--test-load`` command-line argument to :manual:`ctest3(1)`.
+   See also the ``TestLoad`` setting in the :ref:`CTest Test Step`.
+ 
+ ``REPEAT <mode>:<n>``
+diff --git a/Help/command/file.rst b/Help/command/file.rst
+index 256d16d..fd51aca 100644
+--- a/Help/command/file.rst
++++ b/Help/command/file.rst
+@@ -268,8 +268,8 @@ the ``<format>`` and ``UTC`` options.
+        [CONDITION expression])
+ 
+ Generate an output file for each build configuration supported by the current
+-:manual:`CMake Generator <cmake-generators(7)>`.  Evaluate
+-:manual:`generator expressions <cmake-generator-expressions(7)>`
++:manual:`CMake Generator <cmake3-generators(7)>`.  Evaluate
++:manual:`generator expressions <cmake3-generator-expressions(7)>`
+ from the input content to produce the output content.  The options are:
+ 
+ ``CONDITION <condition>``
+diff --git a/Help/command/find_package.rst b/Help/command/find_package.rst
+index 58dff9d..a05e123 100644
+--- a/Help/command/find_package.rst
++++ b/Help/command/find_package.rst
+@@ -339,7 +339,7 @@
+    to ``FALSE`` or the deprecated variable
+    :variable:`CMAKE_FIND_PACKAGE_NO_PACKAGE_REGISTRY` to ``TRUE``.
+ 
+-   See the :manual:`cmake-packages(7)` manual for details on the user
++   See the :manual:`cmake3-packages(7)` manual for details on the user
+    package registry.
+ 
+ 7. Search cmake variables defined in the Platform files for the
+@@ -357,7 +357,7 @@
+    variable to ``FALSE`` or the deprecated variable
+    :variable:`CMAKE_FIND_PACKAGE_NO_SYSTEM_PACKAGE_REGISTRY` to ``TRUE``.
+ 
+-   See the :manual:`cmake-packages(7)` manual for details on the system
++   See the :manual:`cmake3-packages(7)` manual for details on the system
+    package registry.
+ 
+ 9. Search paths specified by the ``PATHS`` option.  These are typically
+diff --git a/Help/command/get_cmake_property.rst b/Help/command/get_cmake_property.rst
+index 3a6fb41..7fcd228 100644
+--- a/Help/command/get_cmake_property.rst
++++ b/Help/command/get_cmake_property.rst
+@@ -10,7 +10,7 @@
+ Gets a global property from the CMake instance.  The value of
+ the ``<property>`` is stored in the variable ``<var>``.
+ If the property is not found, ``<var>`` will be set to ``NOTFOUND``.
+-See the :manual:`cmake-properties(7)` manual for available properties.
++See the :manual:`cmake3-properties(7)` manual for available properties.
+ 
+ See also the :command:`get_property` command ``GLOBAL`` option.
+ 
+diff --git a/Help/command/include_directories.rst b/Help/command/include_directories.rst
+index f694934..a73d296 100644
+--- a/Help/command/include_directories.rst
++++ b/Help/command/include_directories.rst
+@@ -30,8 +30,8 @@
+ considered in dependency calculations - see compiler docs.
+ 
+ Arguments to ``include_directories`` may use "generator expressions" with
+-the syntax "$<...>".  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax "$<...>".  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ .. note::
+diff --git a/Help/command/install.rst b/Help/command/install.rst
+index aaf12cc..9c14777 100644
+--- a/Help/command/install.rst
++++ b/Help/command/install.rst
+@@ -345,3 +345,3 @@
+ use "generator expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+ 
+@@ -376,3 +376,3 @@
+ "generator expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+ However, if any item begins in a generator expression it must evaluate
+@@ -433,3 +433,3 @@
+ use "generator expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+ 
+@@ -556,3 +556,3 @@
+ given as a ``DESTINATION`` argument may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
+ manual for available expressions.
+@@ -586,3 +586,3 @@
+ name, not the file's contents).  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+ 
+--- a/Help/command/link_directories.orig.rst	2019-08-28 20:47:01.038018040 +0200
++++ b/Help/command/link_directories.rst	2019-08-28 20:46:27.679252213 +0200
+@@ -25,4 +25,4 @@
+ Arguments to ``link_directories`` may use "generator expressions" with
+-the syntax "$<...>".  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax "$<...>".  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+--- a/Help/command/list.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/command/list.rst	2019-08-28 20:45:09.237802860 +0200
+@@ -213,3 +213,3 @@
+ ``GENEX_STRIP``: Strip any
+-:manual:`generator expressions <cmake-generator-expressions(7)>` from each
++:manual:`generator expressions <cmake3-generator-expressions(7)>` from each
+ element of the list.
+diff --git a/Help/command/set.rst b/Help/command/set.rst
+index d04b880..3ca46a6 100644
+--- a/Help/command/set.rst
++++ b/Help/command/set.rst
+@@ -4,3 +4,3 @@
+ Set a normal, cache, or environment variable to a given value.
+-See the :ref:`cmake-language(7) variables <CMake Language Variables>`
++See the :ref:`cmake3-language(7) variables <CMake Language Variables>`
+ documentation for the scopes and interaction of normal variables
+@@ -46,12 +46,12 @@
+ ``BOOL``
+-  Boolean ``ON/OFF`` value.  :manual:`cmake-gui(1)` offers a checkbox.
++  Boolean ``ON/OFF`` value.  :manual:`cmake3-gui(1)` offers a checkbox.
+ 
+ ``FILEPATH``
+-  Path to a file on disk.  :manual:`cmake-gui(1)` offers a file dialog.
++  Path to a file on disk.  :manual:`cmake3-gui(1)` offers a file dialog.
+ 
+ ``PATH``
+-  Path to a directory on disk.  :manual:`cmake-gui(1)` offers a file dialog.
++  Path to a directory on disk.  :manual:`cmake3-gui(1)` offers a file dialog.
+ 
+ ``STRING``
+-  A line of text.  :manual:`cmake-gui(1)` offers a text field or a
++  A line of text.  :manual:`cmake3-gui(1)` offers a text field or a
+   drop-down selection if the :prop_cache:`STRINGS` cache entry
+@@ -60,3 +60,3 @@
+ ``INTERNAL``
+-  A line of text.  :manual:`cmake-gui(1)` does not show internal entries.
++  A line of text.  :manual:`cmake3-gui(1)` does not show internal entries.
+   They may be used to store variables persistently across runs.
+@@ -65,3 +65,3 @@
+ The ``<docstring>`` must be specified as a line of text providing
+-a quick summary of the option for presentation to :manual:`cmake-gui(1)`
++a quick summary of the option for presentation to :manual:`cmake3-gui(1)`
+ users.
+@@ -75,3 +75,3 @@
+ It is possible for the cache entry to exist prior to the call but
+-have no type set if it was created on the :manual:`cmake(1)` command
++have no type set if it was created on the :manual:`cmake3(1)` command
+ line by a user through the ``-D<var>=<value>`` option without
+@@ -90,3 +90,3 @@
+ 
+-Sets an :manual:`Environment Variable <cmake-env-variables(7)>`
++Sets an :manual:`Environment Variable <cmake3-env-variables(7)>`
+ to the given value.
+diff --git a/Help/command/set_property.rst b/Help/command/set_property.rst
+index 5ed788e..ab8f0be 100644
+--- a/Help/command/set_property.rst
++++ b/Help/command/set_property.rst
+@@ -71,5 +71,5 @@
+ directly set in the nominated scope, the command will behave as though
+ ``APPEND`` or ``APPEND_STRING`` had not been given.
+ 
+-See the :manual:`cmake-properties(7)` manual for a list of properties
++See the :manual:`cmake3-properties(7)` manual for a list of properties
+ in each scope.
+diff --git a/Help/command/set_tests_properties.rst b/Help/command/set_tests_properties.rst
+index 3efb165..8de8e2a 100644
+--- a/Help/command/set_tests_properties.rst
++++ b/Help/command/set_tests_properties.rst
+@@ -11,3 +11,3 @@
+ will report an error.
+-:manual:`Generator expressions <cmake-generator-expressions(7)>` will be
++:manual:`Generator expressions <cmake3-generator-expressions(7)>` will be
+ expanded the same as supported by the test's :command:`add_test` call.
+diff --git a/Help/command/string.rst b/Help/command/string.rst
+index 3f4050e..6f70fbf 100644
+--- a/Help/command/string.rst
++++ b/Help/command/string.rst
+--- string.rst.rename	2020-04-25 21:17:46.765645996 +0200
++++ string.rst	2020-04-25 21:36:35.243891919 +0200
+@@ -280,7 +280,7 @@
+ 
+   string(GENEX_STRIP <string> <output_variable>)
+ 
+-Strip any :manual:`generator expressions <cmake-generator-expressions(7)>`
++Strip any :manual:`generator expressions <cmake3-generator-expressions(7)>`
+ from the input ``<string>`` and store the result in the ``<output_variable>``.
+ 
+ .. _REPEAT:
+diff --git a/Help/command/target_compile_definitions.rst b/Help/command/target_compile_definitions.rst
+index 8bd3233..c7eeb03 100644
+--- a/Help/command/target_compile_definitions.rst
++++ b/Help/command/target_compile_definitions.rst
+@@ -24,8 +24,8 @@
+ same ``<target>`` append items in the order called.
+ 
+ Arguments to ``target_compile_definitions`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ Any leading ``-D`` on an item will be removed.  Empty items are ignored.
+diff --git a/Help/command/target_compile_features.rst b/Help/command/target_compile_features.rst
+index b66a4ec..148a8f5 100644
+--- a/Help/command/target_compile_features.rst
++++ b/Help/command/target_compile_features.rst
+@@ -27,6 +27,6 @@ an ``IMPORTED`` target.
+ 
+ Arguments to ``target_compile_features`` may use "generator expressions"
+ with the syntax ``$<...>``.
+-See the :manual:`cmake-generator-expressions(7)` manual for available
+-expressions.  See the :manual:`cmake-compile-features(7)` manual for
++See the :manual:`cmake3-generator-expressions(7)` manual for available
++expressions.  See the :manual:`cmake3-compile-features(7)` manual for
+ information on compile features and a list of supported compilers.
+diff --git a/Help/command/target_compile_options.rst b/Help/command/target_compile_options.rst
+index 73e01e7..542c589 100644
+--- a/Help/command/target_compile_options.rst
++++ b/Help/command/target_compile_options.rst
+@@ -35,8 +35,8 @@
+ ``<target>`` append items in the order called.
+ 
+ Arguments to ``target_compile_options`` may use "generator expressions"
+-with the syntax ``$<...>``. See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``. See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ .. include:: OPTIONS_SHELL.txt
+diff --git a/Help/command/target_include_directories.rst b/Help/command/target_include_directories.rst
+index 30ec2cb..80e9885 100644
+--- a/Help/command/target_include_directories.rst
++++ b/Help/command/target_include_directories.rst
+@@ -37,8 +37,8 @@ is used together with ``PUBLIC`` or ``INTERFACE``, the
+ populated with the specified directories.
+ 
+ Arguments to ``target_include_directories`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ Include directories usage requirements commonly differ between the build-tree
+--- a/Help/command/target_link_directories.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/command/target_link_directories.rst	2019-08-28 20:43:30.726494395 +0200
+@@ -34,4 +34,4 @@
+ Arguments to ``target_link_directories`` may use "generator expressions"
+-with the syntax ``$<...>``. See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``. See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/command/target_link_libraries.rst b/Help/command/target_link_libraries.rst
+index d903d05..1bc7856 100644
+--- a/Help/command/target_link_libraries.rst
++++ b/Help/command/target_link_libraries.rst
+@@ -95,3 +95,3 @@
+ * **A generator expression**: A ``$<...>`` :manual:`generator expression
+-  <cmake-generator-expressions(7)>` may evaluate to any of the above
++  <cmake3-generator-expressions(7)>` may evaluate to any of the above
+   items or to a :ref:`semicolon-separated list <CMake Language Lists>` of them.
+@@ -126,3 +126,3 @@
+ 
+-See the :manual:`cmake-buildsystem(7)` manual for more on defining
++See the :manual:`cmake3-buildsystem(7)` manual for more on defining
+ buildsystem properties.
+--- a/Help/command/target_link_options.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/command/target_link_options.rst	2019-08-28 23:47:40.923492253 +0200
+@@ -35,4 +35,4 @@
+ Arguments to ``target_link_options`` may use "generator expressions"
+-with the syntax ``$<...>``. See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``. See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/command/target_sources.rst b/Help/command/target_sources.rst
+index d6f148d..4ebbac8 100644
+--- a/Help/command/target_sources.rst
++++ b/Help/command/target_sources.rst
+@@ -26,8 +26,8 @@
+ ``<target>`` append items in the order called.
+ 
+ Arguments to ``target_sources`` may use "generator expressions"
+-with the syntax ``$<...>``. See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``. See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ See also the :policy:`CMP0076` policy for older behavior related to the
+diff --git a/Help/command/try_compile.rst b/Help/command/try_compile.rst
+index 7830deb..50693bb 100644
+--- a/Help/command/try_compile.rst
++++ b/Help/command/try_compile.rst
+@@ -55,7 +55,7 @@ The options are:
+ 
+ ``CMAKE_FLAGS <flags>...``
+   Specify flags of the form ``-DVAR:TYPE=VALUE`` to be passed to
+-  the ``cmake`` command-line used to drive the test build.
++  the ``cmake3`` command-line used to drive the test build.
+   The above example shows how values for variables
+   ``INCLUDE_DIRECTORIES``, ``LINK_DIRECTORIES``, and ``LINK_LIBRARIES``
+   are used.
+@@ -84,7 +84,7 @@ The options are:
+ 
+ In this version all files in ``<bindir>/CMakeFiles/CMakeTmp`` will be
+ cleaned automatically.  For debugging, ``--debug-trycompile`` can be
+-passed to ``cmake`` to avoid this clean.  However, multiple sequential
++passed to ``cmake3`` to avoid this clean.  However, multiple sequential
+ ``try_compile`` operations reuse this single output directory.  If you use
+ ``--debug-trycompile``, you can only debug one ``try_compile`` call at a time.
+ The recommended procedure is to protect all ``try_compile`` calls in your
+diff --git a/Help/command/try_run.rst b/Help/command/try_run.rst
+index e3bd57d..995d84e 100644
+--- a/Help/command/try_run.rst
++++ b/Help/command/try_run.rst
+@@ -32,7 +32,7 @@ The options are:
+ 
+ ``CMAKE_FLAGS <flags>...``
+   Specify flags of the form ``-DVAR:TYPE=VALUE`` to be passed to
+-  the ``cmake`` command-line used to drive the test build.
++  the ``cmake3`` command-line used to drive the test build.
+   The example in :command:`try_compile` shows how values for variables
+   ``INCLUDE_DIRECTORIES``, ``LINK_DIRECTORIES``, and ``LINK_LIBRARIES``
+   are used.
+--- a/Help/command/unset.orig.rst	2019-08-28 20:39:18.588264367 +0200
++++ b/Help/command/unset.rst	2019-08-28 20:38:43.919507736 +0200
+@@ -35,3 +35,3 @@
+ Removes ``<variable>`` from the currently available
+-:manual:`Environment Variables <cmake-env-variables(7)>`.
++:manual:`Environment Variables <cmake3-env-variables(7)>`.
+ Subsequent calls of ``$ENV{<variable>}`` will return the empty string.
+diff --git a/Help/manual/ccmake.1.rst b/Help/manual/ccmake.1.rst
+index a5fe191..bed230c 100644
+--- a/Help/manual/ccmake.1.rst
++++ b/Help/manual/ccmake.1.rst
+@@ -2,4 +2,4 @@
+ 
+-ccmake(1)
+-*********
++ccmake3(1)
++**********
+ 
+@@ -10,3 +10,3 @@
+ 
+- ccmake [<options>] {<path-to-source> | <path-to-existing-build>}
++ ccmake3 [<options>] {<path-to-source> | <path-to-existing-build>}
+ 
+@@ -15,3 +15,3 @@
+ 
+-The **ccmake** executable is the CMake curses interface.  Project
++The **ccmake3** executable is the CMake curses interface.  Project
+ configuration settings may be specified interactively through this
+diff --git a/Help/manual/cmake-buildsystem.7.rst b/Help/manual/cmake-buildsystem.7.rst
+index 07bf33f..e15b29a 100644
+--- a/Help/manual/cmake-buildsystem.7.rst
++++ b/Help/manual/cmake-buildsystem.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Buildsystem Reference
+ 
+-cmake-buildsystem(7)
+-********************
++cmake3-buildsystem(7)
++*********************
+ 
+ .. only:: html
+ 
+@@ -167,7 +167,7 @@ the properties must be **requirements**, not merely recommendations or
+ convenience.
+ 
+ See the :ref:`Creating Relocatable Packages` section of the
+-:manual:`cmake-packages(7)` manual for discussion of additional care
++:manual:`cmake3-packages(7)` manual for discussion of additional care
+ that must be taken when specifying usage requirements while creating
+ packages for redistribution.
+ 
+@@ -332,7 +332,7 @@ consumers must be compiled as position-independent-code.
+ Here, both ``exe1`` and ``exe2`` will be compiled as position-independent-code.
+ ``lib1`` will also be compiled as position-independent-code because that is the
+ default setting for ``SHARED`` libraries.  If dependencies have conflicting,
+-non-compatible requirements :manual:`cmake(1)` issues a diagnostic:
++non-compatible requirements :manual:`cmake3(1)` issues a diagnostic:
+ 
+ .. code-block:: cmake
+ 
+@@ -453,7 +453,7 @@ Property Origin Debugging
+ Because build specifications can be determined by dependencies, the lack of
+ locality of code which creates a target and code which is responsible for
+ setting build specifications may make the code more difficult to reason about.
+-:manual:`cmake(1)` provides a debugging facility to print the origin of the
++:manual:`cmake3(1)` provides a debugging facility to print the origin of the
+ contents of properties which may be determined by dependencies.  The properties
+ which can be debugged are listed in the
+ :variable:`CMAKE_DEBUG_TARGET_PROPERTIES` variable documentation:
+@@ -482,7 +482,7 @@ Build Specification with Generator Expressions
+ ----------------------------------------------
+ 
+ Build specifications may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>` containing
++:manual:`generator expressions <cmake3-generator-expressions(7)>` containing
+ content which may be conditional or known only at generate-time.  For example,
+ the calculated "compatible" value of a property may be read with the
+ ``TARGET_PROPERTY`` expression:
+@@ -519,7 +519,7 @@ being built.  In the presence of :prop_tgt:`IMPORTED` targets, the content of
+ :prop_tgt:`MAP_IMPORTED_CONFIG_DEBUG <MAP_IMPORTED_CONFIG_<CONFIG>>` is also
+ accounted for by this expression.
+ 
+-Some buildsystems generated by :manual:`cmake(1)` have a predetermined
++Some buildsystems generated by :manual:`cmake3(1)` have a predetermined
+ build-configuration set in the :variable:`CMAKE_BUILD_TYPE` variable.  The
+ buildsystem for the IDEs such as Visual Studio and Xcode are generated
+ independent of the build-configuration, and the actual build configuration
+@@ -603,7 +603,7 @@ Depending on whether the ``ClimbingStats`` package was used from the build
+ location or the install location, the ``Downstream`` target would be compiled
+ with either ``-DClimbingStats_FROM_BUILD_LOCATION`` or
+ ``-DClimbingStats_FROM_INSTALL_LOCATION``.  For more about packages and
+-exporting see the :manual:`cmake-packages(7)` manual.
++exporting see the :manual:`cmake3-packages(7)` manual.
+ 
+ .. _`Include Directories and Usage Requirements`:
+ 
+@@ -716,7 +716,7 @@ As the value of the :prop_tgt:`POSITION_INDEPENDENT_CODE` property of
+ the ``exe1`` target is dependent on the linked libraries (``lib3``), and the
+ edge of linking ``exe1`` is determined by the same
+ :prop_tgt:`POSITION_INDEPENDENT_CODE` property, the dependency graph above
+-contains a cycle.  :manual:`cmake(1)` issues a diagnostic in this case.
++contains a cycle.  :manual:`cmake3(1)` issues a diagnostic in this case.
+ 
+ .. _`Output Artifacts`:
+ 
+@@ -852,7 +852,7 @@ the scope of a cmake variable.
+ It is also possible to define a ``GLOBAL`` :prop_tgt:`IMPORTED` target which is
+ accessible globally in the buildsystem.
+ 
+-See the :manual:`cmake-packages(7)` manual for more on creating packages
++See the :manual:`cmake3-packages(7)` manual for more on creating packages
+ with :prop_tgt:`IMPORTED` targets.
+ 
+ .. _`Alias Targets`:
+diff --git a/Help/manual/cmake-commands.7.rst b/Help/manual/cmake-commands.7.rst
+index d0c2986..78bf39c 100644
+--- a/Help/manual/cmake-commands.7.rst
++++ b/Help/manual/cmake-commands.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Language Command Reference
+ 
+-cmake-commands(7)
+-*****************
++cmake3-commands(7)
++******************
+ 
+ .. only:: html
+ 
+diff --git a/Help/manual/cmake-compile-features.7.rst b/Help/manual/cmake-compile-features.7.rst
+index 7289e61..77704f1 100644
+--- a/Help/manual/cmake-compile-features.7.rst
++++ b/Help/manual/cmake-compile-features.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Compile Features Reference
+ 
+-cmake-compile-features(7)
+-*************************
++cmake3-compile-features(7)
++**************************
+ 
+ .. only:: html
+ 
+@@ -46,7 +46,7 @@ be compiled with compiler support for the
+   target_compile_features(mylib PRIVATE cxx_constexpr)
+ 
+ In processing the requirement for the ``cxx_constexpr`` feature,
+-:manual:`cmake(1)` will ensure that the in-use C++ compiler is capable
++:manual:`cmake3(1)` will ensure that the in-use C++ compiler is capable
+ of the feature, and will add any necessary flags such as ``-std=gnu++11``
+ to the compile lines of C++ files in the ``mylib`` target.  A
+ ``FATAL_ERROR`` is issued if the compiler is not capable of the
+@@ -81,7 +81,7 @@
+   target_link_libraries(myexe mylib)
+ 
+ Feature requirements are evaluated transitively by consuming the link
+-implementation.  See :manual:`cmake-buildsystem(7)` for more on
++implementation.  See :manual:`cmake3-buildsystem(7)` for more on
+ transitive behavior of build properties and usage requirements.
+ 
+ Requiring Language Standards
+@@ -267,10 +267,10 @@ abstract. What is needed is to use alternative include directories
+ depending on the compiler capabilities.
+ 
+ CMake provides a ``COMPILE_FEATURES``
+-:manual:`generator expression <cmake-generator-expressions(7)>` to implement
++:manual:`generator expression <cmake3-generator-expressions(7)>` to implement
+ such conditions.  This may be used with the build-property commands such as
+ :command:`target_include_directories` and :command:`target_link_libraries`
+-to set the appropriate :manual:`buildsystem <cmake-buildsystem(7)>`
++to set the appropriate :manual:`buildsystem <cmake3-buildsystem(7)>`
+ properties:
+ 
+ .. code-block:: cmake
+diff --git a/Help/manual/cmake-developer.7.rst b/Help/manual/cmake-developer.7.rst
+index 7bfdcad..f5ff0fd 100644
+--- a/Help/manual/cmake-developer.7.rst
++++ b/Help/manual/cmake-developer.7.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-developer(7)
+-******************
++cmake3-developer(7)
++*******************
+ 
+@@ -13,3 +13,3 @@
+ This manual is intended for reference by developers working with
+-:manual:`cmake-language(7)` code, whether writing their own modules,
++:manual:`cmake3-language(7)` code, whether writing their own modules,
+ authoring their own build systems, or working on CMake itself.
+@@ -416,3 +416,3 @@
+ 
+-Most of the cache variables should be hidden in the ``ccmake`` interface unless
++Most of the cache variables should be hidden in the ``ccmake3`` interface unless
+ the user explicitly asks to edit them.
+diff --git a/Help/manual/cmake-generator-expressions.7.rst b/Help/manual/cmake-generator-expressions.7.rst
+index d4f47dd..6dac1cf 100644
+--- a/Help/manual/cmake-generator-expressions.7.rst
++++ b/Help/manual/cmake-generator-expressions.7.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-generator-expressions(7)
+-******************************
++cmake3-generator-expressions(7)
++*******************************
+ 
+@@ -149,3 +149,3 @@
+   for the 'head' target, an error is reported.  See the
+-  :manual:`cmake-compile-features(7)` manual for information on
++  :manual:`cmake3-compile-features(7)` manual for information on
+   compile features and a list of supported compilers.
+diff --git a/Help/manual/cmake-generators.7.rst b/Help/manual/cmake-generators.7.rst
+index cde8de8..0b01e9e 100644
+--- a/Help/manual/cmake-generators.7.rst
++++ b/Help/manual/cmake-generators.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Generators Reference
+ 
+-cmake-generators(7)
+-*******************
++cmake3-generators(7)
++********************
+ 
+ .. only:: html
+ 
+@@ -18,10 +18,10 @@ as a variant of some of the `Command-Line Build Tool Generators`_ to
+ produce project files for an auxiliary IDE.
+ 
+ CMake Generators are platform-specific so each may be available only
+-on certain platforms.  The :manual:`cmake(1)` command-line tool ``--help``
++on certain platforms.  The :manual:`cmake3(1)` command-line tool ``--help``
+ output lists available generators on the current platform.  Use its ``-G``
+ option to specify the generator for a new build tree.
+-The :manual:`cmake-gui(1)` offers interactive selection of a generator
++The :manual:`cmake3-gui(1)` offers interactive selection of a generator
+ when creating a new build tree.
+ 
+ CMake Generators
+@@ -95,7 +95,7 @@ Other Generators
+ Extra Generators
+ ================
+ 
+-Some of the `CMake Generators`_ listed in the :manual:`cmake(1)`
++Some of the `CMake Generators`_ listed in the :manual:`cmake3(1)`
+ command-line tool ``--help`` output may have variants that specify
+ an extra generator for an auxiliary IDE tool.  Such generator
+ names have the form ``<extra-generator> - <main-generator>``.
+diff --git a/Help/manual/cmake-gui.1.rst b/Help/manual/cmake-gui.1.rst
+index 032b51f..a8a3ef0 100644
+--- a/Help/manual/cmake-gui.1.rst
++++ b/Help/manual/cmake-gui.1.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-gui(1)
+-************
++cmake3-gui(1)
++*************
+ 
+@@ -10,5 +10,5 @@
+ 
+- cmake-gui [<options>]
+- cmake-gui [<options>] {<path-to-source> | <path-to-existing-build>}
+- cmake-gui [<options>] -S <path-to-source> -B <path-to-build>
++ cmake3-gui [<options>]
++ cmake3-gui [<options>] {<path-to-source> | <path-to-existing-build>}
++ cmake3-gui [<options>] -S <path-to-source> -B <path-to-build>
+ 
+@@ -17,3 +17,3 @@
+ 
+-The **cmake-gui** executable is the CMake GUI.  Project configuration
++The **cmake3-gui** executable is the CMake GUI.  Project configuration
+ settings may be specified interactively.  Brief instructions are
+diff --git a/Help/manual/cmake-language.7.rst b/Help/manual/cmake-language.7.rst
+index 41542c9..6240b1e 100644
+--- a/Help/manual/cmake-language.7.rst
++++ b/Help/manual/cmake-language.7.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-language(7)
+-*****************
++cmake3-language(7)
++******************
+ 
+@@ -38,3 +38,3 @@
+ An individual ``<script>.cmake`` source file may be processed
+-in *script mode* by using the :manual:`cmake(1)` command-line tool
++in *script mode* by using the :manual:`cmake3(1)` command-line tool
+ with the ``-P`` option.  Script mode simply runs the commands in
+@@ -50,3 +50,3 @@
+ source file in the scope of the including context.
+-See the :manual:`cmake-modules(7)` manual page for documentation
++See the :manual:`cmake3-modules(7)` manual page for documentation
+ of modules included with the CMake distribution.
+@@ -565,3 +565,3 @@
+ 
+-The :manual:`cmake-variables(7)` manual documents the many variables
++The :manual:`cmake3-variables(7)` manual documents the many variables
+ that are provided by CMake or have meaning to CMake when set
+@@ -594,3 +594,3 @@
+ 
+-The :manual:`cmake-env-variables(7)` manual documents environment
++The :manual:`cmake3-env-variables(7)` manual documents environment
+ variables that have special meaning to CMake.
+diff --git a/Help/manual/cmake-modules.7.rst b/Help/manual/cmake-modules.7.rst
+index 62910cf..f9ff928 100644
+--- a/Help/manual/cmake-modules.7.rst
++++ b/Help/manual/cmake-modules.7.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-modules(7)
+-****************
++cmake3-modules(7)
++*****************
+ 
+diff --git a/Help/manual/cmake-packages.7.rst b/Help/manual/cmake-packages.7.rst
+index c27c612..7bc6c05 100644
+--- a/Help/manual/cmake-packages.7.rst
++++ b/Help/manual/cmake-packages.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Packages Reference
+ 
+-cmake-packages(7)
+-*****************
++cmake3-packages(7)
++******************
+ 
+ .. only:: html
+ 
+@@ -84,7 +84,7 @@ Config-file Packages
+ A config-file package is a set of files provided by upstreams for downstreams
+ to use. CMake searches in a number of locations for package configuration files, as
+ described in the :command:`find_package` documentation.  The most simple way for
+-a CMake user to tell :manual:`cmake(1)` to search in a non-standard prefix for
++a CMake user to tell :manual:`cmake3(1)` to search in a non-standard prefix for
+ a package is to set the ``CMAKE_PREFIX_PATH`` cache variable.
+ 
+ Config-file packages are provided by upstream vendors as part of development
+@@ -115,7 +115,7 @@ the author of the Find-module.  Similarly there is no ``<Package>_DIR`` variable
+ but each of the artifacts such as library locations and header file locations
+ provide a separate cache variable.
+ 
+-See the :manual:`cmake-developer(7)` manual for more information about creating
++See the :manual:`cmake3-developer(7)` manual for more information about creating
+ Find-module files.
+ 
+ Package Layout
+@@ -368,7 +368,7 @@ generated :prop_tgt:`IMPORTED` targets.  In the above case,
+ ``ClimbingStats_MAJOR_VERSION`` is defined as a string which must be
+ compatible among the dependencies of any depender.  By setting this custom
+ defined user property in this version and in the next version of
+-``ClimbingStats``, :manual:`cmake(1)` will issue a diagnostic if there is an
++``ClimbingStats``, :manual:`cmake3(1)` will issue a diagnostic if there is an
+ attempt to use version 3 together with version 4.  Packages can choose to
+ employ such a pattern if different major versions of the package are designed
+ to be incompatible.
+@@ -498,7 +498,7 @@ directories should be specified as relative paths which are relative to the
+   )
+ 
+ The ``$<INSTALL_PREFIX>``
+-:manual:`generator expression <cmake-generator-expressions(7)>` may be used as
++:manual:`generator expression <cmake3-generator-expressions(7)>` may be used as
+ a placeholder for the install prefix without resulting in a non-relocatable
+ package.  This is necessary if complex generator expressions are used:
+ 
+@@ -547,7 +547,7 @@ appropriate :command:`find_package` commands (via the ``find_dependency``
+ macro described above) to find the dependencies and populate the
+ imported targets with appropriate paths on their own machine.
+ 
+-Unfortunately many :manual:`modules <cmake-modules(7)>` shipped with
++Unfortunately many :manual:`modules <cmake3-modules(7)>` shipped with
+ CMake do not yet provide :ref:`IMPORTED targets <Imported Targets>`
+ because their development pre-dated this approach.  This may improve
+ incrementally over time.  Workarounds to create relocatable packages
+--- a/Help/manual/cmake-env-variables.7.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/cmake-env-variables.7.rst	2019-08-28 22:04:35.093784807 +0200
+@@ -2,3 +2,3 @@
+ 
+-cmake-env-variables(7)
++cmake3-env-variables(7)
+ **********************
+@@ -14,3 +14,3 @@
+ :ref:`Environment Variables <CMake Language Environment Variables>`
+-section in the cmake-language manual.
++section in the cmake3-language manual.
+ 
+--- a/Help/manual/cmake-file-api.7.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/cmake-file-api.7.rst	2019-08-28 22:01:47.175523984 +0200
+@@ -2,4 +2,4 @@
+ 
+-cmake-file-api(7)
+-*****************
++cmake3-file-api(7)
++******************
+ 
+@@ -410,3 +410,3 @@
+ Version 1 does not exist to avoid confusion with that from
+-:manual:`cmake-server(7)` mode.
++:manual:`cmake3-server(7)` mode.
+ 
+@@ -965,3 +965,3 @@
+ Version 1 does not exist to avoid confusion with that from
+-:manual:`cmake-server(7)` mode.
++:manual:`cmake3-server(7)` mode.
+ 
+@@ -1017,3 +1017,3 @@
+     A string specifying the type of the entry used by
+-    :manual:`cmake-gui(1)` to choose a widget for editing.
++    :manual:`cmake3-gui(1)` to choose a widget for editing.
+ 
+diff --git a/Help/manual/cmake-policies.7.rst b/Help/manual/cmake-policies.7.rst
+index 43f4637..ea5257f 100644
+--- a/Help/manual/cmake-policies.7.rst
++++ b/Help/manual/cmake-policies.7.rst
+@@ -2,4 +2,4 @@
+ 
+-cmake-policies(7)
+-*****************
++cmake3-policies(7)
++******************
+ 
+@@ -45,3 +45,3 @@
+ parent scope.  For example, if the files read by the :command:`include` command
+-or the :command:`find_package` command contain a use of :command:`cmake_policy`,
++or the :command:`find_package` command contain a use of :command:`cmake_policy`,
+ that policy setting will not affect the caller by default.  Both commands accept
+diff --git a/Help/manual/cmake-properties.7.rst b/Help/manual/cmake-properties.7.rst
+index 3403dcd..58db393 100644
+--- a/Help/manual/cmake-properties.7.rst
++++ b/Help/manual/cmake-properties.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Properties Reference
+ 
+-cmake-properties(7)
+-*******************
++cmake3-properties(7)
++********************
+ 
+ .. only:: html
+ 
+--- a/Help/manual/cmake-qt.7.rst.patch_rename	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/cmake-qt.7.rst	2019-08-27 19:17:48.769715647 +0200
+@@ -1,5 +1,5 @@
+-.. cmake-manual-description: CMake Qt Features Reference
++.. cmake-manual-description: CMake Qt Features Reference
+ 
+-cmake-qt(7)
+-***********
++cmake3-qt(7)
++************
+ 
+@@ -15,3 +15,3 @@
+ Qt 5 libraries are found using "Config-file Packages" shipped with Qt 5. See
+-:manual:`cmake-packages(7)` for more information about CMake packages, and
++:manual:`cmake3-packages(7)` for more information about CMake packages, and
+ see `the Qt cmake manual <http://qt-project.org/doc/qt-5/cmake-manual.html>`_
+@@ -20,3 +20,3 @@
+ Qt 4 and Qt 5 may be used together in the same
+-:manual:`CMake buildsystem <cmake-buildsystem(7)>`:
++:manual:`CMake buildsystem <cmake3-buildsystem(7)>`:
+ 
+@@ -47,3 +47,3 @@
+ and ``rcc`` for virtual file system content generation.  These tools may be
+-automatically invoked by :manual:`cmake(1)` if the appropriate conditions
++automatically invoked by :manual:`cmake3(1)` if the appropriate conditions
+ are met.  The automatic tool invocation may be used with both Qt 4 and Qt 5.
+@@ -53,3 +53,3 @@
+ 
+-The :prop_tgt:`AUTOMOC` target property controls whether :manual:`cmake(1)`
++The :prop_tgt:`AUTOMOC` target property controls whether :manual:`cmake3(1)`
+ inspects the C++ files in the target to determine if they require ``moc`` to
+@@ -108,3 +108,3 @@
+ 
+-The :prop_tgt:`AUTOUIC` target property controls whether :manual:`cmake(1)`
++The :prop_tgt:`AUTOUIC` target property controls whether :manual:`cmake3(1)`
+ inspects the C++ files in the target to determine if they require ``uic`` to
+@@ -192,3 +192,3 @@
+ 
+-The :prop_tgt:`AUTORCC` target property controls whether :manual:`cmake(1)`
++The :prop_tgt:`AUTORCC` target property controls whether :manual:`cmake3(1)`
+ creates rules to execute ``rcc`` at the appropriate time on source files
+@@ -225,3 +225,3 @@
+ 
+-When using the :manual:`Visual Studio generators <cmake-generators(7)>`, CMake
++When using the :manual:`Visual Studio generators <cmake3-generators(7)>`, CMake
+ generates a ``PRE_BUILD`` :command:`custom command <add_custom_command>`
+diff --git a/Help/manual/cmake-toolchains.7.rst b/Help/manual/cmake-toolchains.7.rst
+index 390220c..ec19a79 100644
+--- a/Help/manual/cmake-toolchains.7.rst
++++ b/Help/manual/cmake-toolchains.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Toolchains Reference
+ 
+-cmake-toolchains(7)
+-*******************
++cmake3-toolchains(7)
++********************
+ 
+ .. only:: html
+ 
+@@ -95,7 +95,7 @@ hidden visibility, if supported by the compiler.
+ Cross Compiling
+ ===============
+ 
+-If :manual:`cmake(1)` is invoked with the command line parameter
++If :manual:`cmake3(1)` is invoked with the command line parameter
+ ``-DCMAKE_TOOLCHAIN_FILE=path/to/file``, the file will be loaded early to set
+ values for the compilers.
+ The :variable:`CMAKE_CROSSCOMPILING` variable is set to true when CMake is
+diff --git a/Help/manual/cmake-variables.7.rst b/Help/manual/cmake-variables.7.rst
+index 85b8eae..a746b0b 100644
+--- a/Help/manual/cmake-variables.7.rst
++++ b/Help/manual/cmake-variables.7.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Variables Reference
+ 
+-cmake-variables(7)
+-******************
++cmake3-variables(7)
++*******************
+ 
+ .. only:: html
+ 
+diff --git a/Help/manual/cmake.1.rst b/Help/manual/cmake.1.rst
+index 65153af..0c880c9 100644
+--- a/Help/manual/cmake.1.rst
++++ b/Help/manual/cmake.1.rst
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CMake Command-Line Reference
+ 
+-cmake(1)
+-********
++cmake3(1)
++*********
+ 
+ Synopsis
+ ========
+@@ -9,51 +9,51 @@
+ .. parsed-literal::
+ 
+  `Generate a Project Buildsystem`_
+-  cmake [<options>] <path-to-source>
+-  cmake [<options>] <path-to-existing-build>
+-  cmake [<options>] -S <path-to-source> -B <path-to-build>
++  cmake3 [<options>] <path-to-source>
++  cmake3 [<options>] <path-to-existing-build>
++  cmake3 [<options>] -S <path-to-source> -B <path-to-build>
+ 
+  `Build a Project`_
+-  cmake --build <dir> [<options>] [-- <build-tool-options>]
++  cmake3 --build <dir> [<options>] [-- <build-tool-options>]
+ 
+  `Install a Project`_
+-  cmake --install <dir> [<options>]
++  cmake3 --install <dir> [<options>]
+ 
+  `Open a Project`_
+-  cmake --open <dir>
++  cmake3 --open <dir>
+ 
+  `Run a Script`_
+-  cmake [{-D <var>=<value>}...] -P <cmake-script-file>
++  cmake3 [{-D <var>=<value>}...] -P <cmake-script-file>
+ 
+  `Run a Command-Line Tool`_
+-  cmake -E <command> [<options>]
++  cmake3 -E <command> [<options>]
+ 
+  `Run the Find-Package Tool`_
+-  cmake --find-package [<options>]
++  cmake3 --find-package [<options>]
+ 
+  `View Help`_
+-  cmake --help[-<topic>]
++  cmake3 --help[-<topic>]
+ 
+ Description
+ ===========
+ 
+-The **cmake** executable is the command-line interface of the cross-platform
++The **cmake3** executable is the command-line interface of the cross-platform
+ buildsystem generator CMake.  The above `Synopsis`_ lists various actions
+ the tool can perform as described in sections below.
+ 
+ To build a software project with CMake, `Generate a Project Buildsystem`_.
+-Optionally use **cmake** to `Build a Project`_, `Install a Project`_ or just
+-run the corresponding build tool (e.g. ``make``) directly.  **cmake** can also
++Optionally use **cmake3** to `Build a Project`_, `Install a Project`_ or just
++run the corresponding build tool (e.g. ``make``) directly.  **cmake3** can also
+ be used to `View Help`_.
+ 
+ The other actions are meant for use by software developers writing
+-scripts in the :manual:`CMake language <cmake-language(7)>` to support
++scripts in the :manual:`CMake language <cmake3-language(7)>` to support
+ their builds.
+ 
+-For graphical user interfaces that may be used in place of **cmake**,
+-see :manual:`ccmake <ccmake(1)>` and :manual:`cmake-gui <cmake-gui(1)>`.
++For graphical user interfaces that may be used in place of **cmake3**,
++see :manual:`ccmake3 <ccmake3(1)>` and :manual:`cmake3-gui <cmake3-gui(1)>`.
+ For command-line interfaces to the CMake testing and packaging facilities,
+-see :manual:`ctest <ctest(1)>` and :manual:`cpack <cpack(1)>`.
++see :manual:`ctest3 <ctest3(1)>` and :manual:`cpack3 <cpack3(1)>`.
+ 
+ For more information on CMake at large, `see also`_ the links at the end
+ of this manual.
+@@ -68,7 +68,7 @@
+ ``make`` tool or a project file for an Integrated Development Environment
+ (IDE).  In order to avoid maintaining multiple such buildsystems, a project
+ may specify its buildsystem abstractly using files written in the
+-:manual:`CMake language <cmake-language(7)>`.  From these files CMake
++:manual:`CMake language <cmake3-language(7)>`.  From these files CMake
+ generates a preferred buildsystem locally for each user through a backend
+ called a *generator*.
+ 
+@@ -77,9 +77,9 @@
+ Source Tree
+   The top-level directory containing source files provided by the project.
+   The project specifies its buildsystem using files as described in the
+-  :manual:`cmake-language(7)` manual, starting with a top-level file named
++  :manual:`cmake3-language(7)` manual, starting with a top-level file named
+   ``CMakeLists.txt``.  These files specify build targets and their
+-  dependencies as described in the :manual:`cmake-buildsystem(7)` manual.
++  dependencies as described in the :manual:`cmake3-buildsystem(7)` manual.
+ 
+ Build Tree
+   The top-level directory in which buildsystem files and build output
+@@ -95,8 +95,8 @@
+ 
+ Generator
+   This chooses the kind of buildsystem to generate.  See the
+-  :manual:`cmake-generators(7)` manual for documentation of all generators.
+-  Run ``cmake --help`` to see a list of generators available locally.
++  :manual:`cmake3-generators(7)` manual for documentation of all generators.
++  Run ``cmake3 --help`` to see a list of generators available locally.
+   Optionally use the ``-G`` option below to specify a generator, or simply
+   accept the default CMake chooses for the current platform.
+ 
+@@ -112,7 +112,7 @@
+ Run CMake with one of the following command signatures to specify the
+ source and build trees and generate a buildsystem:
+ 
+-``cmake [<options>] <path-to-source>``
++``cmake3 [<options>] <path-to-source>``
+   Uses the current working directory as the build tree, and
+   ``<path-to-source>`` as the source tree.  The specified path may
+   be absolute or relative to the current working directory.
+@@ -123,9 +123,9 @@
+   .. code-block:: console
+ 
+     $ mkdir build ; cd build
+-    $ cmake ../src
++    $ cmake3 ../src
+ 
+-``cmake [<options>] <path-to-existing-build>``
++``cmake3 [<options>] <path-to-existing-build>``
+   Uses ``<path-to-existing-build>`` as the build tree, and loads the
+   path to the source tree from its ``CMakeCache.txt`` file, which must
+   have already been generated by a previous run of CMake.  The specified
+@@ -135,9 +135,9 @@
+   .. code-block:: console
+ 
+     $ cd build
+-    $ cmake .
++    $ cmake3 .
+ 
+-``cmake [<options>] -S <path-to-source> -B <path-to-build>``
++``cmake3 [<options>] -S <path-to-source> -B <path-to-build>``
+   Uses ``<path-to-build>`` as the build tree and ``<path-to-source>``
+   as the source tree.  The specified paths may be absolute or relative
+   to the current working directory.  The source tree must contain a
+@@ -146,7 +146,7 @@
+ 
+   .. code-block:: console
+ 
+-    $ cmake -S src -B build
++    $ cmake3 -S src -B build
+ 
+ In all cases the ``<options>`` may be zero or more of the `Options`_ below.
+ 
+@@ -159,7 +159,7 @@
+     $ make
+     $ make install
+ 
+-Alternatively, one may use **cmake** to `Build a Project`_ by
++Alternatively, one may use **cmake3** to `Build a Project`_ by
+ automatically choosing and invoking the appropriate native build tool.
+ 
+ .. _`CMake Options`:
+@@ -368,7 +368,7 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake --build <dir> [<options>] [-- <build-tool-options>]
++  cmake3 --build <dir> [<options>] [-- <build-tool-options>]
+ 
+ This abstracts a native build tool's command-line interface with the
+ following options:
+@@ -411,7 +411,7 @@
+ ``--``
+   Pass remaining options to the native tool.
+ 
+-Run ``cmake --build`` with no options for quick help.
++Run ``cmake3 --build`` with no options for quick help.
+ 
+ Install a Project
+ =================
+@@ -421,7 +421,7 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake --install <dir> [<options>]
++  cmake3 --install <dir> [<options>]
+ 
+ This may be used after building a project to run installation without
+ using the generated build system or the native build tool.
+@@ -447,14 +447,14 @@
+ 
+   This option can be omitted if :envvar:`VERBOSE` environment variable is set.
+ 
+-Run ``cmake --install`` with no options for quick help.
++Run ``cmake3 --install`` with no options for quick help.
+ 
+ Open a Project
+ ==============
+ 
+ .. code-block:: shell
+ 
+-  cmake --open <dir>
++  cmake3 --open <dir>
+ 
+ Open the generated project in the associated application.  This is only
+ supported by some generators.
+@@ -467,7 +467,7 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake [{-D <var>=<value>}...] -P <cmake-script-file>
++  cmake3 [{-D <var>=<value>}...] -P <cmake-script-file>
+ 
+ Process the given cmake file as a script written in the CMake
+ language.  No configure or generate step is performed and the cache
+@@ -482,9 +482,9 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake -E <command> [<options>]
++  cmake3 -E <command> [<options>]
+ 
+-Run ``cmake -E`` or ``cmake -E help`` for a summary of commands.
++Run ``cmake3 -E`` or ``cmake3 -E help`` for a summary of commands.
+ Available commands are:
+ 
+ ``capabilities``
+@@ -663,7 +663,7 @@
+   situations instead.
+ 
+ ``server``
+-  Launch :manual:`cmake-server(7)` mode.
++  Launch :manual:`cmake3-server(7)` mode.
+ 
+ ``sleep <number>...``
+   Sleep for given number of seconds.
+@@ -727,7 +727,7 @@
+ Windows-specific Command-Line Tools
+ -----------------------------------
+ 
+-The following ``cmake -E`` commands are available only on Windows:
++The following ``cmake3 -E`` commands are available only on Windows:
+ 
+ ``delete_regv <key>``
+   Delete Windows registry value.
+@@ -751,7 +751,7 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake --find-package [<options>]
++  cmake3 --find-package [<options>]
+ 
+ It searches a package using :command:`find_package()` and prints the
+ resulting flags to stdout.  This can be used instead of pkg-config
+@@ -770,7 +770,7 @@
+ 
+ .. code-block:: shell
+ 
+-  cmake --help[-<topic>]
++  cmake3 --help[-<topic>]
+ 
+ with one of the following options:
+ 
+diff --git a/Help/manual/cpack.1.rst b/Help/manual/cpack.1.rst
+index 4f9f28d..fd5e921 100644
+--- a/Help/manual/cpack.1.rst
++++ b/Help/manual/cpack.1.rst
+@@ -2,4 +2,4 @@
+ 
+-cpack(1)
+-********
++cpack3(1)
++*********
+ 
+@@ -10,3 +10,3 @@
+ 
+- cpack [<options>]
++ cpack3 [<options>]
+ 
+@@ -15,6 +15,6 @@
+ 
+-The **cpack** executable is the CMake packaging program.  It generates
++The **cpack3** executable is the CMake packaging program.  It generates
+ installers and source packages in a variety of formats.
+ 
+-For each installer or package format, **cpack** has a specific backend,
++For each installer or package format, **cpack3** has a specific backend,
+ called "generator". A generator is responsible for generating the required
+@@ -22,6 +22,6 @@
+ or package generators are not to be confused with the makefile generators
+-of the :manual:`cmake <cmake(1)>` command.
++of the :manual:`cmake3 <cmake3(1)>` command.
+ 
+-All supported generators are specified in the :manual:`cpack-generators
+-<cpack-generators(7)>` manual.  The command ``cpack --help`` prints a
++All supported generators are specified in the :manual:`cpack3-generators
++<cpack3-generators(7)>` manual.  The command ``cpack3 --help`` prints a
+ list of generators supported for the target platform.  Which of them are
+@@ -30,4 +30,4 @@
+ 
+-The **cpack** program is steered by a configuration file written in the
+-:manual:`CMake language <cmake-language(7)>`. Unless chosen differently
++The **cpack3** program is steered by a configuration file written in the
++:manual:`CMake language <cmake3-language(7)>`. Unless chosen differently
+ through the command-line option ``--config``, the file ``CPackConfig.cmake``
+@@ -36,3 +36,3 @@
+ In the standard CMake workflow, the file ``CPackConfig.cmake`` is generated
+-by the :manual:`cmake <cmake(1)>` executable, provided the :module:`CPack`
++by the :manual:`cmake3 <cmake3(1)>` executable, provided the :module:`CPack`
+ module is included by the project's ``CMakeLists.txt`` file.
+--- a/Help/manual/cpack-generators.7.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/cpack-generators.7.rst	2019-08-28 23:40:41.625434993 +0200
+@@ -1,7 +1,7 @@
+ .. cmake-manual-description: CPack Generator Reference
+ 
+-cpack-generators(7)
+-*******************
++cpack3-generators(7)
++********************
+ 
+ .. only:: html
+ 
+diff --git a/Help/manual/ctest.1.rst b/Help/manual/ctest.1.rst
+index e797333..1e1a506 100644
+--- a/Help/manual/ctest.1.rst
++++ b/Help/manual/ctest.1.rst
+@@ -2,4 +2,4 @@
+ 
+-ctest(1)
+-********
++ctest3(1)
++*********
+ 
+@@ -12,7 +12,7 @@
+ 
+- ctest [<options>]
+- ctest --build-and-test <path-to-source> <path-to-build>
++ ctest3 [<options>]
++ ctest3 --build-and-test <path-to-source> <path-to-build>
+        --build-generator <generator> [<options>...]
+        [--build-options <opts>...] [--test-command <command> [<args>...]]
+- ctest {-D <dashboard> | -M <model> -T <action> | -S <script> | -SP <script>}
++ ctest3 {-D <dashboard> | -M <model> -T <action> | -S <script> | -SP <script>}
+        [-- <dashboard-options>...]
+@@ -22,3 +22,3 @@
+ 
+-The **ctest** executable is the CMake test driver program.
++The **ctest3** executable is the CMake test driver program.
+ CMake-generated build trees created for projects that use the
+@@ -41,3 +41,3 @@
+ 
+- When the output of **ctest** is being sent directly to a terminal, the
++ When the output of **ctest3** is being sent directly to a terminal, the
+  progress through the set of tests is reported by updating the same line
+@@ -96,3 +96,3 @@
+ 
+- When ``ctest`` is run as a `Dashboard Client`_ this sets the
++ When ``ctest3`` is run as a `Dashboard Client`_ this sets the
+  ``TestLoad`` option of the `CTest Test Step`_.
+@@ -213,3 +213,3 @@
+  Then CTest will do what is required to create and run a dashboard.
+- This option basically sets up a dashboard and then runs ``ctest -D``
++ This option basically sets up a dashboard and then runs ``ctest3 -D``
+  with the appropriate options.
+@@ -398,3 +398,3 @@
+ 
+-  ctest --build-and-test <path-to-source> <path-to-build>
++  ctest3 --build-and-test <path-to-source> <path-to-build>
+         --build-generator <generator>
+@@ -432,3 +432,3 @@
+ ``--build-generator``
+- Specify the generator to use. See the :manual:`cmake-generators(7)` manual.
++ Specify the generator to use. See the :manual:`cmake3-generators(7)` manual.
+ 
+@@ -477,3 +477,3 @@
+ 
+-  ctest (-D <dashboard> | -M <model> -T <action> | -S <script> | -SP <script>)
++  ctest3 (-D <dashboard> | -M <model> -T <action> | -S <script> | -SP <script>)
+         [-- <dashboard-options>...]
+@@ -592,7 +592,7 @@
+ CTest can perform testing on an already-generated build tree.
+-Run the ``ctest`` command with the current working directory set
++Run the ``ctest3`` command with the current working directory set
+ to the build tree and use one of these signatures::
+ 
+-  ctest -D <mode>[<step>]
+-  ctest -M <mode> [ -T <step> ]...
++  ctest3 -D <mode>[<step>]
++  ctest3 -M <mode> [ -T <step> ]...
+ 
+@@ -623,5 +623,5 @@
+ 
+-CTest can perform testing driven by a :manual:`cmake-language(7)`
++CTest can perform testing driven by a :manual:`cmake3-language(7)`
+ script that creates and maintains the source and build tree as
+-well as performing the testing steps.  Run the ``ctest`` command
++well as performing the testing steps.  Run the ``ctest3`` command
+ with the current working directory set outside of any build tree
+@@ -629,4 +629,4 @@
+ 
+-  ctest -S <script>
+-  ctest -SP <script>
++  ctest3 -S <script>
++  ctest3 -SP <script>
+ 
+@@ -888,3 +888,3 @@
+   the default configuration to be built when no ``-C`` option is
+-  given to the ``ctest`` command.  The value will be substituted into
++  given to the ``ctest3`` command.  The value will be substituted into
+   the value of ``MakeCommand`` to replace the literal string
+--- a/Help/manual/OPTIONS_BUILD.orig.txt	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/OPTIONS_BUILD.txt	2019-08-28 21:55:09.487377360 +0200
+@@ -56,3 +56,3 @@
+  build system.  Possible generator names are specified in the
+- :manual:`cmake-generators(7)` manual.
++ :manual:`cmake3-generators(7)` manual.
+ 
+--- a/Help/manual/OPTIONS_HELP.orig.txt	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/OPTIONS_HELP.txt	2019-08-28 21:38:35.514134284 +0200
+@@ -35,3 +35,3 @@
+ 
+- The :manual:`cmake-commands(7)` manual entry for ``<cmd>`` is
++ The :manual:`cmake3-commands(7)` manual entry for ``<cmd>`` is
+  printed in a human-readable text format.
+@@ -47,5 +47,5 @@
+ ``--help-commands [<f>]``
+- Print cmake-commands manual and exit.
++ Print cmake3-commands manual and exit.
+ 
+- The :manual:`cmake-commands(7)` manual is printed in a
++ The :manual:`cmake3-commands(7)` manual is printed in a
+  human-readable text format.
+@@ -56,3 +56,3 @@
+ 
+- The :manual:`cmake-modules(7)` manual entry for ``<mod>`` is printed
++ The :manual:`cmake3-modules(7)` manual entry for ``<mod>`` is printed
+  in a human-readable text format.
+@@ -68,5 +68,5 @@
+ ``--help-modules [<f>]``
+- Print cmake-modules manual and exit.
++ Print cmake3-modules manual and exit.
+ 
+- The :manual:`cmake-modules(7)` manual is printed in a human-readable
++ The :manual:`cmake3-modules(7)` manual is printed in a human-readable
+  text format.
+@@ -77,3 +77,3 @@
+ 
+- The :manual:`cmake-policies(7)` manual entry for ``<cmp>`` is
++ The :manual:`cmake3-policies(7)` manual entry for ``<cmp>`` is
+  printed in a human-readable text format.
+@@ -89,5 +89,5 @@
+ ``--help-policies [<f>]``
+- Print cmake-policies manual and exit.
++ Print cmake3-policies manual and exit.
+ 
+- The :manual:`cmake-policies(7)` manual is printed in a
++ The :manual:`cmake3-policies(7)` manual is printed in a
+  human-readable text format.
+@@ -98,3 +98,3 @@
+ 
+- The :manual:`cmake-properties(7)` manual entries for ``<prop>`` are
++ The :manual:`cmake3-properties(7)` manual entries for ``<prop>`` are
+  printed in a human-readable text format.
+@@ -110,5 +110,5 @@
+ ``--help-properties [<f>]``
+- Print cmake-properties manual and exit.
++ Print cmake3-properties manual and exit.
+ 
+- The :manual:`cmake-properties(7)` manual is printed in a
++ The :manual:`cmake3-properties(7)` manual is printed in a
+  human-readable text format.
+@@ -119,3 +119,3 @@
+ 
+- The :manual:`cmake-variables(7)` manual entry for ``<var>`` is
++ The :manual:`cmake3-variables(7)` manual entry for ``<var>`` is
+  printed in a human-readable text format.
+@@ -131,5 +131,5 @@
+ ``--help-variables [<f>]``
+- Print cmake-variables manual and exit.
++ Print cmake3-variables manual and exit.
+ 
+- The :manual:`cmake-variables(7)` manual is printed in a
++ The :manual:`cmake3-variables(7)` manual is printed in a
+  human-readable text format.
+--- a/Help/manual/cmake-server.7.orig.rst	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/manual/cmake-server.7.rst	2019-08-28 21:52:59.304000387 +0200
+@@ -2,4 +2,4 @@
+ 
+-cmake-server(7)
+-***************
++cmake3-server(7)
++****************
+ 
+@@ -12,3 +12,3 @@
+ 
+-:manual:`cmake(1)` is capable of providing semantic information about
++:manual:`cmake3(1)` is capable of providing semantic information about
+ CMake code it executes to generate a buildsystem.  If executed with
+@@ -20,5 +20,5 @@
+ 
+-A single :manual:`cmake-buildsystem(7)` may describe buildsystem contents
++A single :manual:`cmake3-buildsystem(7)` may describe buildsystem contents
+ and build properties which differ based on
+-:manual:`generation-time context <cmake-generator-expressions(7)>`
++:manual:`generation-time context <cmake3-generator-expressions(7)>`
+ including:
+@@ -48,6 +48,6 @@
+ 
+-Start :manual:`cmake(1)` in the server command mode, supplying the path to
++Start :manual:`cmake3(1)` in the server command mode, supplying the path to
+ the build directory to process::
+ 
+-  cmake -E server (--debug|--pipe=<NAMED_PIPE>)
++  cmake3 -E server (--debug|--pipe=<NAMED_PIPE>)
+ 
+diff --git a/Help/policy/CMP0037.rst b/Help/policy/CMP0037.rst
+index 9f8457c..f4af210 100644
+--- a/Help/policy/CMP0037.rst
++++ b/Help/policy/CMP0037.rst
+@@ -6,7 +6,7 @@ Target names should not be reserved and should match a validity pattern.
+ CMake 2.8.12 and lower allowed creating targets using :command:`add_library`,
+ :command:`add_executable` and :command:`add_custom_target` with unrestricted
+ choice for the target name.  Newer cmake features such
+-as :manual:`cmake-generator-expressions(7)` and some
++as :manual:`cmake3-generator-expressions(7)` and some
+ diagnostics expect target names to match a restricted pattern.
+ 
+ Target names may contain upper and lower case letters, numbers, the underscore
+diff --git a/Help/policy/CMP0043.rst b/Help/policy/CMP0043.rst
+index 9e427c3..8d5ad63 100644
+--- a/Help/policy/CMP0043.rst
++++ b/Help/policy/CMP0043.rst
+@@ -9,7 +9,7 @@ CMake 2.8.12 and lower allowed setting the
+ configuration-specific compile definitions.
+ 
+ Since CMake 2.8.10, the :prop_tgt:`COMPILE_DEFINITIONS` property has supported
+-:manual:`generator expressions <cmake-generator-expressions(7)>` for setting
++:manual:`generator expressions <cmake3-generator-expressions(7)>` for setting
+ configuration-dependent content.  The continued existence of the suffixed
+ variables is redundant, and causes a maintenance burden.  Population of the
+ :prop_tgt:`COMPILE_DEFINITIONS_DEBUG <COMPILE_DEFINITIONS_<CONFIG>>` property
+diff --git a/Help/policy/CMP0044.rst b/Help/policy/CMP0044.rst
+index 02afa9f..22e3afb 100644
+--- a/Help/policy/CMP0044.rst
++++ b/Help/policy/CMP0044.rst
+@@ -4,7 +4,7 @@ CMP0044
+ Case sensitive ``<LANG>_COMPILER_ID`` generator expressions
+ 
+ CMake 2.8.12 introduced the ``<LANG>_COMPILER_ID``
+-:manual:`generator expressions <cmake-generator-expressions(7)>` to allow
++:manual:`generator expressions <cmake3-generator-expressions(7)>` to allow
+ comparison of the :variable:`CMAKE_<LANG>_COMPILER_ID` with a test value.  The
+ possible valid values are lowercase, but the comparison with the test value
+ was performed case-insensitively.
+diff --git a/Help/policy/CMP0051.rst b/Help/policy/CMP0051.rst
+index 6b679e5..18c05c1 100644
+--- a/Help/policy/CMP0051.rst
++++ b/Help/policy/CMP0051.rst
+@@ -4,7 +4,7 @@ CMP0051
+ List TARGET_OBJECTS in SOURCES target property.
+ 
+ CMake 3.0 and lower did not include the ``TARGET_OBJECTS``
+-:manual:`generator expression <cmake-generator-expressions(7)>` when
++:manual:`generator expression <cmake3-generator-expressions(7)>` when
+ returning the :prop_tgt:`SOURCES` target property.
+ 
+ Configure-time CMake code is not able to handle generator expressions.  If
+diff --git a/Help/policy/CMP0053.rst b/Help/policy/CMP0053.rst
+index 2620a60..ba0fe78 100644
+--- a/Help/policy/CMP0053.rst
++++ b/Help/policy/CMP0053.rst
+@@ -5,7 +5,7 @@ Simplify variable reference and escape sequence evaluation.
+ 
+ CMake 3.1 introduced a much faster implementation of evaluation of the
+ :ref:`Variable References` and :ref:`Escape Sequences` documented in the
+-:manual:`cmake-language(7)` manual.  While the behavior is identical
++:manual:`cmake3-language(7)` manual.  While the behavior is identical
+ to the legacy implementation in most cases, some corner cases were
+ cleaned up to simplify the behavior.  Specifically:
+ 
+@@ -32,7 +32,7 @@ cleaned up to simplify the behavior.  Specifically:
+   escape. Now any non-alphanumeric, non-semicolon, non-NUL
+   character may be escaped following the ``escape_identity``
+   production in the :ref:`Escape Sequences` section of the
+-  :manual:`cmake-language(7)` manual.
++  :manual:`cmake3-language(7)` manual.
+ 
+ The ``OLD`` behavior for this policy is to honor the legacy behavior for
+ variable references and escape sequences.  The ``NEW`` behavior is to
+--- a/Help/policy/DEPRECATED.orig.txt	2019-07-16 13:19:54.000000000 +0200
++++ b/Help/policy/DEPRECATED.txt	2019-08-28 22:17:06.871653176 +0200
+@@ -2,3 +2,3 @@
+   The ``OLD`` behavior of a policy is
+-  :manual:`deprecated by definition <cmake-policies(7)>`
++  :manual:`deprecated by definition <cmake3-policies(7)>`
+   and may be removed in a future version of CMake.
+diff --git a/Help/prop_dir/COMPILE_DEFINITIONS.rst b/Help/prop_dir/COMPILE_DEFINITIONS.rst
+index 85adcb5..270a512 100644
+--- a/Help/prop_dir/COMPILE_DEFINITIONS.rst
++++ b/Help/prop_dir/COMPILE_DEFINITIONS.rst
+@@ -22,8 +22,8 @@ by the native build tool.
+ .. include:: /include/COMPILE_DEFINITIONS_DISCLAIMER.txt
+ 
+ Contents of ``COMPILE_DEFINITIONS`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ The corresponding :prop_dir:`COMPILE_DEFINITIONS_<CONFIG>` property may
+diff --git a/Help/prop_dir/COMPILE_DEFINITIONS_CONFIG.rst b/Help/prop_dir/COMPILE_DEFINITIONS_CONFIG.rst
+index a6af45f..37abb3e 100644
+--- a/Help/prop_dir/COMPILE_DEFINITIONS_CONFIG.rst
++++ b/Help/prop_dir/COMPILE_DEFINITIONS_CONFIG.rst
+@@ -12,8 +12,8 @@ This property will be initialized in each directory by its value in
+ the directory's parent.
+ 
+ Contents of ``COMPILE_DEFINITIONS_<CONFIG>`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ Generator expressions should be preferred instead of setting this property.
+diff --git a/Help/prop_dir/COMPILE_OPTIONS.rst b/Help/prop_dir/COMPILE_OPTIONS.rst
+index 877deb0..04fbfbb 100644
+--- a/Help/prop_dir/COMPILE_OPTIONS.rst
++++ b/Help/prop_dir/COMPILE_OPTIONS.rst
+@@ -11,6 +11,6 @@ property when a target is created, which is used by the generators to set
+ the options for the compiler.
+ 
+ Contents of ``COMPILE_OPTIONS`` may use "generator expressions" with the
+-syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)` manual
+-for available expressions.  See the :manual:`cmake-buildsystem(7)` manual
++syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)` manual
++for available expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+diff --git a/Help/prop_dir/INCLUDE_DIRECTORIES.rst b/Help/prop_dir/INCLUDE_DIRECTORIES.rst
+index 6789a56..cde76fb 100644
+--- a/Help/prop_dir/INCLUDE_DIRECTORIES.rst
++++ b/Help/prop_dir/INCLUDE_DIRECTORIES.rst
+@@ -21,6 +21,6 @@ The target property values are used by the generators to set the
+ include paths for the compiler.
+ 
+ Contents of ``INCLUDE_DIRECTORIES`` may use "generator expressions" with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.rst b/Help/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.rst
+index e8f4d2a..7f0a95b 100644
+--- a/Help/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.rst
++++ b/Help/prop_gbl/CMAKE_CXX_KNOWN_FEATURES.rst
+@@ -8,7 +8,7 @@ C++ compiler.  If the feature is available with the C++ compiler, it will
+ be listed in the :variable:`CMAKE_CXX_COMPILE_FEATURES` variable.
+ 
+ The features listed here may be used with the :command:`target_compile_features`
+-command.  See the :manual:`cmake-compile-features(7)` manual for information on
++command.  See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ 
+diff --git a/Help/prop_gbl/CMAKE_C_KNOWN_FEATURES.rst b/Help/prop_gbl/CMAKE_C_KNOWN_FEATURES.rst
+index a08af00..73f0afd 100644
+--- a/Help/prop_gbl/CMAKE_C_KNOWN_FEATURES.rst
++++ b/Help/prop_gbl/CMAKE_C_KNOWN_FEATURES.rst
+@@ -8,7 +8,7 @@ C compiler.  If the feature is available with the C compiler, it will
+ be listed in the :variable:`CMAKE_C_COMPILE_FEATURES` variable.
+ 
+ The features listed here may be used with the :command:`target_compile_features`
+-command.  See the :manual:`cmake-compile-features(7)` manual for information on
++command.  See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ The features known to this version of CMake are:
+diff --git a/Help/prop_sf/VS_DEPLOYMENT_CONTENT.rst b/Help/prop_sf/VS_DEPLOYMENT_CONTENT.rst
+index 9fb3ba3..7006144 100644
+--- a/Help/prop_sf/VS_DEPLOYMENT_CONTENT.rst
++++ b/Help/prop_sf/VS_DEPLOYMENT_CONTENT.rst
+@@ -5,7 +5,7 @@
+ Windows Store application when built with a
+ :manual:`Visual Studio generators <cmake-generators(7)>`.
+ The value must evaluate to either ``1`` or ``0`` and may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>`
++:manual:`generator expressions <cmake3-generator-expressions(7)>`
+ to make the choice based on the build configuration.
+ The ``.vcxproj`` file entry for the source file will be
+ marked either ``DeploymentContent`` or ``ExcludedFromBuild``
+diff --git a/Help/prop_tgt/ANDROID_JAR_DIRECTORIES.rst b/Help/prop_tgt/ANDROID_JAR_DIRECTORIES.rst
+index 54f0a8f..7bbd820 100644
+--- a/Help/prop_tgt/ANDROID_JAR_DIRECTORIES.rst
++++ b/Help/prop_tgt/ANDROID_JAR_DIRECTORIES.rst
+@@ -10,5 +10,5 @@ semicolons. This property is initialized by the value of the
+ a target is created.
+ 
+ Contents of ``ANDROID_JAR_DIRECTORIES`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
+ manual for available expressions.
+diff --git a/Help/prop_tgt/ANDROID_NATIVE_LIB_DEPENDENCIES.rst b/Help/prop_tgt/ANDROID_NATIVE_LIB_DEPENDENCIES.rst
+index 759a37b..71d51a7 100644
+--- a/Help/prop_tgt/ANDROID_NATIVE_LIB_DEPENDENCIES.rst
++++ b/Help/prop_tgt/ANDROID_NATIVE_LIB_DEPENDENCIES.rst
+@@ -10,5 +10,5 @@ when a target is created.
+ 
+ Contents of ``ANDROID_NATIVE_LIB_DEPENDENCIES`` may use
+ "generator expressions" with the syntax ``$<...>``. See the
+-:manual:`cmake-generator-expressions(7)` manual for
++:manual:`cmake3-generator-expressions(7)` manual for
+ available expressions.
+diff --git a/Help/prop_tgt/ANDROID_NATIVE_LIB_DIRECTORIES.rst b/Help/prop_tgt/ANDROID_NATIVE_LIB_DIRECTORIES.rst
+index bc67380..424675b 100644
+--- a/Help/prop_tgt/ANDROID_NATIVE_LIB_DIRECTORIES.rst
++++ b/Help/prop_tgt/ANDROID_NATIVE_LIB_DIRECTORIES.rst
+@@ -12,5 +12,5 @@ This property is initialized by the value of the
+ target is created.
+ 
+ Contents of ``ANDROID_NATIVE_LIB_DIRECTORIES`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
+ manual for available expressions.
+diff --git a/Help/prop_tgt/ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst b/Help/prop_tgt/ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst
+index 12f8bb7..2981616 100644
+--- a/Help/prop_tgt/ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst
++++ b/Help/prop_tgt/ARCHIVE_OUTPUT_DIRECTORY_CONFIG.rst
+@@ -13,4 +13,4 @@ property is initialized by the value of the
+ it is set when a target is created.
+ 
+ Contents of ``ARCHIVE_OUTPUT_DIRECTORY_<CONFIG>`` may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>`.
++:manual:`generator expressions <cmake3-generator-expressions(7)>`.
+diff --git a/Help/prop_tgt/AUTOGEN_TARGET_DEPENDS.rst b/Help/prop_tgt/AUTOGEN_TARGET_DEPENDS.rst
+index 5063244..067b1eb 100644
+--- a/Help/prop_tgt/AUTOGEN_TARGET_DEPENDS.rst
++++ b/Help/prop_tgt/AUTOGEN_TARGET_DEPENDS.rst
+@@ -20,3 +20,3 @@
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+diff --git a/Help/prop_tgt/AUTOMOC.rst b/Help/prop_tgt/AUTOMOC.rst
+index 8143ba9..2763938 100644
+--- a/Help/prop_tgt/AUTOMOC.rst
++++ b/Help/prop_tgt/AUTOMOC.rst
+@@ -95,3 +95,3 @@
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+diff --git a/Help/prop_tgt/AUTOMOC_MOC_OPTIONS.rst b/Help/prop_tgt/AUTOMOC_MOC_OPTIONS.rst
+index ebd5c49..fc8582a 100644
+--- a/Help/prop_tgt/AUTOMOC_MOC_OPTIONS.rst
++++ b/Help/prop_tgt/AUTOMOC_MOC_OPTIONS.rst
+@@ -13,5 +13,5 @@
+ :variable:`CMAKE_AUTOMOC_MOC_OPTIONS` variable if it is set when a target
+ is created, or an empty string otherwise.
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+diff --git a/Help/prop_tgt/AUTORCC.rst b/Help/prop_tgt/AUTORCC.rst
+index 8dce6b1..50d9054 100644
+--- a/Help/prop_tgt/AUTORCC.rst
++++ b/Help/prop_tgt/AUTORCC.rst
+@@ -44,3 +44,3 @@
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+diff --git a/Help/prop_tgt/AUTORCC_OPTIONS.rst b/Help/prop_tgt/AUTORCC_OPTIONS.rst
+index 8a0f632..329b6c5 100644
+--- a/Help/prop_tgt/AUTORCC_OPTIONS.rst
++++ b/Help/prop_tgt/AUTORCC_OPTIONS.rst
+@@ -17,7 +17,7 @@
+ The options set on the target may be overridden by :prop_sf:`AUTORCC_OPTIONS`
+ set on the ``.qrc`` source file.
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+ 
+ EXAMPLE
+diff --git a/Help/prop_tgt/AUTOUIC.rst b/Help/prop_tgt/AUTOUIC.rst
+index 4e60ec3..85ab9e9 100644
+--- a/Help/prop_tgt/AUTOUIC.rst
++++ b/Help/prop_tgt/AUTOUIC.rst
+@@ -45,3 +45,3 @@
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+diff --git a/Help/prop_tgt/AUTOUIC_OPTIONS.rst b/Help/prop_tgt/AUTOUIC_OPTIONS.rst
+index dc3bee5..b5d54d5 100644
+--- a/Help/prop_tgt/AUTOUIC_OPTIONS.rst
++++ b/Help/prop_tgt/AUTOUIC_OPTIONS.rst
+@@ -18,10 +18,10 @@
+ set on the ``.ui`` source file.
+ 
+ This property may use "generator expressions" with the syntax ``$<...>``.
+-See the :manual:`cmake-generator-expressions(7)` manual for available
++See the :manual:`cmake3-generator-expressions(7)` manual for available
+ expressions.
+ 
+-See the :manual:`cmake-qt(7)` manual for more information on using CMake
++See the :manual:`cmake3-qt(7)` manual for more information on using CMake
+ with Qt.
+ 
+ EXAMPLE
+diff --git a/Help/prop_tgt/COMPILE_DEFINITIONS.rst b/Help/prop_tgt/COMPILE_DEFINITIONS.rst
+index 059f913..7d6b9cf 100644
+--- a/Help/prop_tgt/COMPILE_DEFINITIONS.rst
++++ b/Help/prop_tgt/COMPILE_DEFINITIONS.rst
+@@ -16,8 +16,8 @@ by the native build tool.
+ .. include:: /include/COMPILE_DEFINITIONS_DISCLAIMER.txt
+ 
+ Contents of ``COMPILE_DEFINITIONS`` may use "generator expressions" with the
+-syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)` manual
+-for available expressions.  See the :manual:`cmake-buildsystem(7)` manual
++syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)` manual
++for available expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+ 
+ The corresponding :prop_tgt:`COMPILE_DEFINITIONS_<CONFIG>` property may
+diff --git a/Help/prop_tgt/COMPILE_DEFINITIONS_CONFIG.rst b/Help/prop_tgt/COMPILE_DEFINITIONS_CONFIG.rst
+index 84bd5e4..9467bfc 100644
+--- a/Help/prop_tgt/COMPILE_DEFINITIONS_CONFIG.rst
++++ b/Help/prop_tgt/COMPILE_DEFINITIONS_CONFIG.rst
+@@ -9,8 +9,8 @@ This is the configuration-specific version of :prop_tgt:`COMPILE_DEFINITIONS`
+ where ``<CONFIG>`` is an upper-case name (ex. ``COMPILE_DEFINITIONS_DEBUG``).
+ 
+ Contents of ``COMPILE_DEFINITIONS_<CONFIG>`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ Generator expressions should be preferred instead of setting this property.
+diff --git a/Help/prop_tgt/COMPILE_FEATURES.rst b/Help/prop_tgt/COMPILE_FEATURES.rst
+index 195215e..04a2bc2 100644
+--- a/Help/prop_tgt/COMPILE_FEATURES.rst
++++ b/Help/prop_tgt/COMPILE_FEATURES.rst
+@@ -8,6 +8,6 @@
+ :variable:`CMAKE_CXX_COMPILE_FEATURES` variables.
+ 
+ Contents of ``COMPILE_FEATURES`` may use "generator expressions" with the
+-syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)` manual for
+-available expressions.  See the :manual:`cmake-compile-features(7)` manual
++syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)` manual for
++available expressions.  See the :manual:`cmake3-compile-features(7)` manual
+ for information on compile features and a list of supported compilers.
+diff --git a/Help/prop_tgt/COMPILE_OPTIONS.rst b/Help/prop_tgt/COMPILE_OPTIONS.rst
+index 892ac23..c828379 100644
+--- a/Help/prop_tgt/COMPILE_OPTIONS.rst
++++ b/Help/prop_tgt/COMPILE_OPTIONS.rst
+@@ -12,6 +12,6 @@ property when a target is created, and is used by the generators to set
+ the options for the compiler.
+ 
+ Contents of ``COMPILE_OPTIONS`` may use "generator expressions" with the
+-syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)` manual
+-for available expressions.  See the :manual:`cmake-buildsystem(7)` manual
++syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)` manual
++for available expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+diff --git a/Help/prop_tgt/CXX_EXTENSIONS.rst b/Help/prop_tgt/CXX_EXTENSIONS.rst
+index 280bb3a..3bfc22d 100644
+--- a/Help/prop_tgt/CXX_EXTENSIONS.rst
++++ b/Help/prop_tgt/CXX_EXTENSIONS.rst
+@@ -9,7 +9,7 @@ as ``-std=gnu++11`` instead of ``-std=c++11`` to the compile line.  This
+ property is ``ON`` by default. The basic C++ standard level is
+ controlled by the :prop_tgt:`CXX_STANDARD` target property.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/CXX_STANDARD.rst b/Help/prop_tgt/CXX_STANDARD.rst
+index 5b186c1..853f7b8 100644
+--- a/Help/prop_tgt/CXX_STANDARD.rst
++++ b/Help/prop_tgt/CXX_STANDARD.rst
+@@ -25,7 +25,7 @@ with the :prop_tgt:`CXX_STANDARD_REQUIRED` target property.
+ Additionally, the :prop_tgt:`CXX_EXTENSIONS` target property may be used to
+ control whether compiler-specific extensions are enabled on a per-target basis.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/CXX_STANDARD_REQUIRED.rst b/Help/prop_tgt/CXX_STANDARD_REQUIRED.rst
+index 697d7f6..7feff76 100644
+--- a/Help/prop_tgt/CXX_STANDARD_REQUIRED.rst
++++ b/Help/prop_tgt/CXX_STANDARD_REQUIRED.rst
+@@ -10,7 +10,7 @@ treated as optional and may "decay" to a previous standard if the requested is
+ not available.  For compilers that have no notion of a standard level, such as
+ MSVC, this has no effect.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/C_EXTENSIONS.rst b/Help/prop_tgt/C_EXTENSIONS.rst
+index 05b14ce..77396f7 100644
+--- a/Help/prop_tgt/C_EXTENSIONS.rst
++++ b/Help/prop_tgt/C_EXTENSIONS.rst
+@@ -9,7 +9,7 @@ as ``-std=gnu11`` instead of ``-std=c11`` to the compile line.  This
+ property is ``ON`` by default. The basic C standard level is
+ controlled by the :prop_tgt:`C_STANDARD` target property.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/C_STANDARD.rst b/Help/prop_tgt/C_STANDARD.rst
+index 815a686..c695364 100644
+--- a/Help/prop_tgt/C_STANDARD.rst
++++ b/Help/prop_tgt/C_STANDARD.rst
+@@ -25,7 +25,7 @@ be controlled with the :prop_tgt:`C_STANDARD_REQUIRED` target property.
+ Additionally, the :prop_tgt:`C_EXTENSIONS` target property may be used to
+ control whether compiler-specific extensions are enabled on a per-target basis.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/C_STANDARD_REQUIRED.rst b/Help/prop_tgt/C_STANDARD_REQUIRED.rst
+index acfad98..2fd750b 100644
+--- a/Help/prop_tgt/C_STANDARD_REQUIRED.rst
++++ b/Help/prop_tgt/C_STANDARD_REQUIRED.rst
+@@ -10,7 +10,7 @@ treated as optional and may "decay" to a previous standard if the requested is
+ not available.  For compilers that have no notion of a standard level, such as
+ MSVC, this has no effect.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+ 
+ This property is initialized by the value of
+diff --git a/Help/prop_tgt/INCLUDE_DIRECTORIES.rst b/Help/prop_tgt/INCLUDE_DIRECTORIES.rst
+index 8b40d9c..de6d33d 100644
+--- a/Help/prop_tgt/INCLUDE_DIRECTORIES.rst
++++ b/Help/prop_tgt/INCLUDE_DIRECTORIES.rst
+@@ -18,7 +18,7 @@
+ Relative paths should not be added to this property directly. Use one of
+ the commands above instead to handle relative paths.
+ 
+-Contents of ``INCLUDE_DIRECTORIES`` may use :manual:`cmake-generator-expressions(7)` with
+-the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++Contents of ``INCLUDE_DIRECTORIES`` may use :manual:`cmake3-generator-expressions(7)` with
++the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/prop_tgt/INTERFACE_AUTOUIC_OPTIONS.rst b/Help/prop_tgt/INTERFACE_AUTOUIC_OPTIONS.rst
+index e97d293..69d6728 100644
+--- a/Help/prop_tgt/INTERFACE_AUTOUIC_OPTIONS.rst
++++ b/Help/prop_tgt/INTERFACE_AUTOUIC_OPTIONS.rst
+@@ -11,4 +11,4 @@ specified in the interface of ``foo``. This is done automatically by
+ the :command:`target_link_libraries` command.
+ 
+ This property supports generator expressions.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
+diff --git a/Help/prop_tgt/INTERFACE_COMPILE_FEATURES.rst b/Help/prop_tgt/INTERFACE_COMPILE_FEATURES.rst
+index 31b594f..1a0a7c4 100644
+--- a/Help/prop_tgt/INTERFACE_COMPILE_FEATURES.rst
++++ b/Help/prop_tgt/INTERFACE_COMPILE_FEATURES.rst
+@@ -8,5 +8,5 @@ INTERFACE_COMPILE_FEATURES
+ .. |PROPERTY_GENEX| replace:: ``$<TARGET_PROPERTY:foo,INTERFACE_COMPILE_FEATURES>``
+ .. include:: INTERFACE_BUILD_PROPERTY.txt
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on compile
++See the :manual:`cmake3-compile-features(7)` manual for information on compile
+ features and a list of supported compilers.
+diff --git a/Help/prop_tgt/INTERFACE_LINK_LIBRARIES.rst b/Help/prop_tgt/INTERFACE_LINK_LIBRARIES.rst
+index 832d12b..5eb5123 100644
+--- a/Help/prop_tgt/INTERFACE_LINK_LIBRARIES.rst
++++ b/Help/prop_tgt/INTERFACE_LINK_LIBRARIES.rst
+@@ -13,8 +13,8 @@
+ :policy:`CMP0022` is ``OLD`` or unset.
+ 
+ Contents of ``INTERFACE_LINK_LIBRARIES`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+ 
+ .. include:: LINK_LIBRARIES_INDIRECTION.txt
+diff --git a/Help/prop_tgt/INTERFACE_SOURCES.rst b/Help/prop_tgt/INTERFACE_SOURCES.rst
+index a224b68..5ae71a0 100644
+--- a/Help/prop_tgt/INTERFACE_SOURCES.rst
++++ b/Help/prop_tgt/INTERFACE_SOURCES.rst
+@@ -13,6 +13,6 @@ CMake will read this property from all target dependencies to determine the
+ sources of the consumer.
+ 
+ Contents of ``INTERFACE_SOURCES`` may use "generator expressions"
+-with the syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)`
+-manual for available expressions.  See the :manual:`cmake-buildsystem(7)`
++with the syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)`
++manual for available expressions.  See the :manual:`cmake3-buildsystem(7)`
+ manual for more on defining buildsystem properties.
+diff --git a/Help/prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.rst b/Help/prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.rst
+index a0a97ad..45c1c60 100644
+--- a/Help/prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.rst
++++ b/Help/prop_tgt/INTERFACE_SYSTEM_INCLUDE_DIRECTORIES.rst
+@@ -23,6 +23,6 @@ same include directories as containing system headers.
+ 
+ Contents of ``INTERFACE_SYSTEM_INCLUDE_DIRECTORIES`` may use "generator
+ expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available expressions.
+-See the :manual:`cmake-buildsystem(7)` manual for more on defining
++:manual:`cmake3-generator-expressions(7)` manual for available expressions.
++See the :manual:`cmake3-buildsystem(7)` manual for more on defining
+ buildsystem properties.
+diff --git a/Help/prop_tgt/LIBRARY_OUTPUT_DIRECTORY_CONFIG.rst b/Help/prop_tgt/LIBRARY_OUTPUT_DIRECTORY_CONFIG.rst
+index 28dd404..23505d6 100644
+--- a/Help/prop_tgt/LIBRARY_OUTPUT_DIRECTORY_CONFIG.rst
++++ b/Help/prop_tgt/LIBRARY_OUTPUT_DIRECTORY_CONFIG.rst
+@@ -13,4 +13,4 @@ property is initialized by the value of the
+ it is set when a target is created.
+ 
+ Contents of ``LIBRARY_OUTPUT_DIRECTORY_<CONFIG>`` may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>`.
++:manual:`generator expressions <cmake3-generator-expressions(7)>`.
+diff --git a/Help/prop_tgt/LINK_LIBRARIES.rst b/Help/prop_tgt/LINK_LIBRARIES.rst
+index aa4b9f5..11a768d 100644
+--- a/Help/prop_tgt/LINK_LIBRARIES.rst
++++ b/Help/prop_tgt/LINK_LIBRARIES.rst
+@@ -12,8 +12,8 @@
+ libraries for the compiler.
+ 
+ Contents of ``LINK_LIBRARIES`` may use "generator expressions" with the
+-syntax ``$<...>``.  See the :manual:`cmake-generator-expressions(7)` manual
+-for available expressions.  See the :manual:`cmake-buildsystem(7)` manual
++syntax ``$<...>``.  See the :manual:`cmake3-generator-expressions(7)` manual
++for available expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+ 
+ .. include:: LINK_LIBRARIES_INDIRECTION.txt
+diff --git a/Help/prop_tgt/OUTPUT_NAME.rst b/Help/prop_tgt/OUTPUT_NAME.rst
+index f1bdb7c..9406131 100644
+--- a/Help/prop_tgt/OUTPUT_NAME.rst
++++ b/Help/prop_tgt/OUTPUT_NAME.rst
+@@ -9,7 +9,7 @@
+ configuration.
+ 
+ Contents of ``OUTPUT_NAME`` and the variants listed below may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>`.
++:manual:`generator expressions <cmake3-generator-expressions(7)>`.
+ 
+ See also the variants:
+ 
+diff --git a/Help/prop_tgt/RUNTIME_OUTPUT_DIRECTORY_CONFIG.rst b/Help/prop_tgt/RUNTIME_OUTPUT_DIRECTORY_CONFIG.rst
+index 94fb277..c4537cd 100644
+--- a/Help/prop_tgt/RUNTIME_OUTPUT_DIRECTORY_CONFIG.rst
++++ b/Help/prop_tgt/RUNTIME_OUTPUT_DIRECTORY_CONFIG.rst
+@@ -13,4 +13,4 @@ property is initialized by the value of the
+ it is set when a target is created.
+ 
+ Contents of ``RUNTIME_OUTPUT_DIRECTORY_<CONFIG>`` may use
+-:manual:`generator expressions <cmake-generator-expressions(7)>`.
++:manual:`generator expressions <cmake3-generator-expressions(7)>`.
+diff --git a/Help/prop_tgt/XCODE_ATTRIBUTE_an-attribute.rst b/Help/prop_tgt/XCODE_ATTRIBUTE_an-attribute.rst
+index 7e00ac4..139e695 100644
+--- a/Help/prop_tgt/XCODE_ATTRIBUTE_an-attribute.rst
++++ b/Help/prop_tgt/XCODE_ATTRIBUTE_an-attribute.rst
+@@ -11,6 +11,6 @@ to set attributes on all targets in a directory tree.
+ 
+ Contents of ``XCODE_ATTRIBUTE_<an-attribute>`` may use
+ "generator expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available
+-expressions.  See the :manual:`cmake-buildsystem(7)` manual
++:manual:`cmake3-generator-expressions(7)` manual for available
++expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+diff --git a/Help/variable/CMAKE_COMMAND.rst b/Help/variable/CMAKE_COMMAND.rst
+index f80b46c..4ee4885 100644
+--- a/Help/variable/CMAKE_COMMAND.rst
++++ b/Help/variable/CMAKE_COMMAND.rst
+@@ -1,8 +1,8 @@
+ CMAKE_COMMAND
+ -------------
+ 
+-The full path to the :manual:`cmake(1)` executable.
++The full path to the :manual:`cmake3(1)` executable.
+ 
+-This is the full path to the CMake executable :manual:`cmake(1)` which is
++This is the full path to the CMake executable :manual:`cmake3(1)` which is
+ useful from custom commands that want to use the ``cmake -E`` option for
+ portable system commands.  (e.g.  ``/usr/local/bin/cmake``)
+diff --git a/Help/variable/CMAKE_CTEST_COMMAND.rst b/Help/variable/CMAKE_CTEST_COMMAND.rst
+index b2942e2..9320e5e 100644
+--- a/Help/variable/CMAKE_CTEST_COMMAND.rst
++++ b/Help/variable/CMAKE_CTEST_COMMAND.rst
+@@ -1,8 +1,8 @@
+ CMAKE_CTEST_COMMAND
+ -------------------
+ 
+-Full path to :manual:`ctest(1)` command installed with CMake.
++Full path to :manual:`ctest3(1)` command installed with CMake.
+ 
+-This is the full path to the CTest executable :manual:`ctest(1)` which is
+-useful from custom commands that want to use the :manual:`cmake(1)` ``-E``
++This is the full path to the CTest executable :manual:`ctest3(1)` which is
++useful from custom commands that want to use the :manual:`cmake3(1)` ``-E``
+ option for portable system commands.
+diff --git a/Help/variable/CMAKE_CXX_COMPILE_FEATURES.rst b/Help/variable/CMAKE_CXX_COMPILE_FEATURES.rst
+index 5c59f95..7d89e99 100644
+--- a/Help/variable/CMAKE_CXX_COMPILE_FEATURES.rst
++++ b/Help/variable/CMAKE_CXX_COMPILE_FEATURES.rst
+@@ -7,5 +7,5 @@ These features are known to be available for use with the C++ compiler. This
+ list is a subset of the features listed in the
+ :prop_gbl:`CMAKE_CXX_KNOWN_FEATURES` global property.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_CXX_EXTENSIONS.rst b/Help/variable/CMAKE_CXX_EXTENSIONS.rst
+index 4a92425..b8c2bf1 100644
+--- a/Help/variable/CMAKE_CXX_EXTENSIONS.rst
++++ b/Help/variable/CMAKE_CXX_EXTENSIONS.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`CXX_EXTENSIONS`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_CXX_STANDARD.rst b/Help/variable/CMAKE_CXX_STANDARD.rst
+index 8a8bdff..a2d4957 100644
+--- a/Help/variable/CMAKE_CXX_STANDARD.rst
++++ b/Help/variable/CMAKE_CXX_STANDARD.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`CXX_STANDARD`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst b/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst
+index 4c71058..8646543 100644
+--- a/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst
++++ b/Help/variable/CMAKE_CXX_STANDARD_REQUIRED.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`CXX_STANDARD_REQUIRED`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_C_COMPILE_FEATURES.rst b/Help/variable/CMAKE_C_COMPILE_FEATURES.rst
+index 8d1eca0..ad865e8 100644
+--- a/Help/variable/CMAKE_C_COMPILE_FEATURES.rst
++++ b/Help/variable/CMAKE_C_COMPILE_FEATURES.rst
+@@ -7,5 +7,5 @@ These features are known to be available for use with the C compiler. This
+ list is a subset of the features listed in the
+ :prop_gbl:`CMAKE_C_KNOWN_FEATURES` global property.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_C_EXTENSIONS.rst b/Help/variable/CMAKE_C_EXTENSIONS.rst
+index fa510d4..430617c 100644
+--- a/Help/variable/CMAKE_C_EXTENSIONS.rst
++++ b/Help/variable/CMAKE_C_EXTENSIONS.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`C_EXTENSIONS`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_C_STANDARD.rst b/Help/variable/CMAKE_C_STANDARD.rst
+index b55e00c..3dc1b02 100644
+--- a/Help/variable/CMAKE_C_STANDARD.rst
++++ b/Help/variable/CMAKE_C_STANDARD.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`C_STANDARD`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_C_STANDARD_REQUIRED.rst b/Help/variable/CMAKE_C_STANDARD_REQUIRED.rst
+index 7f70f6e..1961eb3 100644
+--- a/Help/variable/CMAKE_C_STANDARD_REQUIRED.rst
++++ b/Help/variable/CMAKE_C_STANDARD_REQUIRED.rst
+@@ -7,5 +7,5 @@ This variable is used to initialize the :prop_tgt:`C_STANDARD_REQUIRED`
+ property on all targets.  See that target property for additional
+ information.
+ 
+-See the :manual:`cmake-compile-features(7)` manual for information on
++See the :manual:`cmake3-compile-features(7)` manual for information on
+ compile features and a list of supported compilers.
+diff --git a/Help/variable/CMAKE_DISABLE_FIND_PACKAGE_PackageName.rst b/Help/variable/CMAKE_DISABLE_FIND_PACKAGE_PackageName.rst
+index ed60020..35bbc9a 100644
+--- a/Help/variable/CMAKE_DISABLE_FIND_PACKAGE_PackageName.rst
++++ b/Help/variable/CMAKE_DISABLE_FIND_PACKAGE_PackageName.rst
+@@ -13,4 +13,4 @@ This switch should be used during the initial CMake run.  Otherwise if
+ the package has already been found in a previous CMake run, the
+ variables which have been stored in the cache will still be there.  In
+ that case it is recommended to remove the cache variables for this
+-package from the cache using the cache editor or :manual:`cmake(1)` ``-U``
++package from the cache using the cache editor or :manual:`cmake3(1)` ``-U``
+diff --git a/Help/variable/CMAKE_EDIT_COMMAND.rst b/Help/variable/CMAKE_EDIT_COMMAND.rst
+index 2f4ab1f..35eb726 100644
+--- a/Help/variable/CMAKE_EDIT_COMMAND.rst
++++ b/Help/variable/CMAKE_EDIT_COMMAND.rst
+@@ -1,8 +1,8 @@
+ CMAKE_EDIT_COMMAND
+ ------------------
+ 
+-Full path to :manual:`cmake-gui(1)` or :manual:`ccmake(1)`.  Defined only for
++Full path to :manual:`cmake3-gui(1)` or :manual:`ccmake3(1)`.  Defined only for
+ :ref:`Makefile Generators` when not using an "extra" generator for an IDE.
+ 
+ This is the full path to the CMake executable that can graphically
+-edit the cache.  For example, :manual:`cmake-gui(1)` or :manual:`ccmake(1)`.
++edit the cache.  For example, :manual:`cmake3-gui(1)` or :manual:`ccmake3(1)`.
+diff --git a/Help/variable/CMAKE_EXTRA_GENERATOR.rst b/Help/variable/CMAKE_EXTRA_GENERATOR.rst
+index 4d513e4..f3bc132 100644
+--- a/Help/variable/CMAKE_EXTRA_GENERATOR.rst
++++ b/Help/variable/CMAKE_EXTRA_GENERATOR.rst
+@@ -2,7 +2,7 @@
+ ---------------------
+ 
+ The extra generator used to build the project.  See
+-:manual:`cmake-generators(7)`.
++:manual:`cmake3-generators(7)`.
+ 
+ When using the Eclipse, CodeBlocks, CodeLite, Kate or Sublime generators, CMake
+ generates Makefiles (:variable:`CMAKE_GENERATOR`) and additionally project
+diff --git a/Help/variable/CMAKE_GENERATOR.rst b/Help/variable/CMAKE_GENERATOR.rst
+index cce04c1..5cb1523 100644
+--- a/Help/variable/CMAKE_GENERATOR.rst
++++ b/Help/variable/CMAKE_GENERATOR.rst
+@@ -1,7 +1,7 @@
+ CMAKE_GENERATOR
+ ---------------
+ 
+-The generator used to build the project.  See :manual:`cmake-generators(7)`.
++The generator used to build the project.  See :manual:`cmake3-generators(7)`.
+ 
+ The name of the generator that is being used to generate the build
+ files.  (e.g.  ``Unix Makefiles``, ``Ninja``, etc.)
+diff --git a/Help/variable/CMAKE_GENERATOR_PLATFORM.rst b/Help/variable/CMAKE_GENERATOR_PLATFORM.rst
+index a5c284a..dcee4fd 100644
+--- a/Help/variable/CMAKE_GENERATOR_PLATFORM.rst
++++ b/Help/variable/CMAKE_GENERATOR_PLATFORM.rst
+@@ -5,7 +5,7 @@
+ 
+ Some CMake generators support a target platform name to be given
+ to the native build system to choose a compiler toolchain.
+-If the user specifies a platform name (e.g. via the :manual:`cmake(1)` ``-A``
++If the user specifies a platform name (e.g. via the :manual:`cmake3(1)` ``-A``
+ option or via the :envvar:`CMAKE_GENERATOR_PLATFORM` environment variable)
+ the value will be available in this variable.
+ 
+diff --git a/Help/variable/CMAKE_GENERATOR_TOOLSET.rst b/Help/variable/CMAKE_GENERATOR_TOOLSET.rst
+index 89abe54..3373c32 100644
+--- a/Help/variable/CMAKE_GENERATOR_TOOLSET.rst
++++ b/Help/variable/CMAKE_GENERATOR_TOOLSET.rst
+@@ -5,7 +5,7 @@
+ 
+ Some CMake generators support a toolset specification to tell the
+ native build system how to choose a compiler.  If the user specifies
+-a toolset (e.g. via the :manual:`cmake(1)` ``-T`` option or via
++a toolset (e.g. via the :manual:`cmake3(1)` ``-T`` option or via
+ the :envvar:`CMAKE_GENERATOR_TOOLSET` environment variable) the value
+ will be available in this variable.
+ 
+diff --git a/Help/variable/CMAKE_MAKE_PROGRAM.rst b/Help/variable/CMAKE_MAKE_PROGRAM.rst
+index a3b997a..951cdf7 100644
+--- a/Help/variable/CMAKE_MAKE_PROGRAM.rst
++++ b/Help/variable/CMAKE_MAKE_PROGRAM.rst
+@@ -62,6 +62,6 @@
+   variable, changing the value has undefined behavior.
+ 
+ The ``CMAKE_MAKE_PROGRAM`` variable is set for use by project code.
+-The value is also used by the :manual:`cmake(1)` ``--build`` and
+-:manual:`ctest(1)` ``--build-and-test`` tools to launch the native
++The value is also used by the :manual:`cmake3(1)` ``--build`` and
++:manual:`ctest3(1)` ``--build-and-test`` tools to launch the native
+ build process.
+diff --git a/Help/variable/CMAKE_POLICY_WARNING_CMPNNNN.rst b/Help/variable/CMAKE_POLICY_WARNING_CMPNNNN.rst
+index 582f9e4..a20ddab 100644
+--- a/Help/variable/CMAKE_POLICY_WARNING_CMPNNNN.rst
++++ b/Help/variable/CMAKE_POLICY_WARNING_CMPNNNN.rst
+@@ -19,5 +19,5 @@ warn by default:
+ This variable should not be set by a project in CMake code.  Project
+ developers running CMake may set this variable in their cache to
+ enable the warning (e.g. ``-DCMAKE_POLICY_WARNING_CMP<NNNN>=ON``).
+-Alternatively, running :manual:`cmake(1)` with the ``--debug-output``,
++Alternatively, running :manual:`cmake3(1)` with the ``--debug-output``,
+ ``--trace``, or ``--trace-expand`` option will also enable the warning.
+diff --git a/Help/variable/CMAKE_SCRIPT_MODE_FILE.rst b/Help/variable/CMAKE_SCRIPT_MODE_FILE.rst
+index 981af60..e122402 100644
+--- a/Help/variable/CMAKE_SCRIPT_MODE_FILE.rst
++++ b/Help/variable/CMAKE_SCRIPT_MODE_FILE.rst
+@@ -1,9 +1,9 @@
+ CMAKE_SCRIPT_MODE_FILE
+ ----------------------
+ 
+-Full path to the :manual:`cmake(1)` ``-P`` script file currently being
++Full path to the :manual:`cmake3(1)` ``-P`` script file currently being
+ processed.
+ 
+-When run in :manual:`cmake(1)` ``-P`` script mode, CMake sets this variable to
++When run in :manual:`cmake3(1)` ``-P`` script mode, CMake sets this variable to
+ the full path of the script file.  When run to configure a ``CMakeLists.txt``
+ file, this variable is not set.
+diff --git a/Help/variable/CMAKE_TOOLCHAIN_FILE.rst b/Help/variable/CMAKE_TOOLCHAIN_FILE.rst
+index 168ee74..6eb1b23 100644
+--- a/Help/variable/CMAKE_TOOLCHAIN_FILE.rst
++++ b/Help/variable/CMAKE_TOOLCHAIN_FILE.rst
+@@ -1,7 +1,7 @@
+ CMAKE_TOOLCHAIN_FILE
+ --------------------
+ 
+-Path to toolchain file supplied to :manual:`cmake(1)`.
++Path to toolchain file supplied to :manual:`cmake3(1)`.
+ 
+ This variable is specified on the command line when cross-compiling with CMake.
+ It is the path to a file which is read early in the CMake run and which
+diff --git a/Help/variable/CMAKE_WARN_DEPRECATED.rst b/Help/variable/CMAKE_WARN_DEPRECATED.rst
+index 4a224fa..5df4f1e 100644
+--- a/Help/variable/CMAKE_WARN_DEPRECATED.rst
++++ b/Help/variable/CMAKE_WARN_DEPRECATED.rst
+@@ -6,5 +6,5 @@ Whether to issue warnings for deprecated functionality.
+ If not ``FALSE``, use of deprecated functionality will issue warnings.
+ If this variable is not set, CMake behaves as if it were set to ``TRUE``.
+ 
+-When running :manual:`cmake(1)`, this option can be enabled with the
++When running :manual:`cmake3(1)`, this option can be enabled with the
+ ``-Wdeprecated`` option, or disabled with the ``-Wno-deprecated`` option.
+diff --git a/Help/variable/CMAKE_XCODE_ATTRIBUTE_an-attribute.rst b/Help/variable/CMAKE_XCODE_ATTRIBUTE_an-attribute.rst
+index be683d6..ac5bc4e 100644
+--- a/Help/variable/CMAKE_XCODE_ATTRIBUTE_an-attribute.rst
++++ b/Help/variable/CMAKE_XCODE_ATTRIBUTE_an-attribute.rst
+@@ -11,6 +11,6 @@ to set attributes on a specific target.
+ 
+ Contents of ``CMAKE_XCODE_ATTRIBUTE_<an-attribute>`` may use
+ "generator expressions" with the syntax ``$<...>``.  See the
+-:manual:`cmake-generator-expressions(7)` manual for available
+-expressions.  See the :manual:`cmake-buildsystem(7)` manual
++:manual:`cmake3-generator-expressions(7)` manual for available
++expressions.  See the :manual:`cmake3-buildsystem(7)` manual
+ for more on defining buildsystem properties.
+diff --git a/Help/variable/CMAKE_XCODE_PLATFORM_TOOLSET.rst b/Help/variable/CMAKE_XCODE_PLATFORM_TOOLSET.rst
+index 210da52..0f3f515 100644
+--- a/Help/variable/CMAKE_XCODE_PLATFORM_TOOLSET.rst
++++ b/Help/variable/CMAKE_XCODE_PLATFORM_TOOLSET.rst
+@@ -5,5 +5,5 @@ Xcode compiler selection.
+ 
+ :generator:`Xcode` supports selection of a compiler from one of the installed
+ toolsets.  CMake provides the name of the chosen toolset in this
+-variable, if any is explicitly selected (e.g.  via the :manual:`cmake(1)`
++variable, if any is explicitly selected (e.g.  via the :manual:`cmake3(1)`
+ ``-T`` option).
+diff --git a/Help/variable/CTEST_BINARY_DIRECTORY.rst b/Help/variable/CTEST_BINARY_DIRECTORY.rst
+index fd8461f..fe716d8 100644
+--- a/Help/variable/CTEST_BINARY_DIRECTORY.rst
++++ b/Help/variable/CTEST_BINARY_DIRECTORY.rst
+@@ -2,4 +2,4 @@ CTEST_BINARY_DIRECTORY
+ ----------------------
+ 
+ Specify the CTest ``BuildDirectory`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_BUILD_COMMAND.rst b/Help/variable/CTEST_BUILD_COMMAND.rst
+index 7b13ba0..c290093 100644
+--- a/Help/variable/CTEST_BUILD_COMMAND.rst
++++ b/Help/variable/CTEST_BUILD_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_BUILD_COMMAND
+ -------------------
+ 
+ Specify the CTest ``MakeCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_BUILD_NAME.rst b/Help/variable/CTEST_BUILD_NAME.rst
+index d25d84c..b5d8928 100644
+--- a/Help/variable/CTEST_BUILD_NAME.rst
++++ b/Help/variable/CTEST_BUILD_NAME.rst
+@@ -2,4 +2,4 @@ CTEST_BUILD_NAME
+ ----------------
+ 
+ Specify the CTest ``BuildName`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_BZR_COMMAND.rst b/Help/variable/CTEST_BZR_COMMAND.rst
+index 474d621..ec88106 100644
+--- a/Help/variable/CTEST_BZR_COMMAND.rst
++++ b/Help/variable/CTEST_BZR_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_BZR_COMMAND
+ -----------------
+ 
+ Specify the CTest ``BZRCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_BZR_UPDATE_OPTIONS.rst b/Help/variable/CTEST_BZR_UPDATE_OPTIONS.rst
+index d0f9579..bec6963 100644
+--- a/Help/variable/CTEST_BZR_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_BZR_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_BZR_UPDATE_OPTIONS
+ ------------------------
+ 
+ Specify the CTest ``BZRUpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_CHANGE_ID.rst b/Help/variable/CTEST_CHANGE_ID.rst
+index a423f49..a6d0d6a 100644
+--- a/Help/variable/CTEST_CHANGE_ID.rst
++++ b/Help/variable/CTEST_CHANGE_ID.rst
+@@ -2,7 +2,7 @@ CTEST_CHANGE_ID
+ ---------------
+ 
+ Specify the CTest ``ChangeId`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+ 
+ This setting allows CTest to pass arbitrary information about this
+ build up to CDash.  One use of this feature is to allow CDash to
+diff --git a/Help/variable/CTEST_CHECKOUT_COMMAND.rst b/Help/variable/CTEST_CHECKOUT_COMMAND.rst
+index da256f2..f7bf4a1 100644
+--- a/Help/variable/CTEST_CHECKOUT_COMMAND.rst
++++ b/Help/variable/CTEST_CHECKOUT_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_CHECKOUT_COMMAND
+ ----------------------
+ 
+ Tell the :command:`ctest_start` command how to checkout or initialize
+-the source directory in a :manual:`ctest(1)` dashboard client script.
++the source directory in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_CONFIGURATION_TYPE.rst b/Help/variable/CTEST_CONFIGURATION_TYPE.rst
+index c905480..4d48580 100644
+--- a/Help/variable/CTEST_CONFIGURATION_TYPE.rst
++++ b/Help/variable/CTEST_CONFIGURATION_TYPE.rst
+@@ -2,7 +2,7 @@
+ ------------------------
+ 
+ Specify the CTest ``DefaultCTestConfigurationType`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+ 
+ If the configuration type is set via ``-C <cfg>`` from the command line
+ then this variable is populated accordingly.
+diff --git a/Help/variable/CTEST_CONFIGURE_COMMAND.rst b/Help/variable/CTEST_CONFIGURE_COMMAND.rst
+index 5561b6d..250f303 100644
+--- a/Help/variable/CTEST_CONFIGURE_COMMAND.rst
++++ b/Help/variable/CTEST_CONFIGURE_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_CONFIGURE_COMMAND
+ -----------------------
+ 
+ Specify the CTest ``ConfigureCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_COVERAGE_COMMAND.rst b/Help/variable/CTEST_COVERAGE_COMMAND.rst
+index a78792e..05ddc13 100644
+--- a/Help/variable/CTEST_COVERAGE_COMMAND.rst
++++ b/Help/variable/CTEST_COVERAGE_COMMAND.rst
+@@ -2,7 +2,7 @@ CTEST_COVERAGE_COMMAND
+ ----------------------
+ 
+ Specify the CTest ``CoverageCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+ 
+ Cobertura
+ '''''''''
+diff --git a/Help/variable/CTEST_COVERAGE_EXTRA_FLAGS.rst b/Help/variable/CTEST_COVERAGE_EXTRA_FLAGS.rst
+index 2981955..1cb86ca 100644
+--- a/Help/variable/CTEST_COVERAGE_EXTRA_FLAGS.rst
++++ b/Help/variable/CTEST_COVERAGE_EXTRA_FLAGS.rst
+@@ -2,4 +2,4 @@ CTEST_COVERAGE_EXTRA_FLAGS
+ --------------------------
+ 
+ Specify the CTest ``CoverageExtraFlags`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_CURL_OPTIONS.rst b/Help/variable/CTEST_CURL_OPTIONS.rst
+index fc5dfc4..d354761 100644
+--- a/Help/variable/CTEST_CURL_OPTIONS.rst
++++ b/Help/variable/CTEST_CURL_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_CURL_OPTIONS
+ ------------------
+ 
+ Specify the CTest ``CurlOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_CVS_COMMAND.rst b/Help/variable/CTEST_CVS_COMMAND.rst
+index 049700b..c6c04f4 100644
+--- a/Help/variable/CTEST_CVS_COMMAND.rst
++++ b/Help/variable/CTEST_CVS_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_CVS_COMMAND
+ -----------------
+ 
+ Specify the CTest ``CVSCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_CVS_UPDATE_OPTIONS.rst b/Help/variable/CTEST_CVS_UPDATE_OPTIONS.rst
+index d7f2f7c..6570fd4 100644
+--- a/Help/variable/CTEST_CVS_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_CVS_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_CVS_UPDATE_OPTIONS
+ ------------------------
+ 
+ Specify the CTest ``CVSUpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_LOCATION.rst b/Help/variable/CTEST_DROP_LOCATION.rst
+index c0f2215..7f48714 100644
+--- a/Help/variable/CTEST_DROP_LOCATION.rst
++++ b/Help/variable/CTEST_DROP_LOCATION.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_LOCATION
+ -------------------
+ 
+ Specify the CTest ``DropLocation`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_METHOD.rst b/Help/variable/CTEST_DROP_METHOD.rst
+index 50fbd4d..161c4de 100644
+--- a/Help/variable/CTEST_DROP_METHOD.rst
++++ b/Help/variable/CTEST_DROP_METHOD.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_METHOD
+ -----------------
+ 
+ Specify the CTest ``DropMethod`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_SITE.rst b/Help/variable/CTEST_DROP_SITE.rst
+index d15d99b..3410425 100644
+--- a/Help/variable/CTEST_DROP_SITE.rst
++++ b/Help/variable/CTEST_DROP_SITE.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_SITE
+ ---------------
+ 
+ Specify the CTest ``DropSite`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_SITE_CDASH.rst b/Help/variable/CTEST_DROP_SITE_CDASH.rst
+index 22b9776..958262f 100644
+--- a/Help/variable/CTEST_DROP_SITE_CDASH.rst
++++ b/Help/variable/CTEST_DROP_SITE_CDASH.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_SITE_CDASH
+ ---------------------
+ 
+ Specify the CTest ``IsCDash`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_SITE_PASSWORD.rst b/Help/variable/CTEST_DROP_SITE_PASSWORD.rst
+index 904d2c8..c3d8b1a 100644
+--- a/Help/variable/CTEST_DROP_SITE_PASSWORD.rst
++++ b/Help/variable/CTEST_DROP_SITE_PASSWORD.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_SITE_PASSWORD
+ ------------------------
+ 
+ Specify the CTest ``DropSitePassword`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_DROP_SITE_USER.rst b/Help/variable/CTEST_DROP_SITE_USER.rst
+index a860a03..dfb5b2b 100644
+--- a/Help/variable/CTEST_DROP_SITE_USER.rst
++++ b/Help/variable/CTEST_DROP_SITE_USER.rst
+@@ -2,4 +2,4 @@ CTEST_DROP_SITE_USER
+ --------------------
+ 
+ Specify the CTest ``DropSiteUser`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_GIT_COMMAND.rst b/Help/variable/CTEST_GIT_COMMAND.rst
+index eb83792..bc09ae6 100644
+--- a/Help/variable/CTEST_GIT_COMMAND.rst
++++ b/Help/variable/CTEST_GIT_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_GIT_COMMAND
+ -----------------
+ 
+ Specify the CTest ``GITCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_GIT_UPDATE_CUSTOM.rst b/Help/variable/CTEST_GIT_UPDATE_CUSTOM.rst
+index 0c479e6..b5c1b0f 100644
+--- a/Help/variable/CTEST_GIT_UPDATE_CUSTOM.rst
++++ b/Help/variable/CTEST_GIT_UPDATE_CUSTOM.rst
+@@ -2,4 +2,4 @@ CTEST_GIT_UPDATE_CUSTOM
+ -----------------------
+ 
+ Specify the CTest ``GITUpdateCustom`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_GIT_UPDATE_OPTIONS.rst b/Help/variable/CTEST_GIT_UPDATE_OPTIONS.rst
+index 4590a78..dc4b59c 100644
+--- a/Help/variable/CTEST_GIT_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_GIT_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_GIT_UPDATE_OPTIONS
+ ------------------------
+ 
+ Specify the CTest ``GITUpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_HG_COMMAND.rst b/Help/variable/CTEST_HG_COMMAND.rst
+index 3854950..2b21b1c 100644
+--- a/Help/variable/CTEST_HG_COMMAND.rst
++++ b/Help/variable/CTEST_HG_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_HG_COMMAND
+ ----------------
+ 
+ Specify the CTest ``HGCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_HG_UPDATE_OPTIONS.rst b/Help/variable/CTEST_HG_UPDATE_OPTIONS.rst
+index 9049c1f..426a54e 100644
+--- a/Help/variable/CTEST_HG_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_HG_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_HG_UPDATE_OPTIONS
+ -----------------------
+ 
+ Specify the CTest ``HGUpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_MEMORYCHECK_COMMAND.rst b/Help/variable/CTEST_MEMORYCHECK_COMMAND.rst
+index 8c199ba..f8cc635 100644
+--- a/Help/variable/CTEST_MEMORYCHECK_COMMAND.rst
++++ b/Help/variable/CTEST_MEMORYCHECK_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_MEMORYCHECK_COMMAND
+ -------------------------
+ 
+ Specify the CTest ``MemoryCheckCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_MEMORYCHECK_COMMAND_OPTIONS.rst b/Help/variable/CTEST_MEMORYCHECK_COMMAND_OPTIONS.rst
+index 3e26ab5..dfc9572 100644
+--- a/Help/variable/CTEST_MEMORYCHECK_COMMAND_OPTIONS.rst
++++ b/Help/variable/CTEST_MEMORYCHECK_COMMAND_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_MEMORYCHECK_COMMAND_OPTIONS
+ ---------------------------------
+ 
+ Specify the CTest ``MemoryCheckCommandOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_MEMORYCHECK_SANITIZER_OPTIONS.rst b/Help/variable/CTEST_MEMORYCHECK_SANITIZER_OPTIONS.rst
+index 2de5fb6..2dd78b6 100644
+--- a/Help/variable/CTEST_MEMORYCHECK_SANITIZER_OPTIONS.rst
++++ b/Help/variable/CTEST_MEMORYCHECK_SANITIZER_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_MEMORYCHECK_SANITIZER_OPTIONS
+ -----------------------------------
+ 
+ Specify the CTest ``MemoryCheckSanitizerOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_MEMORYCHECK_SUPPRESSIONS_FILE.rst b/Help/variable/CTEST_MEMORYCHECK_SUPPRESSIONS_FILE.rst
+index 1147ee8..1afc988 100644
+--- a/Help/variable/CTEST_MEMORYCHECK_SUPPRESSIONS_FILE.rst
++++ b/Help/variable/CTEST_MEMORYCHECK_SUPPRESSIONS_FILE.rst
+@@ -2,4 +2,4 @@ CTEST_MEMORYCHECK_SUPPRESSIONS_FILE
+ -----------------------------------
+ 
+ Specify the CTest ``MemoryCheckSuppressionFile`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_MEMORYCHECK_TYPE.rst b/Help/variable/CTEST_MEMORYCHECK_TYPE.rst
+index b963293..d19e8c8 100644
+--- a/Help/variable/CTEST_MEMORYCHECK_TYPE.rst
++++ b/Help/variable/CTEST_MEMORYCHECK_TYPE.rst
+@@ -2,7 +2,7 @@
+ ----------------------
+ 
+ Specify the CTest ``MemoryCheckType`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+ Valid values are ``Valgrind``, ``Purify``, ``BoundsChecker``, ``DrMemory`` and
+ ``ThreadSanitizer``, ``AddressSanitizer``, ``LeakSanitizer``, ``MemorySanitizer``, and
+ ``UndefinedBehaviorSanitizer``.
+diff --git a/Help/variable/CTEST_NIGHTLY_START_TIME.rst b/Help/variable/CTEST_NIGHTLY_START_TIME.rst
+index bc80276..77d2e01 100644
+--- a/Help/variable/CTEST_NIGHTLY_START_TIME.rst
++++ b/Help/variable/CTEST_NIGHTLY_START_TIME.rst
+@@ -2,4 +2,4 @@ CTEST_NIGHTLY_START_TIME
+ ------------------------
+ 
+ Specify the CTest ``NightlyStartTime`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_P4_CLIENT.rst b/Help/variable/CTEST_P4_CLIENT.rst
+index 347ea54..38cae4a 100644
+--- a/Help/variable/CTEST_P4_CLIENT.rst
++++ b/Help/variable/CTEST_P4_CLIENT.rst
+@@ -2,4 +2,4 @@ CTEST_P4_CLIENT
+ ---------------
+ 
+ Specify the CTest ``P4Client`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_P4_COMMAND.rst b/Help/variable/CTEST_P4_COMMAND.rst
+index defab12..8cfa194 100644
+--- a/Help/variable/CTEST_P4_COMMAND.rst
++++ b/Help/variable/CTEST_P4_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_P4_COMMAND
+ ----------------
+ 
+ Specify the CTest ``P4Command`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_P4_OPTIONS.rst b/Help/variable/CTEST_P4_OPTIONS.rst
+index fee4ce2..05631c0 100644
+--- a/Help/variable/CTEST_P4_OPTIONS.rst
++++ b/Help/variable/CTEST_P4_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_P4_OPTIONS
+ ----------------
+ 
+ Specify the CTest ``P4Options`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_P4_UPDATE_OPTIONS.rst b/Help/variable/CTEST_P4_UPDATE_OPTIONS.rst
+index 0e2790f..bb2b17f 100644
+--- a/Help/variable/CTEST_P4_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_P4_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_P4_UPDATE_OPTIONS
+ -----------------------
+ 
+ Specify the CTest ``P4UpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_SITE.rst b/Help/variable/CTEST_SITE.rst
+index 8a5ec25..ef9fa50 100644
+--- a/Help/variable/CTEST_SITE.rst
++++ b/Help/variable/CTEST_SITE.rst
+@@ -2,4 +2,4 @@ CTEST_SITE
+ ----------
+ 
+ Specify the CTest ``Site`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_SOURCE_DIRECTORY.rst b/Help/variable/CTEST_SOURCE_DIRECTORY.rst
+index b6837d1..f5b4746 100644
+--- a/Help/variable/CTEST_SOURCE_DIRECTORY.rst
++++ b/Help/variable/CTEST_SOURCE_DIRECTORY.rst
+@@ -2,4 +2,4 @@ CTEST_SOURCE_DIRECTORY
+ ----------------------
+ 
+ Specify the CTest ``SourceDirectory`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_SVN_COMMAND.rst b/Help/variable/CTEST_SVN_COMMAND.rst
+index af90143..3a4069e 100644
+--- a/Help/variable/CTEST_SVN_COMMAND.rst
++++ b/Help/variable/CTEST_SVN_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_SVN_COMMAND
+ -----------------
+ 
+ Specify the CTest ``SVNCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_SVN_OPTIONS.rst b/Help/variable/CTEST_SVN_OPTIONS.rst
+index 76551dc..1f046cb 100644
+--- a/Help/variable/CTEST_SVN_OPTIONS.rst
++++ b/Help/variable/CTEST_SVN_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_SVN_OPTIONS
+ -----------------
+ 
+ Specify the CTest ``SVNOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_SVN_UPDATE_OPTIONS.rst b/Help/variable/CTEST_SVN_UPDATE_OPTIONS.rst
+index 5f01a19..815cf38 100644
+--- a/Help/variable/CTEST_SVN_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_SVN_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_SVN_UPDATE_OPTIONS
+ ------------------------
+ 
+ Specify the CTest ``SVNUpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_TEST_LOAD.rst b/Help/variable/CTEST_TEST_LOAD.rst
+index 80823fe..2b558a6 100644
+--- a/Help/variable/CTEST_TEST_LOAD.rst
++++ b/Help/variable/CTEST_TEST_LOAD.rst
+@@ -2,6 +2,6 @@ CTEST_TEST_LOAD
+ ---------------
+ 
+ Specify the ``TestLoad`` setting in the :ref:`CTest Test Step`
+-of a :manual:`ctest(1)` dashboard client script.  This sets the
++of a :manual:`ctest3(1)` dashboard client script.  This sets the
+ default value for the ``TEST_LOAD`` option of the :command:`ctest_test`
+ command.
+diff --git a/Help/variable/CTEST_TEST_TIMEOUT.rst b/Help/variable/CTEST_TEST_TIMEOUT.rst
+index c031437..9ef12fb 100644
+--- a/Help/variable/CTEST_TEST_TIMEOUT.rst
++++ b/Help/variable/CTEST_TEST_TIMEOUT.rst
+@@ -2,4 +2,4 @@ CTEST_TEST_TIMEOUT
+ ------------------
+ 
+ Specify the CTest ``TimeOut`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_UPDATE_COMMAND.rst b/Help/variable/CTEST_UPDATE_COMMAND.rst
+index 90155d0..24a2745 100644
+--- a/Help/variable/CTEST_UPDATE_COMMAND.rst
++++ b/Help/variable/CTEST_UPDATE_COMMAND.rst
+@@ -2,4 +2,4 @@ CTEST_UPDATE_COMMAND
+ --------------------
+ 
+ Specify the CTest ``UpdateCommand`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_UPDATE_OPTIONS.rst b/Help/variable/CTEST_UPDATE_OPTIONS.rst
+index e43d61d..e4e3f2b 100644
+--- a/Help/variable/CTEST_UPDATE_OPTIONS.rst
++++ b/Help/variable/CTEST_UPDATE_OPTIONS.rst
+@@ -2,4 +2,4 @@ CTEST_UPDATE_OPTIONS
+ --------------------
+ 
+ Specify the CTest ``UpdateOptions`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_UPDATE_VERSION_ONLY.rst b/Help/variable/CTEST_UPDATE_VERSION_ONLY.rst
+index e646e6e..54396f5 100644
+--- a/Help/variable/CTEST_UPDATE_VERSION_ONLY.rst
++++ b/Help/variable/CTEST_UPDATE_VERSION_ONLY.rst
+@@ -2,4 +2,4 @@
+ -------------------------
+ 
+ Specify the CTest :ref:`UpdateVersionOnly <UpdateVersionOnly>` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Help/variable/CTEST_USE_LAUNCHERS.rst b/Help/variable/CTEST_USE_LAUNCHERS.rst
+index 9f48a2e..a40b5b8 100644
+--- a/Help/variable/CTEST_USE_LAUNCHERS.rst
++++ b/Help/variable/CTEST_USE_LAUNCHERS.rst
+@@ -2,4 +2,4 @@
+ -------------------
+ 
+ Specify the CTest ``UseLaunchers`` setting
+-in a :manual:`ctest(1)` dashboard client script.
++in a :manual:`ctest3(1)` dashboard client script.
+diff --git a/Source/CMakeLists.txt b/Source/CMakeLists.txt
+index 3223831..ee6bd98 100644
+--- a/Source/CMakeLists.txt
++++ b/Source/CMakeLists.txt
+@@ -1026,9 +1026,9 @@
+ endif()
+ 
+ # Build CMake executable
+-add_executable(cmake cmakemain.cxx cmcmd.cxx cmcmd.h ${MANIFEST_FILE})
+-list(APPEND _tools cmake)
+-target_link_libraries(cmake CMakeLib)
++add_executable(cmake3 cmakemain.cxx cmcmd.cxx cmcmd.h ${MANIFEST_FILE})
++list(APPEND _tools cmake3)
++target_link_libraries(cmake3 CMakeLib)
+ 
+ add_library(CMakeServerLib
+   cmConnection.h cmConnection.cxx
+@@ -1039,17 +1039,17 @@
+   cmServerProtocol.cxx cmServerProtocol.h
+   )
+ target_link_libraries(CMakeServerLib CMakeLib)
+-target_link_libraries(cmake CMakeServerLib)
++target_link_libraries(cmake3 CMakeServerLib)
+ 
+ # Build CTest executable
+-add_executable(ctest ctest.cxx ${MANIFEST_FILE})
+-list(APPEND _tools ctest)
+-target_link_libraries(ctest CTestLib)
++add_executable(ctest3 ctest.cxx ${MANIFEST_FILE})
++list(APPEND _tools ctest3)
++target_link_libraries(ctest3 CTestLib)
+ 
+ # Build CPack executable
+-add_executable(cpack CPack/cpack.cxx ${MANIFEST_FILE})
+-list(APPEND _tools cpack)
+-target_link_libraries(cpack CPackLib)
++add_executable(cpack3 CPack/cpack.cxx ${MANIFEST_FILE})
++list(APPEND _tools cpack3)
++target_link_libraries(cpack3 CPackLib)
+ 
+ # Curses GUI
+ if(BUILD_CursesDialog)
+diff --git a/Source/CPack/cpack.cxx b/Source/CPack/cpack.cxx
+index 94e1615..676783e 100644
+--- a/Source/CPack/cpack.cxx
++++ b/Source/CPack/cpack.cxx
+@@ -33,7 +33,7 @@
+ 
+ namespace {
+ const char* cmDocumentationName[][2] = {
+-  { nullptr, "  cpack - Packaging driver provided by CMake." },
++  { nullptr, "  cpack 3- Packaging driver provided by CMake." },
+   { nullptr, nullptr }
+ };
+ 
+@@ -119,10 +119,10 @@
+   cmSystemTools::FindCMakeResources(argv[0]);
+   cmCPackLog log;
+ 
+-  log.SetErrorPrefix("CPack Error: ");
+-  log.SetWarningPrefix("CPack Warning: ");
+-  log.SetOutputPrefix("CPack: ");
+-  log.SetVerbosePrefix("CPack Verbose: ");
++  log.SetErrorPrefix("CPack3 Error: ");
++  log.SetWarningPrefix("CPack3 Warning: ");
++  log.SetOutputPrefix("CPack3: ");
++  log.SetVerbosePrefix("CPack3 Verbose: ");
+ 
+   if (cmSystemTools::GetCurrentWorkingDirectory().empty()) {
+     cmCPack_Log(&log, cmCPackLog::LOG_ERROR,
+@@ -453,7 +453,7 @@
+   if (help) {
+     // Construct and print requested documentation.
+ 
+-    doc.SetName("cpack");
++    doc.SetName("cpack3");
+     doc.SetSection("Name", cmDocumentationName);
+     doc.SetSection("Usage", cmDocumentationUsage);
+     doc.PrependSection("Options", cmDocumentationOptions);
+diff --git a/Source/CTest/cmCTestLaunch.cxx b/Source/CTest/cmCTestLaunch.cxx
+index 4a408a2..8a84a6c 100644
+--- a/Source/CTest/cmCTestLaunch.cxx
++++ b/Source/CTest/cmCTestLaunch.cxx
+@@ -605,7 +605,7 @@ bool cmCTestLaunch::MatchesFilterPrefix(std::string const& line) const
+ int cmCTestLaunch::Main(int argc, const char* const argv[])
+ {
+   if (argc == 2) {
+-    std::cerr << "ctest --launch: this mode is for internal CTest use only"
++    std::cerr << "ctest3 --launch: this mode is for internal CTest use only"
+               << std::endl;
+     return 1;
+   }
+diff --git a/Source/CursesDialog/CMakeLists.txt b/Source/CursesDialog/CMakeLists.txt
+index 93ff425..e0c5221 100644
+--- a/Source/CursesDialog/CMakeLists.txt
++++ b/Source/CursesDialog/CMakeLists.txt
+@@ -1,7 +1,7 @@
+ # Distributed under the OSI-approved BSD 3-Clause License.  See accompanying
+ # file Copyright.txt or https://cmake.org/licensing for details.
+ 
+-add_executable(ccmake
++add_executable(ccmake3
+   ccmake.cxx
+   cmCursesBoolWidget.cxx
+   cmCursesCacheEntryComposite.cxx
+@@ -17,16 +17,16 @@
+   cmCursesStringWidget.cxx
+   cmCursesWidget.cxx
+   )
+-target_include_directories(ccmake PRIVATE ${CURSES_INCLUDE_PATH})
++target_include_directories(ccmake3 PRIVATE ${CURSES_INCLUDE_PATH})
+ set(CMAKE_REQUIRED_INCLUDES ${CURSES_INCLUDE_PATH})
+-target_link_libraries(ccmake CMakeLib)
++target_link_libraries(ccmake3 CMakeLib)
+ if(CMAKE_USE_SYSTEM_FORM)
+   find_path(CURSES_FORM_INCLUDE_DIR NAMES form.h HINTS ${CURSES_INCLUDE_PATH} ${CURSES_INCLUDE_PATH}/ncurses)
+   if(CURSES_FORM_INCLUDE_DIR)
+-    target_include_directories(ccmake PRIVATE ${CURSES_FORM_INCLUDE_DIR})
++    target_include_directories(ccmake3 PRIVATE ${CURSES_FORM_INCLUDE_DIR})
+     list(APPEND CMAKE_REQUIRED_INCLUDES ${CURSES_FORM_INCLUDE_DIR})
+   endif()
+-  target_link_libraries(ccmake
++  target_link_libraries(ccmake3
+     ${CURSES_FORM_LIBRARY}
+     ${CURSES_LIBRARY}
+   )
+@@ -35,11 +35,11 @@
+     ${CURSES_LIBRARY}
+   )
+   if(CURSES_EXTRA_LIBRARY)
+-    target_link_libraries(ccmake ${CURSES_EXTRA_LIBRARY})
++    target_link_libraries(ccmake3 ${CURSES_EXTRA_LIBRARY})
+     list(APPEND CMAKE_REQUIRED_LIBRARIES ${CURSES_EXTRA_LIBRARY})
+   endif()
+ else()
+-  target_link_libraries(ccmake cmForm)
++  target_link_libraries(ccmake3 cmForm)
+   get_target_property(cmFormIncludeDirs cmForm INTERFACE_INCLUDE_DIRECTORIES)
+   list(APPEND CMAKE_REQUIRED_INCLUDES ${cmFormIncludeDirs})
+   get_target_property(cmFormLibraries cmForm INTERFACE_LINK_LIBRARIES)
+@@ -56,8 +56,8 @@
+ endif()
+ 
+ if(CMake_JOB_POOL_LINK_BIN)
+-  set_property(TARGET ccmake PROPERTY JOB_POOL_LINK "link-bin")
++  set_property(TARGET ccmake3 PROPERTY JOB_POOL_LINK "link-bin")
+ endif()
+ 
+-CMake_OPTIONAL_COMPONENT(ccmake)
+-install(TARGETS ccmake DESTINATION ${CMAKE_BIN_DIR} ${COMPONENT})
++CMake_OPTIONAL_COMPONENT(ccmake3)
++install(TARGETS ccmake3 DESTINATION ${CMAKE_BIN_DIR} ${COMPONENT})
+diff --git a/Source/CursesDialog/ccmake.cxx b/Source/CursesDialog/ccmake.cxx
+index be8751c..7cf66e0 100644
+--- a/Source/CursesDialog/ccmake.cxx
++++ b/Source/CursesDialog/ccmake.cxx
+@@ -20,3 +20,3 @@
+ static const char* cmDocumentationName[][2] = {
+-  { nullptr, "  ccmake - Curses Interface for CMake." },
++  { nullptr, "  ccmake3 - Curses Interface for CMake." },
+   { nullptr, nullptr }
+@@ -26,4 +26,4 @@
+   { nullptr,
+-    "  ccmake <path-to-source>\n"
+-    "  ccmake <path-to-existing-build>" },
++    "  ccmake3 <path-to-source>\n"
++    "  ccmake3 <path-to-existing-build>" },
+   { nullptr,
+@@ -36,3 +36,3 @@
+ static const char* cmDocumentationUsageNote[][2] = {
+-  { nullptr, "Run 'ccmake --help' for more information." },
++  { nullptr, "Run 'ccmake3 --help' for more information." },
+   { nullptr, nullptr }
+@@ -84,3 +84,3 @@
+     auto generators = hcm.GetGeneratorsDocumentation();
+-    doc.SetName("ccmake");
++    doc.SetName("ccmake3");
+     doc.SetSection("Name", cmDocumentationName);
+@@ -134,3 +134,3 @@
+               << cmCursesMainForm::MIN_WIDTH << " x "
+-              << cmCursesMainForm::MIN_HEIGHT << " is required to run ccmake."
++              << cmCursesMainForm::MIN_HEIGHT << " is required to run ccmake3."
+               << std::endl;
+diff --git a/Source/QtDialog/cmake.desktop b/Source/QtDialog/cmake.desktop
+index 842091f..7dad70c 100644
+--- a/Source/QtDialog/cmake-gui.desktop
++++ b/Source/QtDialog/cmake-gui.desktop
+@@ -1,9 +1,9 @@
+ [Desktop Entry]
+ Version=1.0
+-Name=CMake
++Name=CMake3
+ Comment=Cross-platform buildsystem
+-Exec=cmake-gui %f
+-Icon=CMakeSetup
++Exec=cmake3-gui %f
++Icon=CMake3Setup
+ Terminal=false
+ X-MultipleArgs=false
+ Type=Application
+diff --git a/Source/QtDialog/CMakeLists.txt b/Source/QtDialog/CMakeLists.txt
+index a906f4a..ad2b2c4 100644
+--- a/Source/QtDialog/CMakeLists.txt
++++ b/Source/QtDialog/CMakeLists.txt
+@@ -2,7 +2,7 @@
+ # file Copyright.txt or https://cmake.org/licensing for details.
+ 
+ project(QtDialog)
+-CMake_OPTIONAL_COMPONENT(cmake-gui)
++CMake_OPTIONAL_COMPONENT(cmake3-gui)
+ find_package(Qt5Widgets QUIET)
+ if (Qt5Widgets_FOUND)
+   include_directories(${Qt5Widgets_INCLUDE_DIRS})
+@@ -171,8 +171,8 @@
+ 
+ set(CMAKE_INCLUDE_CURRENT_DIR ON)
+ 
+-add_executable(cmake-gui WIN32 MACOSX_BUNDLE ${SRCS} ${MANIFEST_FILE})
+-target_link_libraries(cmake-gui CMakeLib ${QT_QTMAIN_LIBRARY} ${CMake_QT_LIBRARIES})
++add_executable(cmake3-gui WIN32 MACOSX_BUNDLE ${SRCS} ${MANIFEST_FILE})
++target_link_libraries(cmake3-gui CMakeLib ${QT_QTMAIN_LIBRARY} ${CMake_QT_LIBRARIES})
+ 
+ if(WIN32)
+   target_sources(cmake-gui PRIVATE $<TARGET_OBJECTS:CMakeVersion>)
+@@ -184,7 +184,7 @@
+ 
+ # cmake-gui has not been updated for `include-what-you-use`.
+ # Block the tool until this is done.
+-set_target_properties(cmake-gui PROPERTIES
++set_target_properties(cmake3-gui PROPERTIES
+   CXX_INCLUDE_WHAT_YOU_USE ""
+   )
+ 
+@@ -216,15 +216,15 @@
+ 
+   # Create a symlink in the build tree to provide a "cmake-gui" next
+   # to the "cmake" executable that refers to the application bundle.
+-  add_custom_command(TARGET cmake-gui POST_BUILD
++  add_custom_command(TARGET cmake3-gui POST_BUILD
+     COMMAND ln -sf CMake.app/Contents/MacOS/CMake
+-                   $<TARGET_FILE_DIR:cmake>/cmake-gui
++                   $<TARGET_FILE_DIR:cmake>/cmake3-gui
+     )
+ endif()
+ set(CMAKE_INSTALL_DESTINATION_ARGS
+   BUNDLE DESTINATION "${CMAKE_BUNDLE_LOCATION}" ${COMPONENT})
+ 
+-install(TARGETS cmake-gui
++install(TARGETS cmake3-gui
+   RUNTIME DESTINATION bin ${COMPONENT}
+   ${CMAKE_INSTALL_DESTINATION_ARGS})
+ 
+@@ -234,22 +234,24 @@
+       FILES       "${CMAKE_CURRENT_SOURCE_DIR}/CMakeSetup${size}.png"
+       DESTINATION "${CMAKE_XDGDATA_DIR}/icons/hicolor/${size}x${size}/apps"
+       ${COMPONENT}
+-      RENAME      "CMakeSetup.png")
++      RENAME      "CMake3Setup.png")
+   endforeach ()
+ 
+   # install a desktop file so CMake appears in the application start menu
+   # with an icon
+   install(FILES cmake-gui.desktop
+     DESTINATION "${CMAKE_XDGDATA_DIR}/applications"
+-    ${COMPONENT})
++    ${COMPONENT}
++    RENAME      "CMake3.desktop")
+   install(FILES cmakecache.xml
+     DESTINATION "${CMAKE_XDGDATA_DIR}/mime/packages"
+-    ${COMPONENT})
++    ${COMPONENT}
++    RENAME      "cmake3cache.xml")
+ endif()
+ 
+ if(APPLE)
+   install(CODE "
+-    execute_process(COMMAND ln -s \"../MacOS/CMake\" cmake-gui
++    execute_process(COMMAND ln -s \"../MacOS/CMake\" cmake3-gui
+         WORKING_DIRECTORY \$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin)
+   " ${COMPONENT})
+ endif()
+@@ -257,7 +259,7 @@
+ if(CMake_INSTALL_DEPENDENCIES AND (APPLE OR WIN32))
+   # install rules for including 3rd party libs such as Qt
+   # if a system Qt is used (e.g. installed in /usr/lib/), it will not be included in the installation
+-  set(fixup_exe "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin/cmake-gui${CMAKE_EXECUTABLE_SUFFIX}")
++  set(fixup_exe "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/bin/cmake3-gui${CMAKE_EXECUTABLE_SUFFIX}")
+   if(APPLE)
+     set(fixup_exe "\$ENV{DESTDIR}\${CMAKE_INSTALL_PREFIX}/MacOS/CMake")
+   endif()
+diff --git a/Source/QtDialog/CMakeSetup.cxx b/Source/QtDialog/CMakeSetup.cxx
+index c849d52..38da596 100644
+--- a/Source/QtDialog/CMakeSetup.cxx
++++ b/Source/QtDialog/CMakeSetup.cxx
+@@ -30,6 +30,6 @@
+   { nullptr,
+-    "  cmake-gui [options]\n"
+-    "  cmake-gui [options] <path-to-source>\n"
+-    "  cmake-gui [options] <path-to-existing-build>\n"
+-    "  cmake-gui [options] -S <path-to-source> -B <path-to-build>\n" },
++    "  cmake3-gui [options]\n"
++    "  cmake3-gui [options] <path-to-source>\n"
++    "  cmake3-gui [options] <path-to-existing-build>\n"
++    "  cmake3-gui [options] -S <path-to-source> -B <path-to-build>\n" },
+   { nullptr, nullptr }
+@@ -76,3 +76,3 @@
+     auto generators = hcm.GetGeneratorsDocumentation();
+-    doc.SetName("cmake");
++    doc.SetName("cmake3");
+     doc.SetSection("Name", cmDocumentationName);
+@@ -138,7 +138,7 @@
+   // app setup
+-  QApplication::setApplicationName("CMakeSetup");
++  QApplication::setApplicationName("CMake3Setup");
+   QApplication::setOrganizationName("Kitware");
+   QIcon appIcon;
+-  appIcon.addFile(":/Icons/CMakeSetup32.png");
+-  appIcon.addFile(":/Icons/CMakeSetup128.png");
++  appIcon.addFile(":/Icons/CMake3Setup32.png");
++  appIcon.addFile(":/Icons/CMake3Setup128.png");
+   QApplication::setWindowIcon(appIcon);
+diff --git a/Source/QtDialog/QtDialogCPack.cmake.in b/Source/QtDialog/QtDialogCPack.cmake.in
+index 7ae8605..c2fe89a 100644
+--- a/Source/QtDialog/QtDialogCPack.cmake.in
++++ b/Source/QtDialog/QtDialogCPack.cmake.in
+@@ -2,8 +2,8 @@ set(IS_APPLE @APPLE@)
+ set(CMAKE_PACKAGE_QTGUI @CMAKE_PACKAGE_QTGUI@)
+ 
+ if(CMAKE_PACKAGE_QTGUI)
+-  set(CPACK_PACKAGE_EXECUTABLES "cmake-gui" "CMake (cmake-gui)" ${CPACK_PACKAGE_EXECUTABLES})
+-  set(CPACK_CREATE_DESKTOP_LINKS "cmake-gui" ${CPACK_CREATE_DESKTOP_LINKS})
++  set(CPACK_PACKAGE_EXECUTABLES "cmake3-gui" "CMake3 (cmake3-gui)" ${CPACK_PACKAGE_EXECUTABLES})
++  set(CPACK_CREATE_DESKTOP_LINKS "cmake3-gui" ${CPACK_CREATE_DESKTOP_LINKS})
+   if(IS_APPLE)
+     # for apple install we set the install prefix to
+     # / and then install
+diff --git a/Source/cmCTest.cxx b/Source/cmCTest.cxx
+index bc36c5a..29b17b9 100644
+--- a/Source/cmCTest.cxx
++++ b/Source/cmCTest.cxx
+@@ -1753,22 +1753,22 @@
+ void cmCTest::ErrorMessageUnknownDashDValue(std::string& val)
+ {
+   cmCTestLog(this, ERROR_MESSAGE,
+-             "CTest -D called with incorrect option: " << val << std::endl);
++             "CTest3 -D called with incorrect option: " << val << std::endl);
+ 
+   cmCTestLog(
+     this, ERROR_MESSAGE,
+     "Available options are:"
+       << std::endl
+-      << "  ctest -D Continuous" << std::endl
+-      << "  ctest -D Continuous(Start|Update|Configure|Build)" << std::endl
+-      << "  ctest -D Continuous(Test|Coverage|MemCheck|Submit)" << std::endl
+-      << "  ctest -D Experimental" << std::endl
+-      << "  ctest -D Experimental(Start|Update|Configure|Build)" << std::endl
+-      << "  ctest -D Experimental(Test|Coverage|MemCheck|Submit)" << std::endl
+-      << "  ctest -D Nightly" << std::endl
+-      << "  ctest -D Nightly(Start|Update|Configure|Build)" << std::endl
+-      << "  ctest -D Nightly(Test|Coverage|MemCheck|Submit)" << std::endl
+-      << "  ctest -D NightlyMemoryCheck" << std::endl);
++      << "  ctest3 -D Continuous" << std::endl
++      << "  ctest3 -D Continuous(Start|Update|Configure|Build)" << std::endl
++      << "  ctest3 -D Continuous(Test|Coverage|MemCheck|Submit)" << std::endl
++      << "  ctest3 -D Experimental" << std::endl
++      << "  ctest3 -D Experimental(Start|Update|Configure|Build)" << std::endl
++      << "  ctest3 -D Experimental(Test|Coverage|MemCheck|Submit)" << std::endl
++      << "  ctest3 -D Nightly" << std::endl
++      << "  ctest3 -D Nightly(Start|Update|Configure|Build)" << std::endl
++      << "  ctest3 -D Nightly(Test|Coverage|MemCheck|Submit)" << std::endl
++      << "  ctest3 -D NightlyMemoryCheck" << std::endl);
+ }
+ 
+ bool cmCTest::CheckArgument(const std::string& arg, const char* varg1,
+@@ -1997,7 +1997,7 @@ bool cmCTest::AddVariableDefinition(const std::string& arg)
+ // the main entry point of ctest, called from main
+ int cmCTest::Run(std::vector<std::string>& args, std::string* output)
+ {
+-  const char* ctestExec = "ctest";
++  const char* ctestExec = "ctest3";
+   bool cmakeAndTest = false;
+   bool executeTests = true;
+   bool SRArgumentSpecified = false;
+diff --git a/Source/cmGlobalGenerator.cxx b/Source/cmGlobalGenerator.cxx
+index a1764a3..0245a6e 100644
+--- a/Source/cmGlobalGenerator.cxx
++++ b/Source/cmGlobalGenerator.cxx
+@@ -2229,7 +2229,7 @@ void cmGlobalGenerator::CreateDefaultGlobalTargets(cmTargets* targets)
+       // We are building CMake itself.  We cannot use the original
+       // executable to install over itself.  The generator will
+       // automatically convert this name to the build-time location.
+-      cmd = "cmake";
++      cmd = "cmake3";
+     }
+     singleLine.push_back(cmd);
+     if (cmakeCfgIntDir && *cmakeCfgIntDir && cmakeCfgIntDir[0] != '.') {
+diff --git a/Source/cmSystemTools.cxx b/Source/cmSystemTools.cxx
+index 7dece47..bd6946f 100644
+--- a/Source/cmSystemTools.cxx
++++ b/Source/cmSystemTools.cxx
+@@ -1950,7 +1950,7 @@
+     // Look for ..<CMAKE_BIN_DIR> (install tree) and then fall back to
+     // ../../../bin (build tree).
+     exe_dir = cmSystemTools::GetFilenamePath(exe_dir);
+-    if (cmSystemTools::FileExists(exe_dir + CMAKE_BIN_DIR "/cmake")) {
++    if (cmSystemTools::FileExists(exe_dir + CMAKE_BIN_DIR "/cmake3")) {
+       exe_dir += CMAKE_BIN_DIR;
+     } else {
+       exe_dir = cmSystemTools::GetFilenamePath(exe_dir);
+@@ -1970,28 +1970,28 @@
+ #endif
+   exe_dir = cmSystemTools::GetActualCaseForPath(exe_dir);
+   cmSystemToolsCMakeCommand =
+-    cmStrCat(exe_dir, "/cmake", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/cmake3", cmSystemTools::GetExecutableExtension());
+ #ifdef CMAKE_BOOTSTRAP
+   // The bootstrap cmake does not provide the other tools,
+   // so use the directory where they are about to be built.
+   exe_dir = CMAKE_BOOTSTRAP_BINARY_DIR "/bin";
+ #endif
+   cmSystemToolsCTestCommand =
+-    cmStrCat(exe_dir, "/ctest", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/ctest3", cmSystemTools::GetExecutableExtension());
+   cmSystemToolsCPackCommand =
+-    cmStrCat(exe_dir, "/cpack", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/cpack3", cmSystemTools::GetExecutableExtension());
+   cmSystemToolsCMakeGUICommand =
+-    cmStrCat(exe_dir, "/cmake-gui", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/cmake3-gui", cmSystemTools::GetExecutableExtension());
+   if (!cmSystemTools::FileExists(cmSystemToolsCMakeGUICommand)) {
+     cmSystemToolsCMakeGUICommand.clear();
+   }
+   cmSystemToolsCMakeCursesCommand =
+-    cmStrCat(exe_dir, "/ccmake", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/ccmake3", cmSystemTools::GetExecutableExtension());
+   if (!cmSystemTools::FileExists(cmSystemToolsCMakeCursesCommand)) {
+     cmSystemToolsCMakeCursesCommand.clear();
+   }
+   cmSystemToolsCMClDepsCommand =
+-    cmStrCat(exe_dir, "/cmcldeps", cmSystemTools::GetExecutableExtension());
++    cmStrCat(exe_dir, "/cmcldeps3", cmSystemTools::GetExecutableExtension());
+   if (!cmSystemTools::FileExists(cmSystemToolsCMClDepsCommand)) {
+     cmSystemToolsCMClDepsCommand.clear();
+   }
+diff --git a/Source/cmakemain.cxx b/Source/cmakemain.cxx
+index 056671a..d3ee86c 100644
+--- a/Source/cmakemain.cxx
++++ b/Source/cmakemain.cxx
+@@ -36,15 +36,15 @@
+ namespace {
+ #ifndef CMAKE_BOOTSTRAP
+ const char* cmDocumentationName[][2] = {
+-  { nullptr, "  cmake - Cross-Platform Makefile Generator." },
++  { nullptr, "  cmake3 - Cross-Platform Makefile Generator." },
+   { nullptr, nullptr }
+ };
+ 
+ const char* cmDocumentationUsage[][2] = {
+   { nullptr,
+-    "  cmake [options] <path-to-source>\n"
+-    "  cmake [options] <path-to-existing-build>\n"
+-    "  cmake [options] -S <path-to-source> -B <path-to-build>" },
++    "  cmake3 [options] <path-to-source>\n"
++    "  cmake3 [options] <path-to-existing-build>\n"
++    "  cmake3 [options] -S <path-to-source> -B <path-to-build>" },
+   { nullptr,
+     "Specify a source directory to (re-)generate a build system for "
+     "it in the current working directory.  Specify an existing build "
+@@ -53,7 +53,7 @@
+ };
+ 
+ const char* cmDocumentationUsageNote[][2] = {
+-  { nullptr, "Run 'cmake --help' for more information." },
++  { nullptr, "Run 'cmake3 --help' for more information." },
+   { nullptr, nullptr }
+ };
+ 
+@@ -178,7 +178,7 @@
+ 
+     auto generators = hcm.GetGeneratorsDocumentation();
+ 
+-    doc.SetName("cmake");
++    doc.SetName("cmake3");
+     doc.SetSection("Name", cmDocumentationName);
+     doc.SetSection("Usage", cmDocumentationUsage);
+     if (ac == 1) {
+@@ -209,7 +209,7 @@
+     if (strcmp(av[i], "-i") == 0) {
+       /* clang-format off */
+       std::cerr <<
+-        "The \"cmake -i\" wizard mode is no longer supported.\n"
++        "The \"cmake3 -i\" wizard mode is no longer supported.\n"
+         "Use the -D option to set cache values on the command line.\n"
+         "Use cmake-gui or ccmake for an interactive dialog.\n";
+       /* clang-format on */
+@@ -468,7 +468,7 @@
+   if (dir.empty()) {
+     /* clang-format off */
+     std::cerr <<
+-      "Usage: cmake --build <dir> [options] [-- [native-options]]\n"
++      "Usage: cmake3 --build <dir> [options] [-- [native-options]]\n"
+       "Options:\n"
+       "  <dir>          = Project binary directory to be built.\n"
+       "  --parallel [<jobs>], -j [<jobs>]\n"
+diff --git a/Source/ctest.cxx b/Source/ctest.cxx
+index 4edd62e..2591bf0 100644
+--- a/Source/ctest.cxx
++++ b/Source/ctest.cxx
+@@ -17,12 +17,12 @@
+ #include <vector>
+ 
+ static const char* cmDocumentationName[][2] = {
+-  { nullptr, "  ctest - Testing driver provided by CMake." },
++  { nullptr, "  ctest3 - Testing driver provided by CMake." },
+   { nullptr, nullptr }
+ };
+ 
+ static const char* cmDocumentationUsage[][2] = { { nullptr,
+-                                                   "  ctest [options]" },
++                                                   "  ctest3 [options]" },
+                                                  { nullptr, nullptr } };
+ 
+ static const char* cmDocumentationOptions[][2] = {
+@@ -163,7 +163,7 @@ int main(int argc, char const* const* argv)
+       ch->CreateCMake();
+ 
+       doc.SetShowGenerators(false);
+-      doc.SetName("ctest");
++      doc.SetName("ctest3");
+       doc.SetSection("Name", cmDocumentationName);
+       doc.SetSection("Usage", cmDocumentationUsage);
+       doc.PrependSection("Options", cmDocumentationOptions);
+--- a/Tests/CMakeLib/CMakeLists.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/CMakeLib/CMakeLists.txt	2020-04-25 23:45:44.534053472 +0200
+@@ -34,7 +34,7 @@
+ 
+ set(testRST_ARGS ${CMAKE_CURRENT_SOURCE_DIR})
+ set(testUVProcessChain_ARGS $<TARGET_FILE:testUVProcessChainHelper>)
+-set(testUVStreambuf_ARGS $<TARGET_FILE:cmake>)
++set(testUVStreambuf_ARGS $<TARGET_FILE:cmake3>)
+ set(testCTestResourceSpec_ARGS ${CMAKE_CURRENT_SOURCE_DIR})
+ set(testGccDepfileReader_ARGS ${CMAKE_CURRENT_SOURCE_DIR})
+ 
+diff --git a/Tests/CMakeLists.txt b/Tests/CMakeLists.txt
+index f21e430..cd81333 100644
+--- a/Tests/CMakeLists.txt
++++ b/Tests/CMakeLists.txt
+@@ -2811,3 +2811,3 @@
+     ${CMake_BINARY_DIR}/Testing/MumpsCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestGTMCoverage PROPERTIES
+@@ -2829,3 +2829,3 @@
+     ${CMake_BINARY_DIR}/Testing/MumpsCacheCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestCacheCoverage PROPERTIES
+@@ -2847,3 +2847,3 @@
+     ${CMake_BINARY_DIR}/Testing/PythonCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestPythonCoverage PROPERTIES
+@@ -2865,3 +2865,3 @@
+     ${CMake_BINARY_DIR}/Testing/CoberturaCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestCoberturaCoverage PROPERTIES
+@@ -2884,3 +2884,3 @@
+     ${CMake_BINARY_DIR}/Testing/JacocoCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestJacocoCoverage PROPERTIES
+@@ -2903,3 +2903,3 @@
+     ${CMake_BINARY_DIR}/Testing/JavascriptCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestJavascriptCoverage PROPERTIES
+@@ -2921,3 +2921,3 @@
+     ${CMake_BINARY_DIR}/Testing/DelphiCoverage
+-    $<TARGET_FILE:ctest> -T Coverage --debug)
++    $<TARGET_FILE:ctest3> -T Coverage --debug)
+   set_tests_properties(CTestDelphiCoverage PROPERTIES
+diff --git a/Tests/CMakeTests/CMakeLists.txt b/Tests/CMakeTests/CMakeLists.txt
+index d5524c3..7e4fd16 100644
+--- a/Tests/CMakeTests/CMakeLists.txt
++++ b/Tests/CMakeTests/CMakeLists.txt
+@@ -1,4 +1,4 @@
+-set(CMAKE_EXECUTABLE "${CMake_BIN_DIR}/cmake")
++set(CMAKE_EXECUTABLE "${CMake_BIN_DIR}/cmake3")
+ 
+ 
+ macro(AddCMakeTest TestName PreArgs)
+diff --git a/Tests/CTestConfig/dashboard.cmake.in b/Tests/CTestConfig/dashboard.cmake.in
+index 143fe71..31e26d3 100644
+--- a/Tests/CTestConfig/dashboard.cmake.in
++++ b/Tests/CTestConfig/dashboard.cmake.in
+@@ -5,7 +5,7 @@ set(CTEST_BINARY_DIRECTORY "@CMake_BINARY_DIR@/Tests/CTestConfig/@cfg@-dashboard
+ file(MAKE_DIRECTORY "${CTEST_BINARY_DIRECTORY}")
+ 
+ get_filename_component(dir "${CMAKE_COMMAND}" PATH)
+-set(CMAKE_CTEST_COMMAND "${dir}/ctest")
++set(CMAKE_CTEST_COMMAND "${dir}/ctest3")
+ 
+ message("CMAKE_COMMAND='${CMAKE_COMMAND}'")
+ message("CMAKE_CTEST_COMMAND='${CMAKE_CTEST_COMMAND}'")
+diff --git a/Tests/CommandLineTest/CMakeLists.txt b/Tests/CommandLineTest/CMakeLists.txt
+index 96aac10..95eb5e8 100644
+--- a/Tests/CommandLineTest/CMakeLists.txt
++++ b/Tests/CommandLineTest/CMakeLists.txt
+@@ -27,7 +27,7 @@ EXEC_CMAKE_COMMAND("--version \"${CMAKE_CURRENT_BINARY_DIR}/version.txt\"")
+ add_executable(CommandLineTest CommandLineTest.cxx)
+ 
+ get_filename_component(CMAKE_COMMAND_PATH "${CMAKE_COMMAND}" PATH)
+-set(CTEST_COMMAND "${CMAKE_COMMAND_PATH}/ctest")
++set(CTEST_COMMAND "${CMAKE_COMMAND_PATH}/ctest3")
+ macro(EXEC_CTEST_COMMAND CMAKE_ARGS)
+   exec_program("${CTEST_COMMAND}" ARGS "${CMAKE_ARGS}" RETURN_VALUE RET)
+   if(${RET})
+--- a/Tests/FindPackageModeMakefileTest/CMakeLists.orig.txt	2018-03-28 13:16:49.000000000 +0200
++++ b/Tests/FindPackageModeMakefileTest/CMakeLists.txt	2018-04-07 16:41:42.485284020 +0200
+@@ -21,7 +21,7 @@
+ 
+     # now set up the test:
+     file(GENERATE OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/cmakeExecutable.mk"
+-      CONTENT "CMAKE = \"$<TARGET_FILE:cmake>\"\n"
++      CONTENT "CMAKE = \"$<TARGET_FILE:cmake3>\"\n"
+     )
+     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Makefile.in ${CMAKE_CURRENT_BINARY_DIR}/ConfMakefile @ONLY)
+     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/main.cpp ${CMAKE_CURRENT_BINARY_DIR}/main.cpp COPYONLY)
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-jobs-bad-number-stderr.orig.txt	2018-07-17 13:29:00.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-jobs-bad-number-stderr.txt	2018-07-28 19:46:58.158978407 +0200
+@@ -1,3 +1,3 @@
+ ^'-j' invalid number '12ab' given\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-jobs-no-space-bad-number-stderr.orig.txt	2019-07-16 13:19:55.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-jobs-no-space-bad-number-stderr.txt	2019-08-30 16:59:44.617409999 +0200
+@@ -2,2 +2,2 @@
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build--parallel-bad-number-stderr.orig.txt	2018-07-17 13:29:00.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build--parallel-bad-number-stderr.txt	2018-07-28 19:46:13.965190619 +0200
+@@ -1,3 +1,3 @@
+ ^'--parallel' invalid number '12ab' given\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build--parallel-no-space-bad-number-stderr.orig.txt	2019-07-16 13:19:55.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build--parallel-no-space-bad-number-stderr.txt	2019-08-30 12:38:48.285341696 +0200
+@@ -2,2 +2,2 @@
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-multiple-targets-with-clean-first-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-multiple-targets-with-clean-first-stderr.txt	2020-04-26 11:16:28.509198583 +0200
+@@ -1,2 +1,2 @@
+ ^Error: Building 'clean' and other targets together is not supported\.
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-multiple-targets-with-clean-second-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-multiple-targets-with-clean-second-stderr.txt	2020-04-26 15:50:21.929561813 +0200
+@@ -1,2 +1,2 @@
+ ^Error: Building 'clean' and other targets together is not supported\.
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build--parallel-zero-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build--parallel-zero-stderr.txt	2020-04-26 16:53:13.277586899 +0200
+@@ -1,3 +1,3 @@
+ ^The <jobs> value requires a positive integer argument\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build--parallel-large-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build--parallel-large-stderr.txt	2020-04-26 16:55:03.616000455 +0200
+@@ -1,3 +1,3 @@
+ ^The <jobs> value is too large\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-jobs-large-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-jobs-large-stderr.txt	2020-04-26 16:56:16.610612491 +0200
+@@ -1,3 +1,3 @@
+ ^The <jobs> value is too large\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CommandLine/BuildDir--build-jobs-zero-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CommandLine/BuildDir--build-jobs-zero-stderr.txt	2020-04-26 16:57:12.218316938 +0200
+@@ -1,3 +1,3 @@
+ ^The <jobs> value requires a positive integer argument\.
+ +
+-Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CPack/tests/EXTERNAL/bad_major-stderr.orig.txt	2018-11-28 13:14:24.000000000 +0100
++++ b/Tests/RunCMake/CPack/tests/EXTERNAL/bad_major-stderr.txt	2018-12-30 14:49:49.071795542 +0100
+@@ -2,5 +2,5 @@
+   Could not find a suitable version in CPACK_EXTERNAL_REQUESTED_VERSIONS
+ 
+ 
+-CPack Error: Error while executing CPackExternal\.cmake
+-CPack Error: Cannot initialize the generator External
++CPack3 Error: Error while executing CPackExternal\.cmake
++CPack3 Error: Cannot initialize the generator External
+--- a/Tests/RunCMake/CPack/tests/EXTERNAL/bad_minor-stderr.orig.txt	2018-11-28 13:14:24.000000000 +0100
++++ b/Tests/RunCMake/CPack/tests/EXTERNAL/bad_minor-stderr.txt	2018-12-30 19:16:40.695879609 +0100
+@@ -2,5 +2,5 @@
+   Could not find a suitable version in CPACK_EXTERNAL_REQUESTED_VERSIONS
+ 
+ 
+-CPack Error: Error while executing CPackExternal\.cmake
+-CPack Error: Cannot initialize the generator External
++CPack3 Error: Error while executing CPackExternal\.cmake
++CPack3 Error: Cannot initialize the generator External
+--- a/Tests/RunCMake/CPack/tests/EXTERNAL/invalid_bad-stderr.orig.txt	2018-11-28 13:14:24.000000000 +0100
++++ b/Tests/RunCMake/CPack/tests/EXTERNAL/invalid_bad-stderr.txt	2018-12-30 19:15:48.170133287 +0100
+@@ -2,5 +2,5 @@
+   Could not find a suitable version in CPACK_EXTERNAL_REQUESTED_VERSIONS
+ 
+ 
+-CPack Error: Error while executing CPackExternal\.cmake
+-CPack Error: Cannot initialize the generator External
++CPack3 Error: Error while executing CPackExternal\.cmake
++CPack3 Error: Cannot initialize the generator External
+--- a/Tests/RunCMake/CTestCommandLine/show-only_bad-stderr.orig.txt	2019-07-16 13:19:55.000000000 +0200
++++ b/Tests/RunCMake/CTestCommandLine/show-only_bad-stderr.txt	2019-08-30 17:04:39.769643274 +0200
+@@ -1 +1 @@
+-^CMake Error: '--show-only=' given unknown value 'bad'$
++CMake3 Error: '--show-only=' given unknown value 'bad'$
+--- a/Tests/RunCMake/CPackCommandLine/NotAGenerator-stderr.orig.txt	2019-07-16 13:19:55.000000000 +0200
++++ b/Tests/RunCMake/CPackCommandLine/NotAGenerator-stderr.txt	2019-08-29 18:46:43.393638238 +0200
+@@ -1 +1 @@
+-^CPack Error: Could not create CPack generator: NotAGenerator
++^CPack3 Error: Could not create CPack generator: NotAGenerator
+--- a/Tests/RunCMake/CPack/tests/CPACK_INSTALL_SCRIPTS/both-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CPack/tests/CPACK_INSTALL_SCRIPTS/both-stderr.txt	2020-04-26 11:21:24.490373571 +0200
+@@ -1 +1 @@
+-CPack Warning: Both CPACK_INSTALL_SCRIPTS and CPACK_INSTALL_SCRIPT are set, the latter will be ignored.
++CPack3 Warning: Both CPACK_INSTALL_SCRIPTS and CPACK_INSTALL_SCRIPT are set, the latter will be ignored.
+--- a/Tests/RunCMake/CommandLine/Wizard-stderr.orig.txt	2018-11-28 13:14:24.000000000 +0100
++++ b/Tests/RunCMake/CommandLine/Wizard-stderr.txt	2018-12-30 14:57:32.537253674 +0100
+@@ -1 +1 @@
+-^The "cmake -i" wizard mode is no longer supported\.
++^The "cmake3 -i" wizard mode is no longer supported\.
+--- a/Tests/RunCMake/CPack/tests/SINGLE_DEBUGINFO/RPM-no_main_component-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CPack/tests/SINGLE_DEBUGINFO/RPM-no_main_component-stderr.txt	2020-04-26 13:51:14.784955230 +0200
+@@ -1 +1 @@
+-CPack Error: CPACK_RPM_MAIN_COMPONENT not set but it is mandatory with CPACK_RPM_DEBUGINFO_SINGLE_PACKAGE being set.
++CPack3 Error: CPACK_RPM_MAIN_COMPONENT not set but it is mandatory with CPACK_RPM_DEBUGINFO_SINGLE_PACKAGE being set.
+--- a/Tests/RunCMake/CPack/tests/SUGGESTS/RPM-stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CPack/tests/SUGGESTS/RPM-stderr.txt	2020-04-26 15:18:06.665838054 +0200
+@@ -1 +1 @@
+-^(.*CPackRPM:Warning: SUGGESTS not supported in provided rpmbuild.*)?CPackRPM: Will use GENERATED spec file: (/[^/]*)*/Tests/RunCMake/RPM\.SUGGESTS/CPack/[^-]*-build/_CPack_Packages/.*/RPM/SPECS/[^\.]*\.spec$
++^(.*CPackRPM:Warning: SUGGESTS not supported in provided rpmbuild.*)?CPackRPM: Will use GENERATED spec file: (/[^/]*)*/Tests/RunCMake/RPM\.SUGGESTS/CPack3/[^-]*-build/_CPack_Packages/.*/RPM/SPECS/[^\.]*\.spec$
+--- a/Tests/RunCMake/CPack/RPM/default_expected_stderr.orig.txt	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CPack/RPM/default_expected_stderr.txt	2020-04-26 15:26:02.680522173 +0200
+@@ -1 +1 @@
+-^(CPackRPM: Will use GENERATED spec file: (/[^/]*)*/Tests/RunCMake/RPM\.[^/]*/CPack/[^-]*(-package-target)?-build((-[^-]*-subtest/)|/)_CPack_Packages/.*/RPM/SPECS/[^\.]*\.spec(\n|$))*$
++^(CPackRPM: Will use GENERATED spec file: (/[^/]*)*/Tests/RunCMake/RPM\.[^/]*/CPack3/[^-]*(-package-target)?-build((-[^-]*-subtest/)|/)_CPack_Packages/.*/RPM/SPECS/[^\.]*\.spec(\n|$))*$
+--- a/Tests/RunCMake/CPack/VerifyResult.orig.cmake	2020-04-09 14:33:17.000000000 +0200
++++ b/Tests/RunCMake/CPack/VerifyResult.cmake	2020-04-26 14:18:54.582120932 +0200
+@@ -30,7 +30,7 @@
+ file(READ "${config_file}" config_file_content)
+ 
+ set(output_error_message
+-    "\nCPack output: '${output}'\nCPack error: '${error}';\nCPack result: '${PACKAGING_RESULT}';\nconfig file: '${config_file_content}'")
++    "\nCPack3 output: '${output}'\nCPack3 error: '${error}';\nCPack3 result: '${PACKAGING_RESULT}';\nconfig file: '${config_file_content}'")
+ 
+ # generate default expected files data
+ include("${src_dir}/tests/${RunCMake_TEST_FILE_PREFIX}/ExpectedFiles.cmake")
+diff --git a/Tests/RunCMake/CommandLine/NoArgs-stdout.txt b/Tests/RunCMake/CommandLine/NoArgs-stdout.txt
+index 1cd3469..7833aec 100644
+--- a/Tests/RunCMake/CommandLine/NoArgs-stdout.txt
++++ b/Tests/RunCMake/CommandLine/NoArgs-stdout.txt
+@@ -1,11 +1,11 @@
+ ^Usage
+ 
+-  cmake \[options\] <path-to-source>
+-  cmake \[options\] <path-to-existing-build>
+-  cmake \[options\] -S <path-to-source> -B <path-to-build>
++  cmake3 \[options\] <path-to-source>
++  cmake3 \[options\] <path-to-existing-build>
++  cmake3 \[options\] -S <path-to-source> -B <path-to-build>
+ 
+ Specify a source directory to \(re-\)generate a build system for it in the
+ current working directory.  Specify an existing build directory to
+ re-generate its build system.
+ 
+-Run 'cmake --help' for more information.$
++Run 'cmake3 --help' for more information.$
+diff --git a/Tests/RunCMake/CommandLine/build-no-dir-stderr.txt b/Tests/RunCMake/CommandLine/build-no-dir-stderr.txt
+index 8d518f6..d1ed4d5 100644
+--- a/Tests/RunCMake/CommandLine/build-no-dir-stderr.txt
++++ b/Tests/RunCMake/CommandLine/build-no-dir-stderr.txt
+@@ -1 +1 @@
+-^Usage: cmake --build <dir> \[options\] \[-- \[native-options\]\]
++^Usage: cmake3 --build <dir> \[options\] \[-- \[native-options\]\]
+--- a/Tests/RunCMake/CPack/tests/PACKAGE_CHECKSUM/TGZ-invalid-stderr.orig.txt	2018-03-28 13:16:49.000000000 +0200
++++ b/Tests/RunCMake/CPack/tests/PACKAGE_CHECKSUM/TGZ-invalid-stderr.txt	2018-04-07 20:51:12.050965106 +0200
+@@ -1,2 +1,2 @@
+-^CPack Error: Cannot recognize algorithm: invalid
+-CPack Error: Error when generating package: package_checksum$
++^CPack3 Error: Cannot recognize algorithm: invalid
++CPack3 Error: Error when generating package: package_checksum$
+diff --git a/Utilities/CMakeLists.txt b/Utilities/CMakeLists.txt
+index cf6bb72..c75cfe6 100644
+--- a/Utilities/CMakeLists.txt
++++ b/Utilities/CMakeLists.txt
+@@ -13,9 +13,9 @@
+   endif()
+   add_custom_command(
+     OUTPUT ${dir}.stamp
+-    COMMAND cmake -E rm -rf ${dir}
+-    COMMAND cmake -E tar xf ${CMAKE_DOC_TARBALL}
+-    COMMAND cmake -E touch ${dir}.stamp
++    COMMAND cmake3 -E rm -rf ${dir}
++    COMMAND cmake3 -E tar xf ${CMAKE_DOC_TARBALL}
++    COMMAND cmake3 -E touch ${dir}.stamp
+     DEPENDS ${CMAKE_DOC_TARBALL}
+     )
+   add_custom_target(documentation ALL DEPENDS ${dir}.stamp)
+diff --git a/Utilities/Sphinx/CMakeLists.txt b/Utilities/Sphinx/CMakeLists.txt
+index 257ba62..8bff516 100644
+--- a/Utilities/Sphinx/CMakeLists.txt
++++ b/Utilities/Sphinx/CMakeLists.txt
+@@ -160,9 +160,17 @@
+       endif()
+       if(NOT skip)
+         CMake_OPTIONAL_COMPONENT(sphinx-man)
++        set(new_name "")
++        string(REPLACE "cmake" "cmake3" new_name "${name}")
++        if("${new_name}" STREQUAL "cpack")
++        string(REPLACE "cpack" "cpack3" new_name "${name}")
++        endif("${new_name}" STREQUAL "cpack")
++        if("${new_name}" STREQUAL "ctest")
++        string(REPLACE "ctest" "ctest3" new_name "${name}")
++        endif("${new_name}" STREQUAL "ctest")
+         install(FILES ${CMAKE_CURRENT_BINARY_DIR}/man/${name}.${sec}
+                 DESTINATION ${CMAKE_MAN_DIR}/man${sec}
+-                ${COMPONENT})
++                RENAME "${new_name}.${sec}" ${COMPONENT})
+       endif()
+       unset(skip)
+     endif()
+diff --git a/bootstrap b/bootstrap
+index b3f06a1..3b51252 100755
+--- a/bootstrap
++++ b/bootstrap
+@@ -1563,8 +1563,8 @@
+   -I`cmake_escape \"${cmake_source_dir}/Source/LexerParser\"` \
+   -I`cmake_escape \"${cmake_source_dir}/Utilities/std\"` \
+   -I`cmake_escape \"${cmake_source_dir}/Utilities\"`"
+-echo "cmake: ${objs}" > "${cmake_bootstrap_dir}/Makefile"
+-echo "	${cmake_cxx_compiler} ${cmake_ld_flags} ${cmake_cxx_flags} ${objs} ${libs} -o cmake" >> "${cmake_bootstrap_dir}/Makefile"
++echo "cmake3: ${objs}" > "${cmake_bootstrap_dir}/Makefile"
++echo "	${cmake_cxx_compiler} ${cmake_ld_flags} ${cmake_cxx_flags} ${objs} ${libs} -o cmake3" >> "${cmake_bootstrap_dir}/Makefile"
+ for a in ${CMAKE_CXX_SOURCES}; do
+   src=`cmake_escape "${cmake_source_dir}/Source/${a}.cxx"`
+   src_flags=`eval echo \\${cmake_cxx_flags_\${a}}`
+@@ -1710,7 +1710,7 @@
+ if [ -n "${cmake_verbose}" ]; then
+   cmake_options="${cmake_options} -DCMAKE_VERBOSE_MAKEFILE=1"
+ fi
+-"${cmake_bootstrap_dir}/cmake" "${cmake_source_dir}" "-C${cmake_bootstrap_dir}/InitialCacheFlags.cmake" "-G${cmake_bootstrap_generator}" ${cmake_options} ${cmake_bootstrap_system_libs} "$@"
++"${cmake_bootstrap_dir}/cmake3" "${cmake_source_dir}" "-C${cmake_bootstrap_dir}/InitialCacheFlags.cmake" "-G${cmake_bootstrap_generator}" ${cmake_options} ${cmake_bootstrap_system_libs} "$@"
+ RES=$?
+ if [ "${RES}" -ne "0" ]; then
+   cmake_error 11 "Problem while running initial CMake"

@@ -1,0 +1,12 @@
+diff -up a/Modules/Compiler/GNU.cmake.than a/Modules/Compiler/GNU.cmake
+--- a/Modules/Compiler/GNU.cmake.than	2016-06-02 13:42:38.186383915 +0200
++++ b/Modules/Compiler/GNU.cmake	2016-06-02 14:00:26.256271135 +0200
+@@ -40,7 +40,7 @@
+   string(APPEND CMAKE_${lang}_FLAGS_INIT " ")
+   string(APPEND CMAKE_${lang}_FLAGS_DEBUG_INIT " -g")
+   string(APPEND CMAKE_${lang}_FLAGS_MINSIZEREL_INIT " -Os -DNDEBUG")
+-  string(APPEND CMAKE_${lang}_FLAGS_RELEASE_INIT " -O3 -DNDEBUG")
++  string(APPEND CMAKE_${lang}_FLAGS_RELEASE_INIT " -O2 -DNDEBUG")
+   string(APPEND CMAKE_${lang}_FLAGS_RELWITHDEBINFO_INIT " -O2 -g -DNDEBUG")
+   set(CMAKE_${lang}_CREATE_PREPROCESSED_SOURCE "<CMAKE_${lang}_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -E <SOURCE> > <PREPROCESSED_SOURCE>")
+   set(CMAKE_${lang}_CREATE_ASSEMBLY_SOURCE "<CMAKE_${lang}_COMPILER> <DEFINES> <INCLUDES> <FLAGS> -S <SOURCE> -o <ASSEMBLY_SOURCE>")
