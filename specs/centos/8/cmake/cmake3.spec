@@ -51,12 +51,12 @@ Summary:        Cross-platform make system
 License:        BSD and MIT and zlib
 URL:            http://www.cmake.org
 Source0:        https://github.com/Kitware/CMake/archive/v%{version}/CMake-%{version}%{?rcver:%rcver}.tar.gz
-Source1:        %{name}-init.el
-Source2:        macros.%{name}
+Source1:        https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/centos/8/cmake/%{name}-init.el
+Source2:        https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/centos/8/cmake/macros.%{name}
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1202899
-Source3:        %{name}.attr
-Source4:        %{name}.prov
-Source5:        CMake3.appdata.xml
+Source3:        https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/centos/8/cmake/%{name}.attr
+Source4:        https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/centos/8/cmake/%{name}.prov
+Source5:        https://raw.githubusercontent.com/JacekDanecki/neo-specs/master/specs/centos/8/cmake/CMake3.appdata.xml
 
 # Patch to fix RindRuby vendor settings
 # http://public.kitware.com/Bug/view.php?id=12965

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>CMake3.desktop</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <name>CMake GUI</name>
+  <summary>Create new CMake projects</summary>
+  <description>
+    <p>
+      CMake is an open source, cross platform build system that can build, test,
+      and package software. CMake GUI is a graphical user interface that can
+      create and edit CMake projects.
+    </p>
+  </description>
+  <url type="homepage">http://www.cmake.org</url>
+  <screenshots>
+    <screenshot type="default">https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/CMake/a.png</screenshot>
+  </screenshots>
+  <updatecontact>cmake3-owner_at_fedoraproject.org</updatecontact>
+</component>
