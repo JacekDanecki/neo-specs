@@ -33,11 +33,12 @@ echo %{patch_version} > VERSION_PATCH
 mkdir build
 pushd build
 %cmake -DCMAKE_BUILD_TYPE=Release ..
-%make_build
+%cmake_build
 popd
 
 %install
-%make_install -C build
+cd build
+%cmake_install
 
 %files
 %{_libdir}/libze_loader.so.%{major_version}
@@ -56,11 +57,4 @@ popd
 
 %changelog
 * Fri Feb 26 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.1.0-1
-- Update to 1.1.0
-
-* Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 0.91.10-1
-- Update to 0.91.10
-
-* Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 0.91.2-1
-- Initial packaging 0.91.2
-
+- Build 1.1.0
