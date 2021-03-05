@@ -1,11 +1,11 @@
-for dist in 7 8
+for dist in 7 8 stream
 do
     pushd centos/$dist
     ./update-gmmlib-spec
     popd
 done
 
-for dist in 31
+for dist in 33 33 34
 do
     pushd fedora/$dist
     ./update-gmmlib-spec

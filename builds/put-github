@@ -1,0 +1,9 @@
+#!/bin/bash
+
+source ../versions
+for d in ubuntu-18.04 
+do
+    rsync -av -e ssh $d ${USER}@frs.sourceforge.net:/home/frs/project/intel-compute-runtime/${neo_ver}/
+done
+
+

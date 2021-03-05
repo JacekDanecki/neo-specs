@@ -1,20 +1,23 @@
-for dist in 7 8
+for dist in 7 8 stream
 do
     pushd centos/$dist
     ./update-neo-spec
     popd
 done
 
-for dist in 31 32
+for dist in 32 33 34
 do
     pushd fedora/$dist
     ./update-neo-spec
     popd
 done
 
-pushd mageia
-./update-neo-spec
-popd
+for dist in mageia mageia/8
+do
+    pushd $dist
+    ./update-neo-spec
+    popd
+done
 
 pushd opensuse
 ./update-neo-spec

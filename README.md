@@ -12,7 +12,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 
 * Centos 7, 8, Stream
 * Fedora 32, 33, 34, rawhide
-* Mageia 7
+* Mageia 7, 8, cauldron
 * OpenSUSE Leap 15.2, Tumbleweed
 * Ubuntu 18.04, 20.04
  

@@ -1,22 +1,25 @@
-for dist in 7 8
+for dist in 7 8 stream
 do
     pushd centos/$dist
     ./update-igc-spec
     popd
 done
 
-for dist in 31 32
+for dist in 32 33 34
 do
     pushd fedora/$dist
     ./update-igc-spec
     popd
 done
 
-pushd mageia
-./update-igc-spec
-popd
+for dist in mageia mageia/8
+do
+    pushd $dist
+    ./update-igc-spec
+    popd
+done
 
-for dist in 15.1 15.2 tumbleweed
+for dist in 15.2 tumbleweed
 do
     pushd opensuse/$dist
     ./update-igc-spec
