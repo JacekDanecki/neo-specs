@@ -5,7 +5,6 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=11),
  cmake,
- opencl-headers,
  pkg-config
 Standards-Version: 4.3.0
 Homepage: https://github.com/oneapi-src/level-zero
