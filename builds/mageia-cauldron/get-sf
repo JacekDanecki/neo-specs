@@ -10,7 +10,7 @@ OS=mga9
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}
 
 for p in intel-igc-core-${igc_ver}-1 intel-igc-opencl-${igc_ver}-1 intel-igc-opencl-devel-${igc_ver}-1 \
-    intel-opencl-${neo_ver}-2 \
+    intel-opencl-${neo_ver}-1 \
     level-zero-${level_zero_ver}-2 level-zero-devel-${level_zero_ver}-2
 do
     f=${p}.${OS}.x86_64.rpm

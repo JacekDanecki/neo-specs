@@ -8,5 +8,5 @@ EMAIL=`git config --get user.email`
 rpmdev-bumpspec --new "${igc_ver}" --comment="Update to ${igc_ver}" --userstring="${GITUSER} <${EMAIL}>" igc.spec
 sed -i "s/%global patch_version .*/%global patch_version ${igc_build_ver}/" igc.spec
 sed -i "s/%global igc_commit .*/%global igc_commit ${igc_commit}/" igc.spec
-sed -i "s/%global llvm_patches_commit .*/%global llvm_patches_commit ${llvm_patches_commit}/" igc.spec
+sed -i "s/%global vc_commit .*/%global vc_commit ${vc_commit}/" igc.spec
 

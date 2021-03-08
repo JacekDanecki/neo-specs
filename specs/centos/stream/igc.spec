@@ -1,13 +1,12 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
-%global llvm_patches_commit 9cbc7cfb9bc374be22e1bb2418c5e9385000d755
-%global igc_commit igc-1.0.6087
-%global patch_version 6087
-%global vc_commit 50326439b1d0733c6af697de856d922273e4cfbe
+%global igc_commit igc-1.0.6410
+%global patch_version 6410
+%global vc_commit 7ee152a0024b22d757fe2d7c7e2c869d23ef7825
 %global src 21.01.18793
 
 Name: intel-igc
-Version: 1.0.6087
+Version: 1.0.6410
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -17,8 +16,7 @@ Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
 Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/opencl-clang.tar.gz
 Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
 Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
-Source4: https://github.com/intel/llvm-patches/archive/%{llvm_patches_commit}/llvm-patches.tar.gz
-Source5: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
+Source4: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 
 BuildRequires: cmake gcc-c++ make flex bison python3 git
 
@@ -56,9 +54,6 @@ popd
 
 mkdir igc
 tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
-
-mkdir llvm_patches
-tar xzf $RPM_SOURCE_DIR/llvm-patches.tar.gz -C llvm_patches --strip-components=1
 
 mkdir vc-intrinsics
 tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
@@ -109,6 +104,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Fri Mar 05 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6410-1
+- Update to 1.0.6410
+
 * Fri Feb 26 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
 - Build 1.0.6087
 
