@@ -1,0 +1,4 @@
+. ../../../versions
+
+pbuilder-dist groovy build intel-opencl_${neo_ver}-1~ppa1~groovy1.dsc
+

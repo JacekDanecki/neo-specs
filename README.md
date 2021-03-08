@@ -9,15 +9,15 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 
 ## Supported Linux operating systems on launchpad branch
 
-* Ubuntu 18.04, 19.10, 20.04
+* Ubuntu 18.04, 20.04, 20.10, 21.04
 
 ## Supported Linux operating systems on master branch
 
-* Centos 7, 8
-* Fedora 31, 32, rawhide
-* Mageia 7
-* OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
-* Ubuntu 18.04, 19.10, 20.04
+* Centos 7, 8, stream
+* Fedora 32, 33, 34, rawhide
+* Mageia 7, 8, cauldron
+* OpenSUSE Leap 15.2, Tumbleweed
+* Ubuntu 18.04, 20.04
  
 ## Branches
 
@@ -48,6 +48,5 @@ ci |  [copr://jdanecki/intel-opencl-ci](https://copr.fedorainfracloud.org/coprs/
 * intel-igc (https://github.com/intel/intel-graphics-compiler)
 * intel-opencl-clang (https://github.com/intel/opencl-clang)
 * intel-opencl (https://github.com/intel/compute-runtime)
-* llvm-patches (https://github.com/intel/llvm-patches)
 * SPIRV-LLVM-Translator (https://github.com/KhronosGroup/SPIRV-LLVM-Translator)
 * llvm-project (https://github.com/llvm/llvm-project)

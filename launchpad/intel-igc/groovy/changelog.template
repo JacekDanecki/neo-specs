@@ -1,0 +1,6 @@
+intel-graphics-compiler (@VER@-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Update to @VER@ commit:@COMMIT@
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  @DATE@
+

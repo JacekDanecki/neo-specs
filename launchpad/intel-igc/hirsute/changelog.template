@@ -1,0 +1,6 @@
+intel-graphics-compiler (@VER@-1~ppa1~hirsute1) hirsute; urgency=medium
+
+  * Update to @VER@ commit:@COMMIT@
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  @DATE@
+

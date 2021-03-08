@@ -1,0 +1,4 @@
+. ../../../versions
+
+dput ppa:jdanecki/intel-opencl intel-graphics-compiler_${igc_ver}-1~ppa1~hirsute1_source.changes
+
