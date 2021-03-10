@@ -4,14 +4,14 @@ set -x
 gmm_ver=20.3.2
 igc_build=6410
 opencl_clang_ver=10.0.24
-level_zero_ver=1.1.0
+level_zero_ver=1.2.3
 neo_major=21
 neo_minor=09
 neo_build=19150
 
 igc_commit=a402e1af602d96db18056933533dd740ef3a29d0
 gmmlib_commit=2072b0d1e8ba2cba2f94bc2c1fda89d6e457a50b
-level_zero_commit=v1.1.0
+level_zero_commit=v1.2.3
 neo_commit=ddd3502bd102889f7a96fef874995aff61633911
 
 neo_ver=${neo_major}.${neo_minor}.${neo_build}

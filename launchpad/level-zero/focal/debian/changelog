@@ -1,3 +1,9 @@
+level-zero (1.2.3-1~ppa1~focal1) focal; urgency=medium
+
+  * Update to 1.2.3 commit:v1.2.3
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 10 Mar 2021 14:34:15 +0100
+
 level-zero (1.1.0-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 1.1.0 commit:v1.1.0
