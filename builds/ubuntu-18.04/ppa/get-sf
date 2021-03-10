@@ -9,13 +9,21 @@ OS=~ppa1~bionic1
 
 URL=https://downloads.sourceforge.net/project/intel-compute-runtime/${neo_ver}/${OS_full}/ppa
 
-for p in libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1 \
-    intel-opencl-icd_${neo_ver}-1 \
+for p intel-opencl-icd_${neo_ver}-1 \
     libze-intel-gpu_${neo_ver}-1
 do
     f=${p}${OS}_amd64.deb
     wget -O sf/$f ${URL}/$f
 done
+
+OS=~ppa1~bionic3
+
+for p in libigc-dev_${igc_ver}-1 libigc_${igc_ver}-1
+do
+    f=${p}${OS}_amd64.deb
+    wget -O sf/$f ${URL}/$f
+done
+
 
 OS=~ppa1~bionic1
 for p in libigdgmm11_${gmm_ver}-1 libigdgmm-dev_${gmm_ver}-1 
