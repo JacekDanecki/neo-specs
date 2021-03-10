@@ -1,3 +1,15 @@
+intel-graphics-compiler (1.0.6410-1~ppa1~bionic3) bionic; urgency=medium
+
+  * Rebuild with python3
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 09 Mar 2021 20:49:23 +0100
+
+intel-graphics-compiler (1.0.6410-1~ppa1~bionic2) bionic; urgency=medium
+
+  * Change dependency from python2 to python3
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 09 Mar 2021 13:38:17 +0100
+
 intel-graphics-compiler (1.0.6410-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 1.0.6410 commit:a402e1af602d96db18056933533dd740ef3a29d0
