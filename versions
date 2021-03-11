@@ -3,10 +3,10 @@ set -x
 
 #neo_ver=19.45.14764
 gmm_ver=20.3.2
-igc_ver=1.0.5964
+igc_ver=1.0.6646
 opencl_clang_ver=10.0.25
 level_zero_ver=1.0.22
-igc_commit=e28b6595883d2e7397e386604b54670563fa1921
+igc_commit=535aaaef03ce338e05e6162118082e6e007e8c10
 gmmlib_commit=2072b0d1e8ba2cba2f94bc2c1fda89d6e457a50b
 level_zero_commit=v1.0.22
 spirv_llvm_translator_ver=10.0.24

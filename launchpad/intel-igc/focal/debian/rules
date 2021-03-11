@@ -1,10 +1,9 @@
 #!/usr/bin/make -f
-IGC_PACKAGE_RELEASE=5964
+IGC_PACKAGE_RELEASE=6646
 %:
 	export DEB_BUILD_OPTIONS='parallel=1'; dh $@ -D igc/IGC --parallel
 
 override_dh_auto_configure:
-	rm -f llvm_patches; ln -sf llvm-patches llvm_patches
 	ln -sf ../../../opencl-clang llvm-project/llvm/projects
 	cp -ar llvm-spirv llvm-project/llvm/projects
 	dh_auto_configure -- \
