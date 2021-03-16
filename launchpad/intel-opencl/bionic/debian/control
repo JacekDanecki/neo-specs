@@ -8,7 +8,7 @@ Build-Depends:
  libigc-dev (>= 1.0.6410-1~),
  libigdgmm-dev (>= 20.3.2-2~),
  libva-dev,
- libze-loader-dev (= 1.1.0-1~),
+ libze-loader-dev (= 1.1.0-1~ppa1~bionic1),
  pkg-config
 Standards-Version: 3.9.7
 Homepage: https://github.com/intel/compute-runtime
