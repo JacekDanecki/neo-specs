@@ -1,17 +1,17 @@
 %global major_version 20
-%global minor_version 2
-%global patch_version 4
-%global api_patch_version 865
+%global minor_version 3
+%global patch_version 2
+%global api_patch_version 905
 
-Name:		intel-gmmlib
-Version:    20.2.4
-Release:	1%{?dist}
-Summary:	Intel(R) Graphics Memory Management Library Package
+Name:       intel-gmmlib
+Version:    20.3.2
+Release:    1%{?dist}
+Summary:    Intel(R) Graphics Memory Management Library Package
 
-Group:	    System Environment/Libraries
-License:	MIT
-URL:		https://github.com/intel/gmmlib
-Source0:	%{url}/archive/%{name}-%{version}.tar.gz
+Group:      System Environment/Libraries
+License:    MIT
+URL:        https://github.com/intel/gmmlib
+Source0:    %{url}/archive/%{name}-%{version}.tar.gz
 ExclusiveArch:  x86_64
 
 BuildRequires: gcc-c++ cmake make
@@ -50,7 +50,8 @@ cd build
 
 %files
 %defattr(-,root,root)
-/usr/lib64/libigdgmm.so.*
+/usr/lib64/libigdgmm.so.11
+/usr/lib64/libigdgmm.so.11.*
 
 %files devel
 %defattr(-,root,root)
@@ -59,6 +60,9 @@ cd build
 /usr/lib64/pkgconfig/igdgmm.pc
 
 %changelog
+* Fri Mar 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
+- Update to 20.3.2
+
 * Thu Sep 03 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.4-1
 - Update to 20.2.4
 

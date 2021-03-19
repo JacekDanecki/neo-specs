@@ -66,13 +66,16 @@ mkdir build
 pushd build
 
 cmake ../igc -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
- -DIGC_PREFERRED_LLVM_VERSION=10.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version}
-%make_build
+ -DIGC_PREFERRED_LLVM_VERSION=10.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version} \
+ -B "x86_64-redhat-linux-gnu"
+%cmake_build
 popd
 
 %install
-%make_install -C build
-rm -fv %{buildroot}/usr/bin/GenX_IR
+cd build
+%cmake_install
+
+rm -fv $RPM_BUILD_ROOT/usr/bin/GenX_IR
 rm -fv $RPM_BUILD_ROOT/usr/bin/clang-10
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c.h
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c-base.h
@@ -107,90 +110,104 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 * Fri Mar 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6646-1
 - Update to 1.0.6646
 
-* Mon Jul 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4361-1
-- Update to 1.0.4361
+* Fri Mar 05 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6410-1
+- Update to 1.0.6410
 
-* Fri Jul 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4312-1
-- Update to 1.0.4312
+* Tue Feb 23 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
+- Add patch for Fedora 34
 
-* Mon Jun 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
+* Fri Nov 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5585-1
+- Update to 1.0.5585
+
+* Mon Nov 16 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5435-1
+- Update to 1.0.5435
+
+* Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5353-1
+- Update to 1.0.5353
+
+* Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
 - Update to 1.0.4241
 
-* Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4154-1
+* Mon Jun 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4155-1
+- Update to 1.0.4155
+
+* Wed Jun 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4154-1
 - Update to 1.0.4154
 
-* Fri Jun 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4116-1
-- Update to 1.0.4116
+* Tue Jun 23 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4111-1
+- Update to 1.0.4111
 
-* Tue May 26 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-1
+* Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-1
 - Update to 1.0.4062
 
-* Thu May 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4036-2
-- Add workaround from https://github.com/intel/intel-graphics-compiler/pull/135
+* Mon Jun 01 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4053-1
+- Update to 1.0.4053
 
-* Wed May 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4036-1
-- Update to 1.0.4036
-
-* Tue May 12 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3977-1
+* Tue May 26 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3977-1
 - Update to 1.0.3977
 
-* Thu May 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3951-1
+* Mon May 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3951-1
 - Update to 1.0.3951
+- Add patch for building
+- Add workaround from https://github.com/intel/intel-graphics-compiler/pull/135
 
-* Wed Apr 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3899-1
+* Fri May 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3899-1
 - Update to 1.0.3899
 
-* Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3826-1
+* Mon May 04 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3864-1
+- Update to 1.0.3864
+
+* Fri Apr 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3826-1
 - Update to 1.0.3826
 
-* Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3800-1
-- Update to 1.0.3800
+* Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3771-1
+- Update to 1.0.3771
 
-* Wed Apr 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3752-1
-- Update to 1.0.3752
+* Tue Apr 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3698-1
+- Update to 1.0.3698
 
-* Wed Mar 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-1
+* Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3627-1
 - Update to 1.0.3627
 
-* Tue Mar 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3572-1
-- Update to 1.0.3572
+* Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3586-1
+- Update to 1.0.3586
 
-* Tue Mar 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3529-2
-- Rebuild with opencl-clang 10.0.4
-
-* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3529-1
+* Fri Mar 20 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3529-1
 - Update to 1.0.3529
 
-* Mon Feb 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3445-1
+* Fri Mar 13 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3471-1
+- Update to 1.0.3471
+
+* Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3445-1
 - Update to 1.0.3445
 
-* Wed Feb 12 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3342-1
-- Update to 1.0.3342
+* Mon Mar 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
+- Update to 1.0.3390
+
+* Mon Feb 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
+- Update to 1.0.3289
 - Build with llvm/clang 10
 
-* Tue Feb 04 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
-- Update to 1.0.3289
+* Tue Jan 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-2
+- fix compilation under Fedora 32
 
-* Wed Jan 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-1
+* Fri Jan 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-1
 - Update to 1.0.3151
 
-* Thu Dec 19 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-2
-- Fix IGC commit
-
-* Tue Dec 10 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-1
+* Fri Dec 20 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3041-1
 - Update to 1.0.3041
 
-* Mon Dec 02 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-1
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3032-1
+- Update to 1.0.3032
+
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-2
+- Correct commit ID for IGC 1.0.2990
+
+* Fri Dec 06 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-1
 - Update to 1.0.2990
 
-* Tue Nov 26 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2972-1
-- Update to 1.0.2972
-
-* Tue Nov 26 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2934-1
+* Fri Nov 29 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2934-1
 - Update to 1.0.2934
-
-* Thu Nov 21 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2916-1
-- Update to 1.0.2916
 
 * Wed Nov 20 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2878-1
 - Update to 1.0.2878
