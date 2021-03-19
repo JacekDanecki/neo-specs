@@ -2,17 +2,17 @@ set -e
 set -x
 
 gmm_ver=20.3.2
-igc_build=6410
+igc_build=6646
 opencl_clang_ver=10.0.24
 level_zero_ver=1.2.3
 neo_major=21
-neo_minor=10
-neo_build=19208
+neo_minor=11
+neo_build=19310
 
-igc_commit=a402e1af602d96db18056933533dd740ef3a29d0
+igc_commit=535aaaef03ce338e05e6162118082e6e007e8c10
 gmmlib_commit=2072b0d1e8ba2cba2f94bc2c1fda89d6e457a50b
 level_zero_commit=v1.2.3
-neo_commit=4191dfdb4364af9500e8a7b37e192e310ed667da
+neo_commit=19355ca08880da4f1b501e08fd607264cc4181c7
 
 neo_ver=${neo_major}.${neo_minor}.${neo_build}
 igc_ver=1.0.${igc_build}
