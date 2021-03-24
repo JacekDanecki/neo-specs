@@ -2,9 +2,9 @@ set -e
 set -x
 
 gmm_ver=20.3.2
-igc_ver=1.0.6712
+igc_ver=1.0.6748
 opencl_clang_ver=10.0.25
-igc_commit=a1a451f633b0c8ba403e57ffb4ef2a5d898c0951
+igc_commit=c02698d89e3e9adb2c1e94bcf9d0f7564a860f88
 spirv_llvm_translator_ver=10.0.24
 spirv_llvm_translator_commit=424e375edc4b915218ab5d1f08670a8d1e92c9d3
 level_zero_ver=1.2.3
