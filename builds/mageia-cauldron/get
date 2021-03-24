@@ -13,5 +13,5 @@ wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/magei
 
 #wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/mageia-cauldron-x86_64/${clinfo_build}-clinfo/clinfo-2.1.17.02.09-2.mga9.x86_64.rpm
 
-wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/mageia-cauldron-x86_64/${level_zero_build}-level-zero/level-zero-${level_zero_ver}-2.mga9.x86_64.rpm
-wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/mageia-cauldron-x86_64/${level_zero_build}-level-zero/level-zero-devel-${level_zero_ver}-2.mga9.x86_64.rpm
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/mageia-cauldron-x86_64/${level_zero_build}-level-zero/level-zero-${level_zero_ver}-1.mga9.x86_64.rpm
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/mageia-cauldron-x86_64/${level_zero_build}-level-zero/level-zero-devel-${level_zero_ver}-1.mga9.x86_64.rpm

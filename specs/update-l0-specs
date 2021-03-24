@@ -1,0 +1,24 @@
+for dist in 7 8 stream
+do
+    pushd centos/$dist
+    ./update-l0-spec
+    popd
+done
+
+for dist in 32 33
+do
+    pushd fedora/$dist
+    ./update-l0-spec
+    popd
+done
+
+for dist in mageia mageia/8
+do
+    pushd $dist
+    ./update-l0-spec
+    popd
+done
+
+pushd opensuse
+./update-l0-spec
+popd
