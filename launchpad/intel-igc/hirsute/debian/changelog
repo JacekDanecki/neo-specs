@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.6712-1~ppa1~hirsute1) hirsute; urgency=medium
+
+  * Update to 1.0.6712 commit:a1a451f633b0c8ba403e57ffb4ef2a5d898c0951
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 29 Mar 2021 14:50:39 +0200
+
 intel-graphics-compiler (1.0.6646-1~ppa1~hirsute1) hirsute; urgency=medium
 
   * Update to 1.0.6646 commit:535aaaef03ce338e05e6162118082e6e007e8c10
