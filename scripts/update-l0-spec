@@ -1,0 +1,16 @@
+#!/bin/bash
+set -x
+
+source `git rev-parse --show-toplevel`/versions
+GITUSER=`git config --get user.name`
+EMAIL=`git config --get user.email`
+
+sed -i "s/%global major_version .*/%global major_version ${l0_major}/" level-zero.spec
+sed -i "s/%global minor_version .*/%global minor_version ${l0_minor}/" level-zero.spec
+sed -i "s/%global patch_version .*/%global patch_version ${l0_patch}/" level-zero.spec
+
+rpmdev-bumpspec --comment="Update to ${level_zero_ver}" --userstring="${GITUSER} <${EMAIL}>" level-zero.spec
+
+sed -i "s/${level_zero_ver}-.*/${level_zero_ver}-1/" level-zero.spec
+sed -i "s/Release: .*%{?dist}/Release: 1%{?dist}/g" level-zero.spec
+
