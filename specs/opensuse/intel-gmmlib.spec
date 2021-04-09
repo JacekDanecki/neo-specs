@@ -1,10 +1,10 @@
 %global major_version 20
-%global minor_version 3
-%global patch_version 2
-%global api_patch_version 905
+%global minor_version 4
+%global patch_version 1
+%global api_patch_version 1000
 
 Name:       libigdgmm11
-Version:    20.3.2
+Version:    20.4.1
 Release:    1%{?dist}
 Summary:    Intel(R) Graphics Memory Management Library Package
 
@@ -59,6 +59,9 @@ cd build
 /usr/lib64/pkgconfig/igdgmm.pc
 
 %changelog
+* Thu Apr 08 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.4.1-1
+- Update to 20.4.1
+
 * Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
 - Update to 20.3.2
 

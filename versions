@@ -1,11 +1,11 @@
 set -e
 set -x
 neo_major=21
-neo_minor=12
-neo_build_ver=19358
+neo_minor=13
+neo_build_ver=19438
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
-gmm_ver=20.3.2
-igc_build_ver=6712
+gmm_ver=20.4.1
+igc_build_ver=6748
 igc_ver=1.0.${igc_build_ver}
 opencl_clang_ver=10.0.24
 opencl_clang_commit=c8cd72e32b6abc18ce6da71c357ea45ba78b52f0

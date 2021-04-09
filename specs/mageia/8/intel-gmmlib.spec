@@ -34,15 +34,11 @@ find Source -name "*.cpp" -exec chmod -x {} ';'
 find Source -name "*.h" -exec chmod -x {} ';'
 
 %build
-mkdir build
-pushd build
-
 %cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TYPE=release \
  -DMAJOR_VERSION=%{major_version} -DMINOR_VERSION=%{minor_version} -DPATCH_VERSION=%{patch_version} \
  -DGMMLIB_API_PATCH_VERSION=%{api_patch_version} \
- -DRUN_TEST_SUITE:BOOL='ON' ..
-%make_build
-popd
+ -DRUN_TEST_SUITE:BOOL='ON'
+%cmake_build
 
 %install
 cd build
@@ -50,20 +46,20 @@ cd build
 
 %files
 %defattr(-,root,root)
-/usr/lib64/libigdgmm.so.11
-/usr/lib64/libigdgmm.so.11.*
+%{_libdir}/libigdgmm.so.11
+%{_libdir}/libigdgmm.so.11.2.%{api_patch_version}
 
 %files devel
 %defattr(-,root,root)
-/usr/include/igdgmm/*
-/usr/lib64/libigdgmm.so
-/usr/lib64/pkgconfig/igdgmm.pc
+%{_includedir}/igdgmm/*
+%{_libdir}/libigdgmm.so
+%{_libdir}/pkgconfig/igdgmm.pc
 
 %changelog
 * Thu Apr 08 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.4.1-1
 - Update to 20.4.1
 
-* Fri Feb 26 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
+* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
 - Update to 20.3.2
 
 * Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.2-1
