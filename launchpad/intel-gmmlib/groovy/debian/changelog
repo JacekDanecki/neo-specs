@@ -1,0 +1,5 @@
+intel-gmmlib (20.4.1-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Package 20.4.1 commit:6f15b795e1511febf233b42d7dde603f52fcfdab
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 09 Apr 2021 16:34:26 +0200

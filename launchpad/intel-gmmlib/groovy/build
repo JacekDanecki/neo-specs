@@ -1,0 +1,4 @@
+. ../../../versions
+
+pbuilder-dist groovy build intel-gmmlib_${gmm_ver}-1~ppa1~groovy1.dsc
+
