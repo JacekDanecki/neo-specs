@@ -17,7 +17,7 @@ cd ..
 tar czf intel-graphics-compiler_${igc_ver}.orig-opencl-clang.tar.gz opencl-clang
 rm -rf opencl-clang
 
-wget --no-check-certificate https://github.com/intel/vc-intrinsics/archive/${vc_intrinsics_commit}/intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz
+wget --no-check-certificate https://github.com/intel/vc-intrinsics/archive/${vc_commit}/intel-graphics-compiler_${igc_ver}.orig-vc-intrinsics.tar.gz
 
 git clone -b llvm_release_100 https://github.com/KhronosGroup/SPIRV-LLVM-Translator
 cd SPIRV-LLVM-Translator
