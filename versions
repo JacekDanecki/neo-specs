@@ -1,8 +1,8 @@
 set -e
 set -x
 neo_major=21
-neo_minor=14
-neo_build_ver=19498
+neo_minor=15
+neo_build_ver=19533
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
 gmm_ver=20.4.1
 igc_build_ver=6812
@@ -16,7 +16,7 @@ l0_major=1
 l0_minor=2
 l0_patch=3
 level_zero_ver=${l0_major}.${l0_minor}.${l0_patch}
-level_zero_gpu_ver=1.0
+level_zero_gpu_ver=1.1
 llvm_commit=llvmorg-10.0.0
 vc_commit=6713229fd8947f4cf200f675d22fb7e9997fa261
 
