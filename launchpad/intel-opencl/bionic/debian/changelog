@@ -1,3 +1,9 @@
+intel-opencl (21.15.19533-1~ppa1~bionic1) bionic; urgency=medium
+
+  * Update to 21.15.19533 commit:1c2dc70
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 16 Apr 2021 15:39:34 +0200
+
 intel-opencl (21.14.19498-1~ppa1~bionic1) bionic; urgency=medium
 
   * Update to 21.14.19498 commit:d6496f9
