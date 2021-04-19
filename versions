@@ -2,15 +2,15 @@ set -e
 set -x
 
 gmm_ver=20.4.1
-igc_ver=1.0.7041
+igc_ver=1.0.7076
 opencl_clang_ver=10.0.25
-igc_commit=9d211c5f220c71b696368d519a5f482322131a0f
+igc_commit=125b272548e819d7d14b8a68e4cd17105e7cc11d
 spirv_llvm_translator_ver=10.0.24
 spirv_llvm_translator_commit=424e375edc4b915218ab5d1f08670a8d1e92c9d3
 level_zero_ver=1.2.3
 level_zero_gpu_ver=1.0
 level_zero_commit=v1.2.3
 llvm_commit=llvmorg-10.0.0
-vc_commit=6713229fd8947f4cf200f675d22fb7e9997fa261
+vc_commit=069ced1e8a408d8b602b3b210017603792df6260
 gmmlib_commit=6f15b795e1511febf233b42d7dde603f52fcfdab
 
