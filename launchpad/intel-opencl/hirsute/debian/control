@@ -5,7 +5,7 @@ Maintainer: Jacek Danecki <jacek.danecki@intel.com>
 Build-Depends:
  debhelper (>=11),
  cmake,
- libigc-dev (>= 1.0.6812-1~),
+ libigc-dev (>= 1.0.7041-1~),
  libigdgmm-dev (>= 20.4.1),
  libva-dev,
  libze-loader-dev (>= 1.2.3-1~),
@@ -18,7 +18,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.6812-1~),
+ libigc (>= 1.0.7041-1~),
  libigdgmm11 (>= 20.4.1)
 Breaks:
  intel-opencl
@@ -46,7 +46,7 @@ Architecture: amd64
 Depends:
  ${shlibs:Depends},
  ${misc:Depends},
- libigc (>= 1.0.6812-1~),
+ libigc (>= 1.0.7041-1~),
  libigdgmm11 (>= 20.4.1)
 Breaks:
  intel-level-zero-gpu
