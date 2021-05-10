@@ -1,0 +1,5 @@
+intel-gmmlib (21.1.2-1~ppa1~hirsute1) hirsute; urgency=medium
+
+  * Package 21.1.2 commit:cac1a15c98d69ed63344dbf102898d07b50d34e5
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 10 May 2021 20:21:02 +0200
