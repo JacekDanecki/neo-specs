@@ -1,11 +1,11 @@
 set -e
 set -x
 neo_major=21
-neo_minor=16
-neo_build_ver=19610
+neo_minor=17
+neo_build_ver=19709
 neo_ver=${neo_major}.${neo_minor}.${neo_build_ver}
-gmm_ver=20.4.1
-igc_build_ver=7041
+gmm_ver=21.1.2
+igc_build_ver=7152
 igc_ver=1.0.${igc_build_ver}
 opencl_clang_ver=10.0.24
 opencl_clang_commit=c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
@@ -18,5 +18,5 @@ l0_patch=3
 level_zero_ver=${l0_major}.${l0_minor}.${l0_patch}
 level_zero_gpu_ver=1.1
 llvm_commit=llvmorg-10.0.0
-vc_commit=6713229fd8947f4cf200f675d22fb7e9997fa261
+vc_commit=069ced1e8a408d8b602b3b210017603792df6260
 

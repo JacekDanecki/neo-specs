@@ -1,10 +1,10 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 16
-%global NEO_BUILD 19610
+%global NEO_MINOR 17
+%global NEO_BUILD 19709
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
-%global IGC_BUILD 7041
-%global GMM_BUILD 20.4.1
+%global IGC_BUILD 7152
+%global GMM_BUILD 21.1.2
 
 Name: intel-opencl
 Version: %{NEO_ver}
@@ -68,6 +68,9 @@ rm -rf %{buildroot}/usr/lib/debug/
 %doc
 
 %changelog
+* Mon May 10 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.17.19709-1
+- Update to 21.17.19709
+
 * Wed Apr 28 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.16.19610-1
 - Update to 21.16.19610
 

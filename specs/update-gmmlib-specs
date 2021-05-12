@@ -12,10 +12,14 @@ do
     popd
 done
 
-pushd mageia
-./update-gmmlib-spec
-popd
+for dist in mageia mageia/8
+do
+    pushd $dist
+    ./update-gmmlib-spec
+    popd
+done
 
-pushd opensuse
-./update-gmmlib-spec
-popd
+    pushd opensuse
+    ./update-gmmlib-spec
+    popd
+
