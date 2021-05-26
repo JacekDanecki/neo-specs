@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.7423-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Update to 1.0.7423 commit:3104b45be5ed35a7f6a8d52ff4a7f339f582e055
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Wed, 26 May 2021 18:41:50 +0200
+
 intel-graphics-compiler (1.0.7181-1~ppa1~groovy1) groovy; urgency=medium
 
   * Update to 1.0.7181 commit:952204388d06801606b9cd2954362ac3d17ee19a
