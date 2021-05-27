@@ -8,5 +8,6 @@ wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/lib
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/intel-opencl-icd_${neo_ver}-1~ppa1~groovy1_amd64.deb
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libze-intel-gpu_${neo_ver}-1~ppa1~groovy1_amd64.deb
 wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libze-loader_${level_zero_ver}-1~ppa1~groovy1_amd64.deb
+wget https://launchpad.net/~intel-opencl/+archive/ubuntu/intel-opencl/+files/libze-loader-dev_${level_zero_ver}-1~ppa1~groovy1_amd64.deb
 
 
