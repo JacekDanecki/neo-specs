@@ -6,13 +6,13 @@ igc_build=7423
 opencl_clang_ver=10.0.24
 level_zero_ver=1.2.3
 neo_major=21
-neo_minor=20
-neo_build=19883
+neo_minor=21
+neo_build=19914
 
 igc_commit=3104b45be5ed35a7f6a8d52ff4a7f339f582e055
 gmmlib_commit=915cfec5b3da752628d9b6fc79f7a9eef97e79e8
 level_zero_commit=v1.2.3
-neo_commit=e1f3b39
+neo_commit=79ff544
 
 neo_ver=${neo_major}.${neo_minor}.${neo_build}
 igc_ver=1.0.${igc_build}
