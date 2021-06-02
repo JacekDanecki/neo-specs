@@ -11,7 +11,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 ## Supported Linux operating systems
 
 * Centos 7, 8, Stream
-* Fedora 32, 33, 34, rawhide
+* Fedora 33, 34, rawhide
 * Mageia 7, 8, cauldron
 * OpenSUSE Leap 15.2, Tumbleweed
 * Ubuntu 18.04, 20.04, 20.10, 21.04
