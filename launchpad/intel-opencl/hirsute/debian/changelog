@@ -1,3 +1,9 @@
+intel-opencl (21.23.20043-1~ppa1~hirsute1) hirsute; urgency=medium
+
+  * Update to 21.23.20043 commit:3a91bcf
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Fri, 11 Jun 2021 22:32:00 +0200
+
 intel-opencl (21.22.19967-1~ppa1~hirsute1) hirsute; urgency=medium
 
   * Update to 21.22.19967 commit:67aa1ad
