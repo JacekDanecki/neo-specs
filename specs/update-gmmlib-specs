@@ -2,24 +2,28 @@
 
 set -x
 
-for dist in 7 8
+for dist in 7 8 stream
 do
     pushd centos/$dist
     ./update-gmmlib-spec
     popd
 done
 
-for dist in 31 33
+for dist in 32 33
 do
     pushd fedora/$dist
     ./update-gmmlib-spec
     popd
 done
 
-pushd mageia
-./update-gmmlib-spec
-popd
+for dist in mageia mageia/8
+do
+    pushd $dist
+    ./update-gmmlib-spec
+    popd
+done
 
+ 
 pushd opensuse
 ./update-gmmlib-spec
 popd

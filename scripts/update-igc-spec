@@ -5,16 +5,8 @@ source `git rev-parse --show-toplevel`/versions
 GITUSER=`git config --get user.name`
 EMAIL=`git config --get user.email`
 
-patch_version=$(awk '/ patch_version/ {print $3}' igc.spec)
-echo "current igc: ${patch_version}"
-new_build=$(echo ${igc_ver} | awk -F '.' '{print $3}')
-echo "new build: ${new_build}"
-
-current_commit=$(awk '/igc_commit / {print $3}' igc.spec)
-echo "current igc commit: ${current_commit}"
-
-
 rpmdev-bumpspec --new "${igc_ver}" --comment="Update to ${igc_ver}" --userstring="${GITUSER} <${EMAIL}>" igc.spec
-sed -i "s/patch_version ${patch_version}/patch_version ${new_build}/" igc.spec
-sed -i "s/igc_commit ${current_commit}/igc_commit ${igc_commit}/" igc.spec
+sed -i "s/%global patch_version .*/%global patch_version ${igc_build_ver}/" igc.spec
+sed -i "s/%global igc_commit .*/%global igc_commit ${igc_commit}/" igc.spec
+sed -i "s/%global vc_commit .*/%global vc_commit ${vc_commit}/" igc.spec
 

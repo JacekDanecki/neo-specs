@@ -3,14 +3,15 @@
 %global patch_version 3
 %global api_patch_version 1111
 
-Name:       intel-gmmlib
+Name:		intel-gmmlib
 Version:    21.1.3
-Release:    1%{?dist}
-Summary:    Intel(R) Graphics Memory Management Library Package
+Release:	1%{?dist}
+Summary:	Intel(R) Graphics Memory Management Library Package
 
-License:    MIT
-URL:        https://github.com/intel/gmmlib
-Source0:    %{url}/archive/%{name}-%{version}.tar.gz
+Group:	    System Environment/Libraries
+License:	MIT
+URL:		https://github.com/intel/gmmlib
+Source0:	%{url}/archive/%{name}-%{version}.tar.gz
 ExclusiveArch:  x86_64
 
 BuildRequires: gcc-c++ cmake make
@@ -20,6 +21,7 @@ Intel(R) Graphics Memory Management Library
 
 %package       devel
 Summary:       Intel(R) Graphics Memory Management Library development package
+Group: Development
 Requires:      %{name} = %{version}-%{release}
 
 %description   devel
@@ -32,25 +34,23 @@ find Source -name "*.cpp" -exec chmod -x {} ';'
 find Source -name "*.h" -exec chmod -x {} ';'
 
 %build
-mkdir build
-pushd build
-
 %cmake -DCMAKE_INSTALL_PREFIX=/usr -DBUILD_TYPE=release \
  -DMAJOR_VERSION=%{major_version} -DMINOR_VERSION=%{minor_version} -DPATCH_VERSION=%{patch_version} \
  -DGMMLIB_API_PATCH_VERSION=%{api_patch_version} \
- -DRUN_TEST_SUITE:BOOL='ON' ..
-%make_build
-popd
+ -DRUN_TEST_SUITE:BOOL='ON'
+%cmake_build
 
 %install
 cd build
 %make_install
 
 %files
+%defattr(-,root,root)
 %{_libdir}/libigdgmm.so.11
 %{_libdir}/libigdgmm.so.11.*
 
 %files devel
+%defattr(-,root,root)
 %{_includedir}/igdgmm/*
 %{_libdir}/libigdgmm.so
 %{_libdir}/pkgconfig/igdgmm.pc
@@ -59,13 +59,22 @@ cd build
 * Fri May 21 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.1.3-1
 - Update to 21.1.3
 
-* Tue Nov 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
+* Mon Mar 15 2021 Jacek Danecki <jacek.danecki@intel.com> - 20.3.2-1
 - Update to 20.3.2
 
-* Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.1.1-1
+* Thu Sep 03 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.4-1
+- Update to 20.2.4
+
+* Thu Jul 30 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.3-1
+- Update to 20.2.3
+
+* Tue Jul 07 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.2.2-1
+- Update to 20.2.2
+
+* Wed Mar 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.1.1-1
 - Update to 20.1.1
 
-* Fri Jan 10 2020 Jacek Danecki <jacek.danecki@intel.com> - 19.4.1-1
+* Fri Jan 03 2020 Jacek Danecki <jacek.danecki@intel.com> - 19.4.1-1
 - Update to 19.4.1
 
 * Tue Nov 19 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.3.4-1
