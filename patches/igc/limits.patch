@@ -1,0 +1,11 @@
+diff -urp igc/visa/iga/IGALibrary/IR/RegDeps.cpp igc-new/visa/iga/IGALibrary/IR/RegDeps.cpp
+--- igc/visa/iga/IGALibrary/IR/RegDeps.cpp	2021-06-08 09:25:44.000000000 +0000
++++ igc-new/visa/iga/IGALibrary/IR/RegDeps.cpp	2021-06-17 10:04:50.269728509 +0000
+@@ -12,6 +12,7 @@ SPDX-License-Identifier: MIT
+ 
+ #include <sstream>
+ #include <cstring>
++#include <limits>
+ 
+ using namespace iga;
+ 
