@@ -1,3 +1,9 @@
+intel-opencl (21.24.20098-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Update to 21.24.20098 commit:e27d8a5
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 22 Jun 2021 21:03:51 +0200
+
 intel-opencl (21.23.20043-1~ppa1~groovy1) groovy; urgency=medium
 
   * Update to 21.23.20043 commit:3a91bcf
