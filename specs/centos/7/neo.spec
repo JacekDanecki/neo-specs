@@ -1,6 +1,6 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 22
-%global NEO_BUILD 19967
+%global NEO_MINOR 23
+%global NEO_BUILD 20043
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
 %global IGC_BUILD 7423
@@ -64,6 +64,9 @@ chmod +x ${RPM_BUILD_ROOT}/usr/lib64/intel-opencl/libigdrcl.so
 %doc
 
 %changelog
+* Fri Jun 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.23.20043-1
+- Update to 21.23.20043
+
 * Wed Jun 09 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.22.19967-1
 - Update to 21.22.19967
 
