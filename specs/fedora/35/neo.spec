@@ -5,24 +5,24 @@
 %global L0_ver 1.1
 %global IGC_BUILD 7683
 %global GMM_BUILD 21.1.3
+%define debug_package %{nil}
 
 Name: intel-opencl
 Version: %{NEO_ver}
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compute Runtime
-
-Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
+Patch0:  %{url}/commit/1d3d32cf39d77af98a4198bc85d0395c0eb188c2.patch
 
 BuildRequires: make libva-devel gcc-c++ cmake
 
-BuildRequires: libigdgmm11-devel >= %{GMM_BUILD}
+BuildRequires: intel-gmmlib-devel >= %{GMM_BUILD}
 BuildRequires: intel-igc-opencl-devel = 1.0.%{IGC_BUILD}
 BuildRequires: level-zero-devel = 1.2.3
 
-Requires: libigdgmm11 >= %{GMM_BUILD}
+Requires: intel-gmmlib >= %{GMM_BUILD}
 Requires: intel-igc-opencl = 1.0.%{IGC_BUILD}
 
 %description -n intel-opencl
@@ -36,26 +36,25 @@ Intel(R) Graphics Compute Runtime for Level Zero
 Requires: level-zero = 1.2.3
 
 %prep
-%autosetup -n compute-runtime-%{NEO_ver}
+%autosetup -n compute-runtime-%{NEO_ver} -p 1
 
 %build
-%cmake -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1
-%make_build
+mkdir build
+cd build
+cmake -B "x86_64-redhat-linux-gnu" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1 ..
+%cmake_build
 
 %install
 cd build
-%make_install
-chmod +x ${RPM_BUILD_ROOT}/%{_libdir}/intel-opencl/libigdrcl.so
-rm -f ${RPM_BUILD_ROOT}/%{_libdir}/intel-opencl/libigdrcl.so.debug
-rm -f ${RPM_BUILD_ROOT}/%{_libdir}/libocloc.so.debug
-rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
+%cmake_install
+chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
+rm -f %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so.debug
+rm -f %{buildroot}/%{_libdir}/libocloc.so.debug
+rm -rf %{buildroot}/usr/lib/debug/
 
 %files
 %{_libdir}/intel-opencl/libigdrcl.so
 %{_bindir}/ocloc
-%{_sysconfdir}/OpenCL
-%{_sysconfdir}/OpenCL/vendors
-%{_libdir}/intel-opencl
 %{_includedir}/ocloc_api.h
 %{_libdir}/libocloc.so
 
@@ -126,6 +125,42 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 * Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.06.18993-1
 - Update to 21.06.18993
 
+* Tue Feb 09 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.05.18936-1
+- Update to 21.05.18936
+
+* Mon Feb 01 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.04.18912-1
+- Update to 21.04.18912
+
+* Fri Jan 22 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.03.18857-1
+- Update to 21.03.18857
+
+* Fri Jan 15 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.02.18820-1
+- Update to 21.02.18820
+
+* Mon Jan 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.01.18793-1
+- Update to 21.01.18793
+
+* Fri Nov 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.47.18513-1
+- Update to 20.47.18513
+
+* Tue Nov 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.46.18421-1
+- Update to 20.46.18421
+
+* Tue Nov 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.45.18403-1
+- Update to 20.45.18403
+
+* Mon Nov 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.44.18297-1
+- Update to 20.44.18297
+
+* Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.43.18277-1
+- Update to 20.43.18277
+
+* Thu Oct 29 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-3
+- Rebuild with newer gmmlib
+
+* Wed Jul 22 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-2
+- Fix build
+
 * Tue Jul 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.28.17293-1
 - Update to 20.28.17293
 
@@ -168,11 +203,14 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 * Tue Apr 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.15.16524-1
 - Update to 20.15.16524
 
-* Tue Apr 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.14.16441-1
+* Wed Apr 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.13.16441-1
 - Update to 20.14.16441
 
 * Thu Apr 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.13.16352-1
 - Update to 20.13.16352
+
+* Tue Mar 31 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-2
+- Fix reported version
 
 * Fri Mar 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.12.16259-1
 - Update to 20.12.16259
@@ -184,17 +222,17 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 * Fri Mar 13 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.10.16087-1
 - Update to 20.10.16087
 
-* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-3
 - Fix ocloc permissions
+
+* Mon Mar 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-2
+- Remove libocloc.so from package
 
 * Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.09.15980-1
 - Update to 20.09.15980
 
-* Fri Feb 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.08.15750-1
+* Mon Mar 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.08.15750-1
 - Update to 20.08.15750
-
-* Fri Feb 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.07.15711-1
-- Update to 20.07.15711
 
 * Fri Feb 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 20.06.15619-1
 - Update to 20.06.15619
@@ -227,6 +265,9 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 * Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.49.15055-1
 - Update to 19.49.15055
 - Updated IGC
+
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-2
+- Rebuild with IGC 1.0.2990-2
 
 * Fri Dec 06 2019 Jacek Danecki <jacek.danecki@intel.com> - 19.48.14977-1
 - Update to 19.48.14977

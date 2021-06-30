@@ -1,12 +1,12 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
-%global igc_commit igc-1.0.7423
-%global patch_version 7423
+%global igc_commit igc-1.0.7683
+%global patch_version 7683
 %global vc_commit 069ced1e8a408d8b602b3b210017603792df6260
 %global src 21.12.19358
 
 Name: intel-igc
-Version: 1.0.7423
+Version: 1.0.7683
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -17,6 +17,7 @@ Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/
 Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
 Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
 Source4: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
+Patch0: https://raw.githubusercontent.com/JacekDanecki/neo-specs/ci/patches/igc/limits.patch
 
 BuildRequires: cmake gcc-c++ make flex bison python3 git
 
@@ -54,6 +55,9 @@ popd
 
 mkdir igc
 tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
+cd igc
+patch -p1 < $RPM_SOURCE_DIR/limits.patch
+cd ..
 
 mkdir vc-intrinsics
 tar xzf $RPM_SOURCE_DIR/vc-intrinsics.tar.gz -C vc-intrinsics --strip-components=1
@@ -77,6 +81,8 @@ rm -fv $RPM_BUILD_ROOT/usr/bin/clang-10
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c.h
 rm -fv $RPM_BUILD_ROOT/usr/include/opencl-c-base.h
 chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
+rm -fv $RPM_BUILD_ROOT/usr/bin/lld
+rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 
 %files core
 %{_libdir}/libiga64.so.1
@@ -104,6 +110,9 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 %doc
 
 %changelog
+* Tue Jun 22 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.7683-1
+- Update to 1.0.7683
+
 * Tue May 25 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.7423-1
 - Update to 1.0.7423
 

@@ -1,9 +1,9 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 23
-%global NEO_BUILD 20043
+%global NEO_MINOR 24
+%global NEO_BUILD 20098
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
-%global IGC_BUILD 7423
+%global IGC_BUILD 7683
 %global GMM_BUILD 21.1.3
 %define debug_package %{nil}
 
@@ -68,6 +68,9 @@ rm -rf %{buildroot}/usr/lib/debug/
 %doc
 
 %changelog
+* Tue Jun 22 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.24.20098-1
+- Update to 21.24.20098
+
 * Fri Jun 11 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.23.20043-1
 - Update to 21.23.20043
 
