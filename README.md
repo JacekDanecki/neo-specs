@@ -9,19 +9,19 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 
 ## Supported Linux operating systems on ci branch
 
-* Centos 7, 8
-* Fedora 31, 32, rawhide
-* Mageia 7
-* OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
+* Centos 7, 8, Stream
+* Fedora 33, 34, rawhide
+* Mageia 8, Cauldron
+* OpenSUSE Leap 15.2, Tumbleweed
 * Ubuntu 18.04, 20.04
 
 ## Supported Linux operating systems on master branch
 
-* Centos 7, 8
-* Fedora 31, 32, rawhide
-* Mageia 7
-* OpenSUSE Leap 15.1, Leap 15.2, Tumbleweed
-* Ubuntu 18.04, 20.04
+* Centos 7, 8, Stream
+* Fedora 33, 34, rawhide
+* Mageia 8, Cauldron
+* OpenSUSE Leap 15.2, Tumbleweed
+* Ubuntu 18.04, 20.04, 20.10, 21.04
  
 ## Branches
 
@@ -34,8 +34,6 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 
 **ci** branch prepares newer packages required by CI systems:
   * [Semaphore CI](https://semaphoreci.com/jacekdanecki/compute-runtime-2)
-  * [Travis CI](https://travis-ci.org/intel/compute-runtime)
-  * [Shippable](https://app.shippable.com/github/intel/compute-runtime)
 
 ## Downloading built packages
 

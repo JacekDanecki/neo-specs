@@ -16,7 +16,7 @@ do
     popd
 done
 
-for dist in mageia 
+for dist in mageia/8
 do
     pushd $dist
     ./update-igc-spec
