@@ -12,7 +12,7 @@ do
     popd
 done
 
-for dist in mageia mageia/8
+for dist in mageia/8
 do
     pushd $dist
     ./update-gmmlib-spec

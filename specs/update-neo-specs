@@ -5,14 +5,14 @@ do
     popd
 done
 
-for dist in 33
+for dist in 33 35
 do
     pushd fedora/$dist
     ./update-neo-spec
     popd
 done
 
-for dist in mageia mageia/8
+for dist in mageia/8
 do
     pushd $dist
     ./update-neo-spec
