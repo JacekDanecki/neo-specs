@@ -1,12 +1,12 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
-%global igc_commit igc-1.0.7683
-%global patch_version 7683
+%global igc_commit igc-1.0.7712
+%global patch_version 7712
 %global vc_commit 069ced1e8a408d8b602b3b210017603792df6260
 %global src 21.12.19358
 
 Name: intel-igc
-Version: 1.0.7683
+Version: 1.0.7712
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -18,7 +18,7 @@ Source1: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/
 Source2: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/spirv-llvm-translator.tar.gz
 Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/src/llvm-project.tar.gz
 Source4: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
-Patch0: https://raw.githubusercontent.com/JacekDanecki/neo-specs/ci/patches/igc/limits.patch
+Patch0:  %{url}/commit/c9eb6d65deccc25f358375b57193e825f4a0bb37.patch
 
 BuildRequires: centos-release-scl epel-release
 BuildRequires: devtoolset-7-gcc-c++ cmake3
@@ -59,7 +59,7 @@ popd
 mkdir igc
 tar xzf $RPM_SOURCE_DIR/igc-%{version}.tar.gz -C igc --strip-components=1
 cd igc
-patch -p1 < $RPM_SOURCE_DIR/limits.patch
+patch -p1 < $RPM_SOURCE_DIR/c9eb6d65deccc25f358375b57193e825f4a0bb37.patch
 cd ..
 
 mkdir vc-intrinsics
@@ -115,6 +115,9 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 %doc
 
 %changelog
+* Thu Jul 01 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.7712-1
+- Update to 1.0.7712
+
 * Tue Jun 22 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.7683-1
 - Update to 1.0.7683
 
