@@ -1,8 +1,8 @@
 intel-graphics-compiler (1.0.7781-1~ppa1~bionic1) bionic; urgency=medium
 
-  * Update to 1.0.7781 commit:
+  * Update to 1.0.7781 commit:4812c40efcae76bc7fd3dec353212b6c4646c1eb
 
- -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 06 Jul 2021 18:14:01 +0200
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 06 Jul 2021 18:29:46 +0200
 
 intel-graphics-compiler (1.0.7712-1~ppa1~bionic1) bionic; urgency=medium
 

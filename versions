@@ -10,7 +10,7 @@ neo_major=21
 neo_minor=26
 neo_build=20194
 
-igc_commit=
+igc_commit=4812c40efcae76bc7fd3dec353212b6c4646c1eb
 gmmlib_commit=915cfec5b3da752628d9b6fc79f7a9eef97e79e8
 level_zero_commit=v1.4.1
 neo_commit=52ad8b0
