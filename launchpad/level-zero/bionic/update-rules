@@ -1,0 +1,9 @@
+#!/bin/bash
+set -x
+
+source `git rev-parse --show-toplevel`/versions
+
+sed -i "s/^LEVEL_ZERO_PATCH=.*/LEVEL_ZERO_PATCH=${level_zero_patch}/" debian/rules
+
+./change_changelog
+

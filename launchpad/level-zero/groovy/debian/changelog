@@ -1,3 +1,9 @@
+level-zero (1.4.1-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Update to 1.4.1 commit:v1.4.1
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Tue, 06 Jul 2021 18:09:13 +0200
+
 level-zero (1.2.3-1~ppa1~groovy1) groovy; urgency=medium
 
   * Update to 1.2.3 commit:v1.2.3

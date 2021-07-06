@@ -9,6 +9,7 @@ sed -i "s/^NEO_BUILD=.*/NEO_BUILD=${neo_build}/" debian/rules
 
 sed -i "s/^ libigc-dev (>= .*/ libigc-dev (>= ${igc_ver}-1~),/" debian/control
 sed -i "s/^ libigc (>= .*/ libigc (>= ${igc_ver}-1~),/" debian/control
+sed -i "s/^ libze-loader-dev (>= .*/ libze-loader-dev (>= ${level_zero_ver}-1~),/" debian/control
 
 ./change_changelog
 

@@ -1,0 +1,6 @@
+for dist in bionic focal groovy hirsute
+do
+    pushd $dist
+    ./update-rules
+    popd
+done
