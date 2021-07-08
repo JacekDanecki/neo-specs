@@ -1,3 +1,5 @@
 usr/include/level_zero/*
 usr/lib/x86_64-linux-gnu/libze_loader.so
 usr/lib/x86_64-linux-gnu/libze_validation_layer.so
+usr/lib/x86_64-linux-gnu/pkgconfig/libze_loader.pc
+usr/lib/x86_64-linux-gnu/pkgconfig/level-zero.pc

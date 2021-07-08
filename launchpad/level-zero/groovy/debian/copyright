@@ -3,12 +3,12 @@ Upstream-Name: level-zero
 Source: https://github.com/oneapi-src/level-zero
 
 Files: *
-Copyright: 2020, Intel Corporation
+Copyright: 2020-2021 Intel Corporation
 License: MIT
 
 Files: debian/*
 Copyright:
-         2020 Jacek Danecki <jacek.danecki@intel.com>
+         2020-2021 Jacek Danecki <jacek.danecki@intel.com>
 License: MIT
 
 License: MIT
