@@ -1,3 +1,9 @@
+intel-gmmlib (21.2.1-1~ppa1~groovy1) groovy; urgency=medium
+
+  * Update to 21.2.1 commit:9253eb8b949515d2a5030f99163a35567fe81838
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Mon, 12 Jul 2021 19:12:24 +0200
+
 intel-gmmlib (21.1.3-1~ppa1~groovy1) groovy; urgency=medium
 
   * Update to 21.1.3 commit:915cfec5b3da752628d9b6fc79f7a9eef97e79e8
