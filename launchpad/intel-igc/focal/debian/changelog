@@ -1,3 +1,9 @@
+intel-graphics-compiler (1.0.7862-1~ppa1~focal2) focal; urgency=medium
+
+  * Clean after build
+
+ -- Jacek Danecki <jacek.danecki@intel.com>  Thu, 15 Jul 2021 19:32:47 +0200
+
 intel-graphics-compiler (1.0.7862-1~ppa1~focal1) focal; urgency=medium
 
   * Update to 1.0.7862 commit:f91868690066cb76955f00e1168a8bdd1fd62672
