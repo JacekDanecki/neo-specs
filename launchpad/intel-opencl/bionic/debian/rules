@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 NEO_MAJOR=21
-NEO_MINOR=27
-NEO_BUILD=20266
+NEO_MINOR=28
+NEO_BUILD=20343
 
 %:
 	dh $@
