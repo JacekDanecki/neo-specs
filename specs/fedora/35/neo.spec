@@ -1,10 +1,10 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 26
-%global NEO_BUILD 20194
+%global NEO_MINOR 27
+%global NEO_BUILD 20266
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
-%global IGC_BUILD 7781
-%global GMM_BUILD 21.1.3
+%global IGC_BUILD 7862
+%global GMM_BUILD 21.2.1
 %define debug_package %{nil}
 
 Name: intel-opencl
@@ -14,7 +14,6 @@ Summary: Intel(R) Graphics Compute Runtime
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
-Patch0:  %{url}/commit/1d3d32cf39d77af98a4198bc85d0395c0eb188c2.patch
 
 BuildRequires: make libva-devel gcc-c++ cmake
 
@@ -36,7 +35,7 @@ Intel(R) Graphics Compute Runtime for Level Zero
 Requires: level-zero = 1.4.1
 
 %prep
-%autosetup -n compute-runtime-%{NEO_ver} -p 1
+%autosetup -n compute-runtime-%{NEO_ver}
 
 %build
 mkdir build
@@ -68,6 +67,9 @@ rm -rf %{buildroot}/usr/lib/debug/
 %doc
 
 %changelog
+* Fri Jul 09 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.27.20266-1
+- Update to 21.27.20266
+
 * Mon Jul 05 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.26.20194-1
 - Update to 21.26.20194
 
