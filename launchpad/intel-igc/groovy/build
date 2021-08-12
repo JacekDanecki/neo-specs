@@ -1,4 +1,0 @@
-. ../../../versions
-
-pbuilder-dist groovy build intel-graphics-compiler_${igc_ver}-1~ppa1~groovy1.dsc
-

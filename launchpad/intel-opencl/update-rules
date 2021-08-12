@@ -1,4 +1,4 @@
-for dist in bionic focal groovy hirsute
+for dist in bionic focal hirsute
 do
     pushd $dist
     ./update-rules
