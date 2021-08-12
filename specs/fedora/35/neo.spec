@@ -1,6 +1,6 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 27
-%global NEO_BUILD 20266
+%global NEO_MINOR 28
+%global NEO_BUILD 20343
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
 %global IGC_BUILD 7862
@@ -41,11 +41,11 @@ Requires: level-zero = 1.4.1
 mkdir build
 cd build
 cmake -B "x86_64-redhat-linux-gnu" -DCMAKE_INSTALL_PREFIX=/usr -DCMAKE_BUILD_TYPE=Release -DNEO_OCL_VERSION_MAJOR=%{NEO_MAJOR} -DNEO_OCL_VERSION_MINOR=%{NEO_MINOR} -DNEO_VERSION_BUILD=%{NEO_BUILD} -DSKIP_UNIT_TESTS=1 ..
-%cmake_build
+/usr/bin/cmake --build "x86_64-redhat-linux-gnu" -j2 --verbose
 
 %install
 cd build
-%cmake_install
+DESTDIR="/builddir/build/BUILDROOT/%{NAME}-%{VERSION}-%{RELEASE}.x86_64" /usr/bin/cmake --install "x86_64-redhat-linux-gnu"
 chmod +x %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so
 rm -f %{buildroot}/%{_libdir}/intel-opencl/libigdrcl.so.debug
 rm -f %{buildroot}/%{_libdir}/libocloc.so.debug
@@ -67,6 +67,9 @@ rm -rf %{buildroot}/usr/lib/debug/
 %doc
 
 %changelog
+* Mon Jul 19 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.28.20343-1
+- Update to 21.28.20343
+
 * Fri Jul 09 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.27.20266-1
 - Update to 21.27.20266
 
