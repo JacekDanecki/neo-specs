@@ -14,7 +14,7 @@ Packages from [ppa:jdanecki/intel-opencl](https://launchpad.net/~jdanecki/+archi
 * Fedora 33, 34, rawhide
 * Mageia 8, cauldron
 * OpenSUSE Leap 15.2, Tumbleweed
-* Ubuntu 18.04, 20.04, 20.10, 21.04
+* Ubuntu 18.04, 20.04, 21.04
  
 ## Branches
 
