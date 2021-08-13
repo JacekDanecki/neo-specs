@@ -10,7 +10,6 @@ Version: 1.0.8173
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
-Group:   Development/Libraries/C and C++
 License: MIT
 URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/%{igc_commit}/igc-%{version}.tar.gz
@@ -20,7 +19,7 @@ Source3: https://downloads.sourceforge.net/project/intel-compute-runtime/%{src}/
 Source4: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics.tar.gz
 Patch0:  %{url}/commit/c9eb6d65deccc25f358375b57193e825f4a0bb37.patch
 
-BuildRequires: cmake gcc-c++ make flex bison python3 pkg-config git
+BuildRequires: cmake gcc-c++ make flex bison python3 git
 
 %description
 Intel(R) Graphics Compiler for OpenCL(TM).
@@ -70,14 +69,15 @@ git config --global user.name "Jacek Danecki"
 mkdir build
 pushd build
 
-cmake ../igc -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr \
- -DIGC_PACKAGE_RELEASE=%{patch_version}
-%make_build
+cmake ../igc -Wno-dev -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr  \
+ -DIGC_PREFERRED_LLVM_VERSION=10.0.0 -DIGC_PACKAGE_RELEASE=%{patch_version} \
+ -B "x86_64-redhat-linux-gnu"
+/usr/bin/cmake --build "x86_64-redhat-linux-gnu" -j2 --verbose
 popd
 
 %install
 cd build
-%make_install
+DESTDIR="/builddir/build/BUILDROOT/%{NAME}-%{VERSION}-%{RELEASE}.x86_64" /usr/bin/cmake --install "x86_64-redhat-linux-gnu"
 
 rm -fv $RPM_BUILD_ROOT/usr/bin/GenX_IR
 rm -fv $RPM_BUILD_ROOT/usr/bin/clang-10
@@ -87,14 +87,7 @@ chmod +x $RPM_BUILD_ROOT/usr/lib64/libopencl-clang.so.10
 rm -fv $RPM_BUILD_ROOT/usr/bin/lld
 rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 
-%post -n intel-igc-core -p /sbin/ldconfig
-%postun -n intel-igc-core -p /sbin/ldconfig
-
-%post -n intel-igc-opencl -p /sbin/ldconfig
-%postun -n intel-igc-opencl -p /sbin/ldconfig
-
 %files core
-%defattr(-,root,root)
 %{_libdir}/libiga64.so.1
 %{_libdir}/libiga64.so.%{version}
 %{_libdir}/libigc.so.1
@@ -104,13 +97,11 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 %{_libdir}/libSPIRVDLL.so
 
 %files opencl
-%defattr(-,root,root)
 %{_libdir}/libigdfcl.so.1
 %{_libdir}/libigdfcl.so.%{version}
 %{_libdir}/libopencl-clang.so.*
 
 %files opencl-devel
-%defattr(-,root,root)
 %{_includedir}/igc/*
 %{_includedir}/iga/*
 %{_includedir}/visa/*
@@ -164,11 +155,17 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 * Fri Mar 05 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6410-1
 - Update to 1.0.6410
 
-* Thu Feb 18 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-2
-- Rebuild without patch https://github.com/intel/intel-graphics-compiler/pull/135
+* Tue Feb 23 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
+- Add patch for Fedora 34
 
-* Fri Feb 12 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.6087-1
-- Update to 1.0.6087
+* Fri Nov 27 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5585-1
+- Update to 1.0.5585
+
+* Mon Nov 16 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5435-1
+- Update to 1.0.5435
+
+* Thu Nov 05 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.5353-1
+- Update to 1.0.5353
 
 * Wed Jul 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4241-1
 - Update to 1.0.4241
@@ -182,9 +179,6 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 * Tue Jun 23 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4111-1
 - Update to 1.0.4111
 
-* Mon Jun 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-2
-- Add patch from https://github.com/intel/intel-graphics-compiler/pull/135
-
 * Tue Jun 09 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.4062-1
 - Update to 1.0.4062
 
@@ -194,8 +188,10 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 * Tue May 26 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3977-1
 - Update to 1.0.3977
 
-* Fri May 15 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3951-1
+* Mon May 25 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3951-1
 - Update to 1.0.3951
+- Add patch for building
+- Add workaround from https://github.com/intel/intel-graphics-compiler/pull/135
 
 * Fri May 08 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3899-1
 - Update to 1.0.3899
@@ -227,14 +223,15 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 * Fri Mar 06 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3445-1
 - Update to 1.0.3445
 
-* Fri Feb 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
+* Mon Mar 02 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3390-1
 - Update to 1.0.3390
 
-* Fri Feb 21 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3342-1
-- Update to 1.0.3342
-
-* Fri Feb 14 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
+* Mon Feb 17 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3289-1
 - Update to 1.0.3289
+- Build with llvm/clang 10
+
+* Tue Jan 28 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-2
+- fix compilation under Fedora 32
 
 * Fri Jan 24 2020 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3151-1
 - Update to 1.0.3151
@@ -244,6 +241,9 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 
 * Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.3032-1
 - Update to 1.0.3032
+
+* Mon Dec 16 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-2
+- Correct commit ID for IGC 1.0.2990
 
 * Fri Dec 06 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2990-1
 - Update to 1.0.2990
@@ -259,6 +259,4 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 
 * Wed Oct 30 2019 Jacek Danecki <jacek.danecki@intel.com> - 1.0.2714.1-1
 - Update to 1.0.2714.1
-- Switch to llvm/clang 9.0.0
-- Include opencl-clang library
 
