@@ -1,0 +1,18 @@
+#!/bin/bash
+source builds
+source ../../versions
+
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${gmm_build}-intel-gmmlib/intel-gmmlib-${gmm_ver}-1.el9.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${gmm_build}-intel-gmmlib/intel-gmmlib-devel-${gmm_ver}-1.el9.x86_64.rpm
+
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.el9.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.el9.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.el9.x86_64.rpm
+
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.el9.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${neo_build}-intel-opencl/intel-level-zero-gpu-${level_zero_gpu_ver}.${neo_build_ver}-1.el9.x86_64.rpm
+
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${clinfo_build}-clinfo/clinfo-2.1.17.02.09-3.el9.x86_64.rpm
+
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${level_zero_build}-level-zero/level-zero-${level_zero_ver}-1.el9.x86_64.rpm
+wget https://download.copr.fedorainfracloud.org/results/jdanecki/intel-opencl/centos-stream-9-x86_64/${level_zero_build}-level-zero/level-zero-devel-${level_zero_ver}-1.el9.x86_64.rpm

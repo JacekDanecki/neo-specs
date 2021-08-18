@@ -1,4 +1,4 @@
-for dist in 7 8 stream
+for dist in 7 8 8stream 9stream
 do
     pushd centos/$dist
     ./update-igc-spec
@@ -19,7 +19,7 @@ do
     popd
 done
 
-for dist in 15.2 tumbleweed
+for dist in 15.2 15.3 tumbleweed
 do
     pushd opensuse/$dist
     ./update-igc-spec

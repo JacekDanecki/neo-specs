@@ -3,7 +3,7 @@
 source ../versions
 
 
-for d in centos-7 centos-8 centos-stream mageia-7 mageia-8 mageia-cauldron opensuse-leap-15.2 opensuse-tumbleweed ubuntu-18.04 ubuntu-18.04/ppa ubuntu-20.04 fedora-33 fedora-34 fedora-35
+for d in centos-7 centos-8 centos-8stream centos-9stream mageia-8 mageia-cauldron opensuse-leap-15.2 opensuse-leap-15.3 opensuse-tumbleweed ubuntu-18.04 ubuntu-18.04/ppa ubuntu-20.04 ubuntu-21.04 fedora-33 fedora-34 fedora-35 fedora-36
 do
 	pushd $d
 	./get-sf

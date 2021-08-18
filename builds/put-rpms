@@ -3,7 +3,7 @@
 source ../versions
 
 
-for d in centos-7 centos-8 centos-stream mageia-8 mageia-cauldron opensuse-leap-15.2 fedora-33 fedora-34 fedora-35 opensuse-tumbleweed 
+for d in centos-7 centos-8 centos-8stream centos-9stream mageia-8 mageia-cauldron opensuse-leap-15.2 opensuse-leap-15.3  opensuse-tumbleweed fedora-33 fedora-34 fedora-35 fedora-36
 do
     rsync -av -e ssh $d ${USER}@frs.sourceforge.net:/home/frs/project/intel-compute-runtime/${neo_ver}/
 done
