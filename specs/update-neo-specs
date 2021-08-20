@@ -1,4 +1,4 @@
-for dist in 7 8 stream
+for dist in 7 8 8stream 9stream
 do
     pushd centos/$dist
     ./update-neo-spec

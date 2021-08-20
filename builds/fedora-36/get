@@ -2,9 +2,9 @@
 source builds
 source ../../versions
 
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.fc35.x86_64.rpm
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.fc35.x86_64.rpm
-wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.fc35.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-core-${igc_ver}-1.fc36.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-opencl-${igc_ver}-1.fc36.x86_64.rpm
+wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${igc_build}-intel-igc/intel-igc-opencl-devel-${igc_ver}-1.fc36.x86_64.rpm
 
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${neo_build}-intel-opencl/intel-opencl-${neo_ver}-1.fc36.x86_64.rpm
 wget https://copr-be.cloud.fedoraproject.org/results/jdanecki/intel-opencl/fedora-rawhide-x86_64/${neo_build}-intel-opencl/intel-level-zero-gpu-${level_zero_gpu_ver}.${neo_build_ver}-1.fc36.x86_64.rpm
