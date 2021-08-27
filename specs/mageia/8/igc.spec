@@ -1,12 +1,12 @@
 %global llvm_commit llvmorg-10.0.0
 %global opencl_clang_commit c8cd72e32b6abc18ce6da71c357ea45ba78b52f0
-%global igc_commit igc-1.0.8279
-%global patch_version 8279
+%global igc_commit igc-1.0.8365
+%global patch_version 8365
 %global vc_commit d9ffe1f9cbe45b296f098669173bcaeff12bfe99
 %global src 21.32.20609
 
 Name: intel-igc
-Version: 1.0.8279
+Version: 1.0.8365
 Release: 1%{?dist}
 Summary: Intel(R) Graphics Compiler for OpenCL(TM)
 
@@ -114,6 +114,9 @@ rm -fv $RPM_BUILD_ROOT/usr/lib/debug/usr/bin/lld*.debug
 %doc
 
 %changelog
+* Fri Aug 20 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.8365-1
+- Update to 1.0.8365
+
 * Wed Aug 18 2021 Jacek Danecki <jacek.danecki@intel.com> - 1.0.8279-1
 - Update to 1.0.8279
 
