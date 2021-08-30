@@ -1,6 +1,6 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 33
-%global NEO_BUILD 20678
+%global NEO_MINOR 34
+%global NEO_BUILD 20767
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
 %global L0_ver 1.1
 %global IGC_BUILD 8365
@@ -67,6 +67,9 @@ rm -rf %{buildroot}/usr/lib/debug/
 %doc
 
 %changelog
+* Fri Aug 27 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.34.20767-1
+- Update to 21.34.20767
+
 * Fri Aug 20 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.33.20678-1
 - Update to 21.33.20678
 
