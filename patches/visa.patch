@@ -1,0 +1,11 @@
+diff -Nurp igc-orig/visa/Passes/InstCombine.cpp igc/visa/Passes/InstCombine.cpp
+--- igc-orig/visa/Passes/InstCombine.cpp	2021-08-23 10:58:50.000000000 +0200
++++ igc/visa/Passes/InstCombine.cpp	2021-09-08 14:44:53.480032284 +0200
+@@ -9,6 +9,7 @@ SPDX-License-Identifier: MIT
+ 
+ #include <functional>
+ #include <unordered_set>
++#include <limits>
+ 
+ using namespace vISA;
+ 
