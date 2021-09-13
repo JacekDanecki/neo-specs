@@ -10,6 +10,7 @@ sed -i "s/%global NEO_MINOR .*/%global NEO_MINOR ${neo_minor}/" neo.spec
 sed -i "s/%global NEO_BUILD .*/%global NEO_BUILD ${neo_build_ver}/" neo.spec
 sed -i "s/%global IGC_BUILD .*/%global IGC_BUILD ${igc_build_ver}/" neo.spec
 sed -i "s/%global GMM_BUILD .*/%global GMM_BUILD ${gmm_ver}/" neo.spec
+sed -i "s/%global L0_ver .*/%global L0_ver ${level_zero_gpu_ver}/" neo.spec
 
 rpmdev-bumpspec --comment="Update to ${neo_ver}" --userstring="${GITUSER} <${EMAIL}>" neo.spec
 

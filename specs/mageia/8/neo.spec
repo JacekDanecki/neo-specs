@@ -1,9 +1,9 @@
 %global NEO_MAJOR 21
-%global NEO_MINOR 34
-%global NEO_BUILD 20767
+%global NEO_MINOR 35
+%global NEO_BUILD 20826
 %global NEO_ver %{NEO_MAJOR}.%{NEO_MINOR}.%{NEO_BUILD}
-%global L0_ver 1.1
-%global IGC_BUILD 8365
+%global L0_ver 1.2
+%global IGC_BUILD 8517
 %global GMM_BUILD 21.2.1
 
 Name: intel-opencl
@@ -66,6 +66,9 @@ rm -rf ${RPM_BUILD_ROOT}/usr/lib/debug/
 %doc
 
 %changelog
+* Wed Sep 08 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.35.20826-1
+- Update to 21.35.20826
+
 * Fri Aug 27 2021 Jacek Danecki <jacek.danecki@intel.com> - 21.34.20767-1
 - Update to 21.34.20767
 
