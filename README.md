@@ -1,3 +1,5 @@
+I'll not work on this project anymore.
+
 This repository provides scripts to build and download packages for [Intel compute-runtime](https://github.com/intel/compute-runtime) and dependencies on
 * [copr://jdanecki/intel-opencl](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl)
 * [copr://jdanecki/intel-opencl-ci](https://copr.fedorainfracloud.org/coprs/jdanecki/intel-opencl-ci)
